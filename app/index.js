@@ -29,7 +29,7 @@ module.exports = class Application {
 
     setupMongoConnection() {
         mongoose.Promise = global.Promise;
-        mongoose.connect("mongod://localhost/frosh2D", { useNewUrlParser: true },  () => { console.log("mongodb is runing...."); });
+        mongoose.connect("mongodb://localhost/frosh2D", { useNewUrlParser: true },  () => { console.log("mongodb is running...."); });
     }
 
     setConfig() {
@@ -50,5 +50,4 @@ module.exports = class Application {
         }));
         app.use(flash());
     }
-
 }
