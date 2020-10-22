@@ -18,6 +18,7 @@ module.exports = class Application {
         this.setupExpress();
         this.setupMongoConnection();
         this.setConfig();
+        this.setRoutes();
     }
 
     setupExpress() {
@@ -49,5 +50,10 @@ module.exports = class Application {
             store: new MongoStore({ mongooseConnection : mongoose.connection })
         }));
         app.use(flash());
+    }
+
+    setRoutes() {
+        //app.use(require("./route/api"));
+        app.use(require("./route/web"));
     }
 }
