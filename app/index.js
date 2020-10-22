@@ -1,7 +1,14 @@
-const mongoose = require("mongoose");
-const express = require("express");
+const express = require('express');
 const app = express();
-const http = require("http");
+const http = require('http');
+const path = require('path');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const validator = require('express-validator');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
 
 module.exports = class Application {
     /**
@@ -10,6 +17,7 @@ module.exports = class Application {
     constructor() {
         this.setupExpress();
         this.setupMongoConnection();
+        this.setConfig();
     }
 
     setupExpress() {
@@ -22,6 +30,25 @@ module.exports = class Application {
     setupMongoConnection() {
         mongoose.Promise = global.Promise;
         mongoose.connect("mongod://localhost/frosh2D", { useNewUrlParser: true },  () => { console.log("mongodb is runing...."); });
+    }
+
+    setConfig() {
+        app.use(express.static("public"));
+        app.set("view egine", "ejs");
+        app.set("views", path.resolve("./resource/view"));
+
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({ extended: true }));
+
+        app.use(validator());
+        app.use(cookieParser("mySecretKey"));
+        app.use(session({
+            secret: "mySecretKey",
+            resave: true,
+            saveUninitialized: true,
+            store: new MongoStore({ mongooseConnection : mongoose.connection })
+        }));
+        app.use(flash());
     }
 
 }
