@@ -4,6 +4,9 @@ const app = express();
 const http = require("http");
 
 module.exports = class Application {
+    /**
+     * Setup application
+     */
     constructor() {
         this.setupExpress();
         this.setupMongoConnection();
