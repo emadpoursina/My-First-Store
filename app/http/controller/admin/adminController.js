@@ -1,4 +1,4 @@
-const Controller = require("./../controller");
+const Controller = require("app/http/controller/controller");
 
 class AdminController extends Controller{
     index(req, res) {
