@@ -35,8 +35,8 @@ module.exports = class Application {
 
     setConfig() {
         app.use(express.static("public"));
-        app.set("view egine", "ejs");
-        app.set("views", path.resolve("./resource/view"));
+        app.set("view engine", "ejs");
+        app.set("views", path.resolve("resource/view"));
 
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
