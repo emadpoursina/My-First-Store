@@ -42,13 +42,13 @@ module.exports = class Application {
         app.use(bodyParser.urlencoded({ extended: true }));
 
         app.use(validator());
-        app.use(cookieParser("mySecretKey"));
         app.use(session({
             secret: "mySecretKey",
             resave: true,
             saveUninitialized: true,
             store: new MongoStore({ mongooseConnection : mongoose.connection })
         }));
+        app.use(cookieParser("mySecretKey"));
         app.use(flash());
     }
 
