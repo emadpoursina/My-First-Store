@@ -16,6 +16,10 @@ class RegisterController extends Controller {
                             res.redirect("/register");
                         }
                     })
+                    .catch((err) => {
+                        console.log(err);
+                        res.send("My Error: " + err);
+                    })
             })
             .catch((err) => {
                 console.log(err);
