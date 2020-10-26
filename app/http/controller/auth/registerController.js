@@ -2,17 +2,24 @@ const Controller = require("app/http/controller/controller");
 
 class RegisterController extends Controller {
     showRegistrationForm(req, res) {
-        res.render("auth/register.ejs", { message: req.flash("errors")});
+        res.render("auth/register.ejs", { message: req.flash("errors"), recaptcha: this.recaptcha.render() });
     }
 
     registrationProcess(req, res) {
-        this.dataValidation(req, res)
-            .then(result => {
-                if(result){
-                    res.send('Registered Successfully! ');
-                }else{
-                    res.redirect("/register");
-                }
+        this.recaptchaValidation(req, res)
+            .then((result) => {
+                this.dataValidation(req)
+                    .then(result => {
+                        if(result){
+                            res.send('Registered Successfully! ');
+                        }else{
+                            res.redirect("/register");
+                        }
+                    })
+            })
+            .catch((err) => {
+                console.log(err);
+                res.send("My Error: " + err);
             })
     }
 
