@@ -11,3 +11,27 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
+
+passport.use("local.register", new localStrategy({
+    usernameField: "email",
+    passwordField: "password",
+    passReqToCallBack: true
+}, (req, email, password, done) => {
+    User.findOne({
+        "email" : email
+    }, (err, user) => {
+        if(err) return done(err);
+        if(user) return done(null, false, req.flash("error", "ایمیل تکراری است"));
+
+        const newuser = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        newuser.save(err => {
+            if(err) return done(err, false, req.flash("error", "ثبت نام موفقیت آمیز نبود. دوباره امتحان کنید"));
+            done(null, newuser);
+        })
+    })
+}))
