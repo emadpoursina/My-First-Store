@@ -1,4 +1,5 @@
 const Controller = require("app/http/controller/controller");
+const passport = require("passport");
 
 class RegisterController extends Controller {
     showRegistrationForm(req, res) {
@@ -11,7 +12,7 @@ class RegisterController extends Controller {
                 this.dataValidation(req)
                     .then(result => {
                         if(result){
-                            res.send('Registered Successfully! ');
+                            this.registerUser(req, res, next);
                         }else{
                             res.redirect("/register");
                         }
@@ -53,6 +54,14 @@ class RegisterController extends Controller {
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    registerUser(req, res, next) {
+        passport.authenticate("local.register", {
+            successRedirect: "/",
+            failureRedirect: "/register",
+            failureFlash: true
+        })(req, res, next);
     }
 }
 
