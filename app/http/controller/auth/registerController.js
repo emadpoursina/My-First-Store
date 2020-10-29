@@ -6,7 +6,7 @@ class RegisterController extends Controller {
         res.render("auth/register.ejs", { message: req.flash("errors"), recaptcha: this.recaptcha.render() });
     }
 
-    registrationProcess(req, res) {
+    registrationProcess(req, res, next) {
         this.recaptchaValidation(req, res)
             .then((result) => {
                 this.dataValidation(req)
