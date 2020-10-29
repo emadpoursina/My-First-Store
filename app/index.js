@@ -48,8 +48,12 @@ module.exports = class Application {
             saveUninitialized: true,
             store: new MongoStore({ mongooseConnection : mongoose.connection })
         }));
+
         app.use(cookieParser("mySecretKey"));
         app.use(flash());
+
+        app.use(passport.initialize());
+        app.use(passport.session());
     }
 
     setRoutes() {
