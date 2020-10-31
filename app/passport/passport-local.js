@@ -1,5 +1,5 @@
 const passport = require("passport");
-const Strategy = require("passport-local");
+const localStrategy = require("passport-local");
 const User = require("app/model/user");
 
 passport.serializeUser(function(user, done) {
@@ -15,7 +15,7 @@ passport.deserializeUser(function(id, done) {
 passport.use("local.register", new localStrategy({
     usernameField: "email",
     passwordField: "password",
-    passReqToCallBack: true
+    passReqToCallback: true
 }, (req, email, password, done) => {
     User.findOne({
         "email" : email
@@ -24,7 +24,7 @@ passport.use("local.register", new localStrategy({
         if(user) return done(null, false, req.flash("error", "ایمیل تکراری است"));
 
         const newuser = new User({
-            username: req.body.username,
+            name: req.body.name,
             email: req.body.email,
             password: req.body.password
         });
