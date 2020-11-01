@@ -3,7 +3,7 @@ const passport = require("passport");
 
 class RegisterController extends Controller {
     showRegistrationForm(req, res) {
-        res.render("auth/register.ejs", { message: req.flash("errors"), recaptcha: this.recaptcha.render() });
+        res.render("auth/register.ejs", { errors: req.flash("errors"), recaptcha: this.recaptcha.render() });
     }
 
     registrationProcess(req, res, next) {
@@ -28,7 +28,7 @@ class RegisterController extends Controller {
             })
     }
 
-    dataValidation(req, res) {
+    dataValidation(req) {
         req.checkBody("name", 'name field can not be empty.').notEmpty();
         req.checkBody("name", 'name field can not be less than 5 character and more than 50.').isLength({min: 5, max: 50});
         req.checkBody("email", 'email field can not be empty.').notEmpty();
