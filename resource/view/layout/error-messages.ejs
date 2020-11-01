@@ -1,10 +1,10 @@
-<% if(message.length > 0){ %>
+<% if(errors.length > 0){ %>
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span>×</span>
         </button>                            
         <ul>
-            <% message.forEach(err => { %>
+            <% errors.forEach(err => { %>
                 <li><%= err %></li>
             <% }); %> 
         </ul>
