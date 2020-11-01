@@ -3,8 +3,10 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span>×</span>
         </button>                            
+        <ul>
             <% message.forEach(err => { %>
-                <%= err %>  <br>
+                <li><%= err %></li>
             <% }); %> 
+        </ul>
     </div>
 <% } %> 
