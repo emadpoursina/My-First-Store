@@ -29,8 +29,13 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right ">
-            <li><a class="btn btn-success btn-sm ml-2" href="/login">login</a></li>
-            <li><a class="btn btn-primary btn-sm" href="/register">register</a></li>
+            <% if (auth.check) { %> 
+              <li><a class="btn btn-danger btn-sm ml-2" href="/logout">Logout</a></li>
+              <li><a class="btn btn-primary btn-sm" href="/my-account">My account</a></li>
+            <% } else { %> 
+              <li><a class="btn btn-success btn-sm ml-2" href="/login">Login</a></li>
+              <li><a class="btn btn-primary btn-sm" href="/register">Register</a></li>
+            <% } %> 
           </ul>
         </div>
       </nav> 
