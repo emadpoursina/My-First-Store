@@ -50,8 +50,6 @@ passport.use("local.login", new localStrategy({
             return done(null, false, req.flash("errors", "The info is not correct"));
         }
 
-        console.log("user", user);
-
         return done(null, user);
 
     })
