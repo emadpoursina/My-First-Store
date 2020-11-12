@@ -11,5 +11,11 @@ router.post("/login", loginController.loginProcess);
 router.get("/register", registerController.showRegistrationForm);
 router.post("/register", registerController.registrationProcess);
 
+router.get("/logout", (req, res) => {
+    req.logOut();
+    res.clearCookie("remember_token");
+    res.redirect("/");
+})
+
 
 module.exports = router;
