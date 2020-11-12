@@ -62,6 +62,7 @@ module.exports = class Application {
 
         app.use((req, res, next) => {
             app.locals = new Helper(req, res).getObject();
+            next();
         })
     }
 
