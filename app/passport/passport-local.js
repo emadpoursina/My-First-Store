@@ -21,7 +21,7 @@ passport.use("local.register", new localStrategy({
         "email" : email
     }, (err, user) => {
         if(err) return done(err);
-        if(user) return done(null, false, req.flash("error", "ایمیل تکراری است"));
+        if(user) return done(null, false, req.flash("errors", "ایمیل تکراری است"));
 
         const newuser = new User({
             name: req.body.name,
@@ -30,7 +30,7 @@ passport.use("local.register", new localStrategy({
         });
 
         newuser.save(err => {
-            if(err) return done(err, false, req.flash("error", "ثبت نام موفقیت آمیز نبود. دوباره امتحان کنید"));
+            if(err) return done(err, false, req.flash("errors", "ثبت نام موفقیت آمیز نبود. دوباره امتحان کنید"));
             done(null, newuser);
         })
     })
