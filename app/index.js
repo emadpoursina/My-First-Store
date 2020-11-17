@@ -12,6 +12,7 @@ const flash = require('connect-flash');
 const passport = require("passport");
 const Helper = require("./Helper");
 const rememberLogin = require("app/http/middleware/rememberLogin");
+const { urlencoded } = require('body-parser');
 
 module.exports = class Application {
     /**
