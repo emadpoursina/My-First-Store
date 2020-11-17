@@ -4,10 +4,11 @@ const passport = require("passport");
 const uniqueString = require("unique-string");
 
 const userSchema = mongoose.Schema({
-    username: { type: String, require: true },
+    name: { type: String, require: true },
     email: { type: String, unique: true, require: true },
     password: { type: String, require: true },
     admin: { type: Boolean, default: false },
+    remember_token: {type: String, default: null}
 }, {
     timestamps: true
 });
