@@ -27,11 +27,8 @@ userSchema.methods.comparePassword = function (password){
 userSchema.methods.setRememberToken = function (res) {
     const token = uniqueString();
     res.cookie("remember_token", token, {maxAge: 1000 * 60 * 60 * 24 * 3, httpOnly: true, signed: true});
-    this.update({
-        "remember_token": token
-    }, err => {
+    this.updateOne({remember_token: token}, err => {
         if(err) console.log(err);
     })
 }
-
 module.exports = mongoose.model("User", userSchema);
