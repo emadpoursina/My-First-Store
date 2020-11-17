@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require("passport");
 const Helper = require("./Helper");
+const rememberLogin = require("app/http/middleware/rememberLogin");
 
 module.exports = class Application {
     /**
@@ -59,6 +60,7 @@ module.exports = class Application {
 
         app.use(passport.initialize());
         app.use(passport.session());
+        app.use(rememberLogin.handle);
 
         app.use((req, res, next) => {
             app.locals = new Helper(req, res).getObject();
