@@ -2,8 +2,8 @@
 
 module.exports = {
     recaptcha: {
-        client_key: "6LdPMtsZAAAAAKE-Txf2GYOyvxkCZ1NoAuq59UDW",
-        secret_key: "6LdPMtsZAAAAAImnX6cZLBwivOQZPsnZkqVTSyt6",
+        client_key: process.env.RECAPTCHA_CLIENTKEY,
+        secret_key: process.env.RECAPTCHA_SECRETKEY,
         options: {h1: 'fa'}
     }
 }

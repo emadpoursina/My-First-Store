@@ -1,7 +1,7 @@
 
 
 module.exports = {
-    url: "mongodb://localhost/frosh2D",
+    url: process.env.DATABASE_URL,
     options: { useNewUrlParser: true, useUnifiedTopology: true },
     successMessage: "mogoose is running ....."
 }   
