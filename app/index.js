@@ -34,7 +34,9 @@ module.exports = class Application {
 
     setupMongoConnection() {
         mongoose.Promise = global.Promise;
-        mongoose.connect("mongodb://localhost/frosh2D", { useNewUrlParser: true, useUnifiedTopology: true },  () => { console.log("mongodb is running...."); });
+        mongoose.connect(config.database.url, config.database.options, () => {
+            console.log(config.database.successMessage)
+        });
     }
 
     setConfig() {
