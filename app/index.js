@@ -5,13 +5,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require("passport");
 const Helper = require("./Helper");
 const rememberLogin = require("app/http/middleware/rememberLogin");
-const { urlencoded } = require('body-parser');
 const config = require('../config');
 
 module.exports = class Application {
@@ -50,13 +48,7 @@ module.exports = class Application {
         app.use(bodyParser.urlencoded({ extended: true }));
 
         app.use(validator());
-        app.use(session({
-            secret: "mySecretKey",
-            resave: true,
-            cookie:{ expires: 1000 * 60 * 60 * 5 },
-            saveUninitialized: true,
-            store: new MongoStore({ mongooseConnection : mongoose.connection })
-        }));
+        app.use(session({...config.session}));
 
         app.use(cookieParser("mySecretKey"));
         app.use(flash());
