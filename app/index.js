@@ -50,7 +50,7 @@ module.exports = class Application {
         app.use(validator());
         app.use(session({...config.session}));
 
-        app.use(cookieParser("mySecretKey"));
+        app.use(cookieParser(config.cookieSecretKey));
         app.use(flash());
 
         app.use(passport.initialize());

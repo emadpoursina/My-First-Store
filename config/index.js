@@ -7,5 +7,7 @@ module.exports = {
     application,
     database,
     session,
-    service
+    service,
+    cookieSecretKey: "mySecretKey"
+
 }
