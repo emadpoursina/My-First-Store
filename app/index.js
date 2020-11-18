@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
@@ -13,6 +12,7 @@ const passport = require("passport");
 const Helper = require("./Helper");
 const rememberLogin = require("app/http/middleware/rememberLogin");
 const { urlencoded } = require('body-parser');
+const config = require('../config');
 
 module.exports = class Application {
     /**
@@ -27,8 +27,8 @@ module.exports = class Application {
 
     setupExpress() {
         const server = http.createServer(app);
-        server.listen(3000, () => {
-            console.log('Running on port 3000....');
+        server.listen(config.application.port, () => {
+            console.log(`Running on port ${config.application.port} ....`);
         });
     }
 
@@ -40,9 +40,9 @@ module.exports = class Application {
     setConfig() {
         require("app/passport/passport-local");
 
-        app.use(express.static("public"));
-        app.set("view engine", "ejs");
-        app.set("views", path.resolve("resource/view"));
+        app.use(express.static(config.application.public_dir));
+        app.set("view engine", config.application.view_engine);
+        app.set("views", config.application.view_dir);
 
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
