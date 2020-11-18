@@ -1,4 +1,5 @@
 const autoBind = require("auto-bind");
+const config = require("../../../config");
 var Recaptcha = require('express-recaptcha').RecaptchaV2;
 
 module.exports =  class Controller {
@@ -9,9 +10,9 @@ module.exports =  class Controller {
 
     recaptchaGenerator() {
         this.recaptcha = new Recaptcha(
-            '6LdPMtsZAAAAAKE-Txf2GYOyvxkCZ1NoAuq59UDW',
-            '6LdPMtsZAAAAAImnX6cZLBwivOQZPsnZkqVTSyt6',
-            { h1: 'fa' }
+            config.service.recaptcha.client_key,
+            config.service.recaptcha.secret_key,
+            config.service.recaptcha.options
         );
     }
 
