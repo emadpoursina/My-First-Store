@@ -9,7 +9,7 @@ class LoginController extends Controller {
     loginProcess(req, res) {
         this.recaptchaValidation(req, res)
             .then( (result) => {
-                this.dataValidation(req, res)
+                this.validateData(req)
                     .then( (result) => {
                         if(result) {
                             this.loginUser(req, res);
@@ -21,31 +21,6 @@ class LoginController extends Controller {
                         console.log(err);
                         res.send(err);
                     })
-            })
-            .catch( (err) => {
-                console.log(err);
-                res.send(err);
-            })
-    }
-
-    dataValidation(req) {
-        req.checkBody("email", "Enter a valid Email.").isEmail();
-        req.checkBody("password", 'password field can not be empty.').notEmpty();
-
-        return req.getValidationResult()
-            .then( (result) => {
-                const errors = result.array();
-                const message = [];
-                errors.forEach(error => {
-                   message.push(error.msg);
-                });
-
-                if(message.length > 0) {
-                    req.flash("errors", message);
-                    return false;
-                }else {
-                    return true;
-                }
             })
             .catch( (err) => {
                 console.log(err);
