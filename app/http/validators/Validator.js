@@ -5,3 +5,5 @@ class Validator {
         autoBind(this);
     }
 }
+
+module.exports = Validator;
