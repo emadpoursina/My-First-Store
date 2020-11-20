@@ -3,7 +3,7 @@ const passport = require("passport");
 
 class LoginController extends Controller {
     showLoginForm(req, res) {
-        res.render("auth/login.ejs", { errors: req.flash("errors"), recaptcha: this.recaptcha.render() });
+        res.render("home/auth/login.ejs", { errors: req.flash("errors"), recaptcha: this.recaptcha.render() });
     }
 
     loginProcess(req, res) {
