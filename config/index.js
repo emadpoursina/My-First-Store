@@ -1,10 +1,10 @@
-const application = require("./application");
 const database = require("./database");
 const session = require("./session");
 const service = require("./service");
+const layout = require("./layout");
 
 module.exports = {
-    application,
+    layout,
     database,
     session,
     service,

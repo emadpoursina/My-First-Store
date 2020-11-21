@@ -26,8 +26,8 @@ module.exports = class Application {
 
     setupExpress() {
         const server = http.createServer(app);
-        server.listen(config.application.port, () => {
-            console.log(`Running on port ${config.application.port} ....`);
+        server.listen(config.layout.port, () => {
+            console.log(`Running on port ${config.layout.port} ....`);
         });
     }
 
@@ -41,11 +41,11 @@ module.exports = class Application {
     setConfig() {
         require("app/passport/passport-local");
 
-        app.use(express.static(config.application.public_dir));
-        app.set("view engine", config.application.view_engine);
-        app.set("views", config.application.view_dir);
+        app.use(express.static(config.layout.public_dir));
+        app.set("view engine", config.layout.view_engine);
+        app.set("views", config.layout.view_dir);
         app.use(expresLayout);
-        app.set("layout extractScripts", true);
+        app.set("layout extractScripts", config);
         app.set("layout extractStyles", true);
         app.set("layout", "home/master");
 
