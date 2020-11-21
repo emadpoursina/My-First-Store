@@ -11,7 +11,6 @@ const passport = require("passport");
 const Helper = require("./Helper");
 const rememberLogin = require("app/http/middleware/rememberLogin");
 const config = require('../config');
-const expresLayout = require("express-ejs-layouts");
 
 module.exports = class Application {
     /**
@@ -44,10 +43,11 @@ module.exports = class Application {
         app.use(express.static(config.layout.public_dir));
         app.set("view engine", config.layout.view_engine);
         app.set("views", config.layout.view_dir);
-        app.use(expresLayout);
-        app.set("layout extractScripts", config);
-        app.set("layout extractStyles", true);
-        app.set("layout", "home/master");
+
+        app.set("layout extractScripts", config.layout.ejs.extractScripts);
+        app.set("layout extractStyles", config.layout.ejs.extractStyles);
+        app.use(config.layout.ejs.expresLayout);
+        app.set("layout", config.layout.ejs.masterDir);
 
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
