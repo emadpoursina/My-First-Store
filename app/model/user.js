@@ -22,7 +22,7 @@ userSchema.pre("save", function(next) {
 })
 
 userSchema.methods.comparePassword = function (password){
-    return bcrypt.compareSync(this.password, password);
+    return bcrypt.compareSync(password, this.password);
 }
 
 userSchema.methods.setRememberToken = function (res) {
