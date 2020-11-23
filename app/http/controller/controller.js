@@ -24,7 +24,7 @@ module.exports =  class Controller {
                    resolve(true);
                }else {
                    req.flash("errors", "please fill the recaptcha correctlly!!");
-                   res.redirect(req.url);
+                   res.redirect(req.originalUrl);
                }
            }) 
         })

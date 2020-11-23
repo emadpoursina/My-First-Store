@@ -11,7 +11,7 @@ class RegisterController extends Controller {
             .then(() => this.validateData(req))
             .then(result => {
                 if(result) this.registerUser(req, res, next);
-                else res.redirect("/register");
+                else res.redirect("/auth/register");
             })
             .catch(err => console.log(err))
     }
@@ -19,7 +19,7 @@ class RegisterController extends Controller {
     registerUser(req, res, next) {
         passport.authenticate("local.register", {
             successRedirect: "/",
-            failureRedirect: "/register",
+            failureRedirect: "/auth/register",
             failureFlash: true
         })(req, res, next);
     }
