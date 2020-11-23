@@ -9,4 +9,9 @@ router.use("/admin", adminRouter);
 const homeRouter = require("app/route/web/home");
 router.use("/", homeRouter);
 
+//Middlewares
+const redirectIfAuthenticated = require("app/http/middleware/RedirectIfAuthenticated");
+const authRouter = require("app/route/web/auth");
+router.use("/auth", redirectIfAuthenticated.handle, authRouter);
+
 module.exports = router;
