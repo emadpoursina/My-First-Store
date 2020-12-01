@@ -1,8 +1,10 @@
 const Controller = require("./../controller");
 
-class ForgotPassword {
+class ForgotPassword extends Controller {
     showForgotPassword (req, res){
         const title = "فراموشی رمز عبور";
-        res.render("resource/view/home/auth", {errors: req.flash("errors"), recaptch: this.recaptch.render(), title});
+        res.render("home/auth/password/forgotPassword.ejs", {errors: req.flash("errors"),  recaptcha: this.recaptcha.render(), title});
     }
 }
+
+module.exports = new ForgotPassword();
