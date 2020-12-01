@@ -44,4 +44,8 @@ module.exports =  class Controller {
         }
         return true;
     }
+
+    back(req, res) {
+        return res.redirect(req.header("Referer") || "/");
+    }
 }
