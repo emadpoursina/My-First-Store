@@ -1,11 +1,11 @@
-<% if(errors.length > 0){ %>
-    <div class="alert alert-danger alert-dismissible">
+<% if(success.length > 0){ %>
+    <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span>×</span>
         </button>                            
         <ul>
-            <% errors.forEach(err => { %>
-                <li><%= err %></li>
+            <% success.forEach(element => { %>
+                <li><%= element %></li>
             <% }); %> 
         </ul>
     </div>
