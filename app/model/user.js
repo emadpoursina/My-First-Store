@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
 const uniqueString = require("unique-string");
 
 const userSchema = mongoose.Schema({
