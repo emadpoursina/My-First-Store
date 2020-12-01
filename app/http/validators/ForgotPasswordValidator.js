@@ -1,4 +1,4 @@
-const { validationResult } = require("express-validator/check");
+const { check } = require("express-validator/check");
 const Validator = require("./Validator");
 
 class ForgotPasswordValidator extends Validator{
@@ -6,7 +6,7 @@ class ForgotPasswordValidator extends Validator{
         return [
             check("email")
                 .isEmail()
-                .withMessage("ایمیل معتبر نیست");
+                .withMessage("ایمیل معتبر نیست")
         ]
 
     }

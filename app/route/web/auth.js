@@ -10,7 +10,7 @@ const forgotPasswordController = require("app/http/controller/auth/forgotPasswor
 //validators
 const regisetrValidator = require("app/http/validators/RegisterValidator");
 const loginValidator = require("app/http/validators/LoginValidators");
-const forgotPasswordValidator = require("app/http/validators/ForgotPassword");
+const forgotPasswordValidator = require("app/http/validators/ForgotPasswordValidator");
 
 router.get("/login", loginController.showLoginForm);
 router.post("/login", loginValidator.handle(), loginController.loginProcess);
