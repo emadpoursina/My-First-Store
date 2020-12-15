@@ -12,6 +12,7 @@ const resetPasswordController = require("app/http/controller/auth/resetPasswordC
 const regisetrValidator = require("app/http/validators/RegisterValidator");
 const loginValidator = require("app/http/validators/LoginValidators");
 const forgotPasswordValidator = require("app/http/validators/ForgotPasswordValidator");
+const resetPasswordValidator = require("app/http/validators/ResetPasswordValidator");
 
 router.get("/login", loginController.showLoginForm);
 router.post("/login", loginValidator.handle(), loginController.loginProcess);
@@ -20,7 +21,7 @@ router.post("/register", regisetrValidator.handle(), registerController.registra
 
 router.get("/password/reset", forgotPasswordController.showForgotPassword);
 router.get("/password/reset/:token", resetPasswordController.showResetPassword);
-router.post("/password/reset", resetPasswordController.showResetPassword);
+router.post("/password/reset", resetPasswordValidator.handle(), resetPasswordController.showResetPassword);
 router.post("/password/email", forgotPasswordValidator.handle(), forgotPasswordController.sendPasswordResetLink);
 
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"]}));
