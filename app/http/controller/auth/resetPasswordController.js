@@ -9,7 +9,7 @@ class ResetPasswordController extends Controller {
         res.render("home/auth/password/resetPassword.ejs", {errors: req.flash("errors") ,success: req.flash("success"),  recaptcha: this.recaptcha.render(), title});
     }
 
-    async sendPasswordResetLink (req, res){
+    async resetPasswordProccess(req, res){
         let result = await this.recaptchaValidation(req, res);
         if (!result){
             res.redirect("/auth/password/reset");
@@ -19,6 +19,38 @@ class ResetPasswordController extends Controller {
         if (!result){
             res.redirect("/auth/password/reset");
         }
+
+        return resetPassword(req, res);
+    }
+
+    async resetPassword(req, res) {
+        const resetRequest = await PasswordReset.findOne({
+            $and: [{email: req.body.email}, {token: req.body.token}]
+        });
+        if(!resetRequest) {
+            req.flash("errors", "چنین درخواستی ثبت نشده است");
+            return this.back(req, res);
+        }
+
+        if(resetRequest.use) {
+            req.flash("errors", "از این لینک قبلا استفاده شده است");
+            return this.back(req, res);
+        }
+
+        const user = await User.findOneAndUpdate({
+                email: resetRequest.email
+            },{
+                $set: {
+                    password: req.body.password
+                }
+            });
+        if(!user) {
+            req.flash("errors", "چنین کاربری وجود ندارد");
+            return this.back(req, res);
+        }
+
+        await resetRequest.update({ use: true });
+        return res.redirect("/auth/login");
     }
 }
 
