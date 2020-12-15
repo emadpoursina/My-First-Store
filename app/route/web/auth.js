@@ -18,6 +18,7 @@ router.get("/register", registerController.showRegistrationForm);
 router.post("/register", regisetrValidator.handle(), registerController.registrationProcess);
 
 router.get("/password/reset", forgotPasswordController.showForgotPassword);
+router.get("/password/reset:token", forgotPasswordController.showForgotPassword);
 router.post("/password/email", forgotPasswordValidator.handle(), forgotPasswordController.sendPasswordResetLink);
 
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"]}));
