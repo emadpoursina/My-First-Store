@@ -13,11 +13,11 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.pre("save", function(next) {
-    bcrypt.hash(this.password, bcrypt.genSaltSync(15), (err, hash) => {
-        if(err) console.log(err);
-        this.password = hash;
-        next();
-    })
+    const salt = bcrypt.genSaltSync(15);
+    const hash = bcrypt.hashSync(this.password, salt);
+
+    this.password = hash;
+    next();
 })
 
 userSchema.methods.comparePassword = function (password){

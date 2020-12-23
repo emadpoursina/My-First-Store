@@ -25,8 +25,9 @@ class ResetPasswordController extends Controller {
     }
 
     async resetPassword(req, res) {
+        const token = req.body.token;
         const resetRequest = await PasswordReset.findOne({
-            $and: [{email: req.body.email}, {token: req.body.token}]
+            $and: [{email: req.body.email}, {token: token.trim()}]
         });
         if(!resetRequest) {
             req.flash("errors", "چنین درخواستی ثبت نشده است");
@@ -38,17 +39,15 @@ class ResetPasswordController extends Controller {
             return this.back(req, res);
         }
 
-        const user = await User.findOneAndUpdate({
-                email: resetRequest.email
-            },{
-                $set: {
-                    password: req.body.password
-                }
-            });
+        const user = await User.findOne({email: resetRequest.email});
+
         if(!user) {
             req.flash("errors", "چنین کاربری وجود ندارد");
             return this.back(req, res);
         }
+
+        user.password = req.body.password;
+        await user.save();
 
         await resetRequest.update({ use: true });
         return res.redirect("/auth/login");
