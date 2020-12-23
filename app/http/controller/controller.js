@@ -23,8 +23,8 @@ module.exports =  class Controller {
                if(!err){
                    resolve(true);
                }else {
-                   req.flash("errors", "please fill the recaptcha correctlly!!");
-                   res.redirect(req.originalUrl);
+                   req.flash("errors", "ریکپچا را به درستی وارد کنید");
+                   this.back(req, res);
                }
            }) 
         })
@@ -43,5 +43,9 @@ module.exports =  class Controller {
             return false;
         }
         return true;
+    }
+
+    back(req, res) {
+        return res.redirect(req.header("Referer") || "/");
     }
 }

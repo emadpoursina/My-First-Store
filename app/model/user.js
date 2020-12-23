@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
 const uniqueString = require("unique-string");
 
 const userSchema = mongoose.Schema({
@@ -14,15 +13,15 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.pre("save", function(next) {
-    bcrypt.hash(this.password, bcrypt.genSaltSync(15), (err, hash) => {
-        if(err) console.log(err);
-        this.password = hash;
-        next();
-    })
+    const salt = bcrypt.genSaltSync(15);
+    const hash = bcrypt.hashSync(this.password, salt);
+
+    this.password = hash;
+    next();
 })
 
 userSchema.methods.comparePassword = function (password){
-    return bcrypt.compareSync(this.password, password);
+    return bcrypt.compareSync(password, this.password);
 }
 
 userSchema.methods.setRememberToken = function (res) {

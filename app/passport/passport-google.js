@@ -17,7 +17,27 @@ passport.use(new GoogleStrategy({
     clientSecret: config.service.google.secret_key,
     callbackURL: config.service.google.callback_url
   },
-  function(token, tokenSecret, profile, done) {
-      console.log(profile);
+  (token, refreshToken, profile, done) => {
+     User.findOne({
+         'email': profile.emails[0].value
+     }, (err, user) => {
+        if (err)
+            return done(err);
+        if (user)
+            return done(null, false, "Your Email duplicated!");
+        
+        const newUser = new User({
+            email: profile.emails[0].value,
+            name: profile.displayName,
+            password: profile.id
+        });
+
+        newUser.save((err) => {
+            if (err)
+                return done(err);
+            return done(null, newUser);
+        })
+        
+     }) 
   }
 ));

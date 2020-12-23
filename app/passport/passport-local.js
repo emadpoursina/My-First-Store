@@ -46,7 +46,7 @@ passport.use("local.login", new localStrategy({
             done(err);
         }
 
-        if(!user || user.comparePassword(password)){
+        if(!user || !user.comparePassword(password)){
             return done(null, false, req.flash("errors", "The info is not correct"));
         }
 
