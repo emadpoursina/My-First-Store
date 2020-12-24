@@ -8,5 +8,5 @@ module.exports = {
     database,
     session,
     service,
-    cookieSecretKey: process.env.COOKIE_SECRET_KEY
+    cookieSecretKey: process.env.COOKIE_SECRETKEY
 }
