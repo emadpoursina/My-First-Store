@@ -3,10 +3,11 @@ const router = express.Router();
 
 // Middlewares
 const redirectIfAuthenticated = require("app/http/middleware/RedirectIfAuthenticated");
+const redirectIfNotAdmin = require("app/http/middleware/RedirectIfNotAdmin");
 
 // Admin Router
 const adminRouter = require("app/route/web/admin");
-router.use("/admin", adminRouter);
+router.use("/admin", redirectIfNotAdmin.handle, adminRouter);
 
 // Home Router
 const homeRouter = require("app/route/web/home");
