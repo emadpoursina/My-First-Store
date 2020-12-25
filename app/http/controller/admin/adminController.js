@@ -2,7 +2,7 @@ const Controller = require("app/http/controller/controller");
 
 class AdminController extends Controller{
     index(req, res) {
-        res.json("admin dashboard 2");
+        res.render("admin/index");
     }
 }
 
