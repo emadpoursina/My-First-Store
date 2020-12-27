@@ -6,6 +6,7 @@ module.exports = class Helper {
         this.req = req;
         this.res = res;
         autoBind(this);
+        this.formdata = req.flash("formdata")[0];
     }
 
     // get the global object
@@ -14,6 +15,7 @@ module.exports = class Helper {
             auth: this.auth(),
             viewPath: this.viewPath,
             ...this.getGlobalVariables(),
+            old: this.old,
         };
     }
 
@@ -32,5 +34,9 @@ module.exports = class Helper {
 
     viewPath(dir) {
         return path.resolve(config.layout.view_dir + "/" + dir);
+    }
+
+    old(field) {
+        return this.formdata && this.formdata.hasOwnProperty(field) ? this.formdata[field] : "";
     }
 }
