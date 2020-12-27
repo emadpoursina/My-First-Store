@@ -6,14 +6,17 @@ class RegisterController extends Controller {
         res.render("home/auth/register.ejs", { recaptcha: this.recaptcha.render(), title: "Register" });
     }
 
-    registrationProcess(req, res, next) {
-        this.recaptchaValidation(req, res)
-            .then(() => this.validateData(req))
-            .then(result => {
+    async registrationProcess(req, res, next) {
+        try {
+            await this.recaptchaValidation(req, res);
+            const result = await this.validateData(req);
                 if(result) this.registerUser(req, res, next);
-                else res.redirect("/auth/register");
-            })
-            .catch(err => console.log(err))
+                else{
+                    res.redirect("/auth/register");
+                } 
+        } catch (error) {
+           console.log(error); 
+        }
     }
 
     registerUser(req, res, next) {

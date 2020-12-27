@@ -6,26 +6,19 @@ class LoginController extends Controller {
         res.render("home/auth/login.ejs", { recaptcha: this.recaptcha.render(), title: "Login" });
     }
 
-    loginProcess(req, res) {
-        this.recaptchaValidation(req, res)
-            .then( () => {
-                this.validateData(req)
-                    .then( (result) => {
-                        if(result) {
-                            this.loginUser(req, res);
-                        }else{
-                            res.redirect("/auth/login");
-                        }
-                    })
-                    .catch( (err) => {
-                        console.log(err);
-                        res.send(err);
-                    })
-            })
-            .catch( (err) => {
-                console.log(err);
-                res.send(err);
-            })
+    async loginProcess(req, res) {
+        try {
+            await this.recaptchaValidation(req, res);
+            const result = this.validateData(req);
+            if(result) {
+                this.loginUser(req, res);
+            }else{
+                res.redirect("/auth/login");
+            }
+        } catch (error) {
+            console.log(err);
+            res.send(err);
+        }
     }
 
     loginUser(req, res){
