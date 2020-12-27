@@ -12,6 +12,7 @@ class RegisterController extends Controller {
             const result = await this.validateData(req);
                 if(result) this.registerUser(req, res, next);
                 else{
+                    req.flash("formdata", req.body);
                     res.redirect("/auth/register");
                 } 
         } catch (error) {

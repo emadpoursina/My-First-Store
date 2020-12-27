@@ -13,6 +13,7 @@ class ForgotPasswordController extends Controller {
         await this.recaptchaValidation(req, res);
         const result = await this.validateData(req);
         if (!result){
+            req.flash("formdata", req.body);
             res.redirect("/auth/password/reset");
         }
 

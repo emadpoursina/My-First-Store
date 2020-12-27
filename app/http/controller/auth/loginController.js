@@ -13,6 +13,7 @@ class LoginController extends Controller {
             if(result) {
                 this.loginUser(req, res);
             }else{
+                req.flash("formdata", req.body);
                 res.redirect("/auth/login");
             }
         } catch (error) {
