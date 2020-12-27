@@ -6,7 +6,7 @@ const User = require("app/model/user");
 class ForgotPasswordController extends Controller {
     showForgotPassword (req, res){
         const title = "فراموشی رمز عبور";
-        res.render("home/auth/password/forgotPassword.ejs", {errors: req.flash("errors") ,success: req.flash("success"),  recaptcha: this.recaptcha.render(), title});
+        res.render("home/auth/password/forgotPassword.ejs", {success: req.flash("success"),  recaptcha: this.recaptcha.render(), title});
     }
 
     async sendPasswordResetLink (req, res){
