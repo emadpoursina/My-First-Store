@@ -36,7 +36,7 @@ module.exports = class Helper {
         return path.resolve(config.layout.view_dir + "/" + dir);
     }
 
-    old(field) {
-        return this.formdata && this.formdata.hasOwnProperty(field) ? this.formdata[field] : "";
+    old(field, defaultValue="") {
+        return this.formdata && this.formdata.hasOwnProperty(field) ? this.formdata[field] : defaultValue;
     }
 }
