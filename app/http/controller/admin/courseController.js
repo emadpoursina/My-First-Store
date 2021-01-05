@@ -1,18 +1,21 @@
 const Controller = require("./../controller");
 const Course = require("app/model/Course");
+const fs = require("fs");
 
 class CourseController extends Controller {
     index(req, res) {
-       res.render("admin/courses/index", {title: "دوره ها"});
+      res.render("admin/courses/index", {title: "دوره ها"});
     }
 
     creat(req, res) {
-        res.render("admin/courses/creat");
+      res.render("admin/courses/creat");
     }
 
     async store(req, res) {
         const result = await this.validateData(req);
         if(!result) {
+            if(req.file)
+              fs.unlinkSync(req.file.path);
             return this.back(req, res);
         }
 
