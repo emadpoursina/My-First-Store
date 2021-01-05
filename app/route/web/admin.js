@@ -21,6 +21,6 @@ router.use((req, res, next) => {
 router.get("/", adminController.index);
 router.get("/courses", courseController.index);
 router.get("/courses/create", courseController.creat);
-router.post("/courses/create", uploadImage.single("image"), courseValidator.handle(), courseController.store);
+router.post("/courses/create", uploadImage.single("images"), courseValidator.handle(), courseController.store);
 
 module.exports = router;
