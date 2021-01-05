@@ -10,6 +10,7 @@ const courseValidator = require("app/http/validators/CourseValidator");
 
 
 //Middlewares
+const uploadImage = require("app/helpers/uploadImage.js") //helpers
 
 router.use((req, res, next) => {
     res.locals.layout = "admin/master";
@@ -20,6 +21,6 @@ router.use((req, res, next) => {
 router.get("/", adminController.index);
 router.get("/courses", courseController.index);
 router.get("/courses/create", courseController.creat);
-router.post("/courses/create", courseValidator.handle(), courseController.store);
+router.post("/courses/create", uploadImage.single("image"), courseValidator.handle(), courseController.store);
 
 module.exports = router;
