@@ -13,6 +13,7 @@ class CourseController extends Controller {
     res.render("admin/courses/creat");
   }
 
+  // Validate and Save course to the database
   async store(req, res) {
     const result = await this.validateData(req);
     if(!result) {
@@ -39,19 +40,22 @@ class CourseController extends Controller {
     return res.redirect("/admin/courses");
   }
 
+  // Make a valid url
   slug(title) {
     return title.replace(/([^۰-۹آ-یa-z0-9]|-)+/g , "-")
   }
 
+  // Resize the uploaded picture
   imageResize(image) {
+    // Image url object
     const imageInfo = path.parse(image.path);
 
-    const imagesAddress = {};
+    const imagesAddress = {}; // All of the pictures address
     imagesAddress["original"] = this.getImagePath(image.path);
 
     // All of the resulotions
     [1080, 720, 420].map((size) => {
-    const imageName = `${imageInfo.name}-${size}${imageInfo.ext}`;
+    const imageName = `${imageInfo.name}-${size}${imageInfo.ext}`; // Name of the resized image
     imagesAddress[size] = this.getImagePath(`${image.destination}/${imageName}`);
     sharp(image.path)
       .resize(size, null)
@@ -61,6 +65,7 @@ class CourseController extends Controller {
     return imagesAddress;
   }
 
+  // Return the path from public folder
   getImagePath(path) {
     return path.substring(7);
   }
