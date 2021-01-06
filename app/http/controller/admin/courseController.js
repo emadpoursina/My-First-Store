@@ -16,12 +16,12 @@ class CourseController extends Controller {
   async store(req, res) {
     const result = await this.validateData(req);
     if(!result) {
+      let images = this.imageResize(req.file);
       if(req.file)
-        fs.unlinkSync(req.file.path);
+        //fs.unlinkSync(req.file.path);
       return this.back(req, res);
     }
 
-    const images = this.imageResize(req.file);
     const { title , body , type , price , tags } = req.body;
 
     const newCourse = new Course({
@@ -32,7 +32,7 @@ class CourseController extends Controller {
       type,
       price,
       tags,
-      images,
+      images: JSON.stringify(images),
     }); 
 
     await newCourse.save();
@@ -44,7 +44,25 @@ class CourseController extends Controller {
   }
 
   imageResize(image) {
+    const imageInfo = path.parse(image.path);
 
+    const imagesAddress = {};
+    imagesAddress["original"] = this.getImagePath(image.path);
+
+    // All of the resulotions
+    [1080, 720, 420].map((size) => {
+    const imageName = `${imageInfo.name}-${size}${imageInfo.ext}`;
+    imagesAddress[size] = this.getImagePath(`${image.destination}/${imageName}`);
+    sharp(image.path)
+      .resize(size, null)
+      .toFile(`${image.destination}/${imageName}`)
+    });
+
+    return imagesAddress;
+  }
+
+  getImagePath(path) {
+    return path.substring(7);
   }
 }
 
