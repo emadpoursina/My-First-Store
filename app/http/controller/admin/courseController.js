@@ -17,12 +17,12 @@ class CourseController extends Controller {
   async store(req, res) {
     const result = await this.validateData(req);
     if(!result) {
-      let images = this.imageResize(req.file);
       if(req.file)
-        //fs.unlinkSync(req.file.path);
+        fs.unlinkSync(req.file.path);
       return this.back(req, res);
     }
 
+    const images = this.imageResize(req.file);
     const { title , body , type , price , tags } = req.body;
 
     const newCourse = new Course({
