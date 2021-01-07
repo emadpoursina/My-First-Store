@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
 const session = require('express-session');
+const methodOverride = require('method-override')
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require("passport");
@@ -52,6 +53,8 @@ module.exports = class Application {
 
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
+
+        app.use(methodOverride('_method'));
 
         app.use(validator());
         app.use(session({...config.session}));
