@@ -28,7 +28,7 @@
 					<%= course.typeToPersian() %> 
 				</td>
 				<td>
-					<form action="http://localhost:3000/admin/courses?_method=DELETE" method="POST">
+					<form action="/admin/courses/<%= course._id %>?_method=DELETE" method="POST">
 						<input type="hidden" name="_method" value="delete">
 						<input type="hidden" name="_token" value="Dso45XzqoXsAkRC8BBMQ63ZsOFS0c2tELkxR4i3Y">
 						<div class="btn-group btn-group-sm">
