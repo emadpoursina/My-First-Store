@@ -15,6 +15,20 @@ class CourseController extends Controller {
     res.render("admin/courses/creat");
   }
 
+  async destroy(req, res) {
+    const course = await Course.findOne({_id: req.params.id});
+    if(!course)
+      res.end("invalid course id");
+
+    //delete image
+    Object.values(course.images).forEach(image => {fs.unlinkSync("public/" + image)});
+
+    //delete course
+    course.remove();
+
+    //send respond
+    res.redirect("/admin/courses");
+  }
 
   // Validate and Save course to the database
   async store(req, res) {
