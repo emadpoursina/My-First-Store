@@ -29,6 +29,11 @@ router.post("/courses/create",
 );
 router.delete("/courses/:id", courseController.destroy);
 router.get("/courses/:id/edit", courseController.edit);
-router.put("/courses/:id", courseController.update);
+router.put("/courses/:id",
+  uploadImage.single("images"),
+  convertFileToField.handle,
+  courseValidator.handle(),
+  courseController.update,
+);
 
 module.exports = router;
