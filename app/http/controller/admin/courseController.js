@@ -15,6 +15,7 @@ class CourseController extends Controller {
     res.render("admin/courses/creat");
   }
 
+
   // Validate and Save course to the database
   async store(req, res) {
     const result = await this.validateData(req);
@@ -35,7 +36,7 @@ class CourseController extends Controller {
       type,
       price,
       tags,
-      images: JSON.stringify(images),
+      images,
     }); 
 
     await newCourse.save();
