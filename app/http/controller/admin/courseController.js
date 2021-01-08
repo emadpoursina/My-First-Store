@@ -51,6 +51,7 @@ class CourseController extends Controller {
       price,
       tags,
       images,
+      thumbnail: images["420"],
     }); 
 
     await newCourse.save();
@@ -84,7 +85,6 @@ class CourseController extends Controller {
 
   // Return the path from public folder
   getImagePath(path) {
-    console.log(path.substring(8));
     return path.substring(8);
   }
 }

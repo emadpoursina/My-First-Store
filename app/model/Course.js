@@ -10,6 +10,7 @@ const CourseSchema = Schema({
     type:{type: String, required: true},
     body:{type: String, required: true},
     images:{type: Object, required: true},
+    thumbnail:{type: String, required: true},
     price:{type: Number, required: true},
     tags:{type: String, required: true},
     time:{type: String, default: "00:00:00"},
