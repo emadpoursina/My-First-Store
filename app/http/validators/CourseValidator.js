@@ -9,7 +9,10 @@ class CousreValidator extends Validator{
             check("title")
                 .isLength({ min: 3, max: 50 })
                 .withMessage("طول نام دوره نمی توانم کمتر از 3 و بیشتر از 50 کاراکتر باشد.")
-                .custom(async (value) => {
+                .custom(async (value, {req}) => {
+                    if(req.query._method === "PUT") {
+                        if((await Course.findById(req.params.id)).title === value) return;
+                    }
                     const course = await Course.findOne({ slug: this.slug(value)})
                     if(course){
                         throw new Error("یک دوره با این نام از قبل موجود است.")
@@ -22,7 +25,9 @@ class CousreValidator extends Validator{
                 .isLength({ min: 3, max: 150 })
                 .withMessage("طول توضیحات دوره نمی توانم کمتر از 3 و بیشتر از 150 کاراکتر باشد."),
             check("images")
-                .custom(async (value) => {
+                .custom(async (value, {req}) => {
+                    if(req.query._method === "PUT" && value === undefined) return;
+
                     if(! value)
                         throw new Error("فیلد عکس الزامی است.")
 
