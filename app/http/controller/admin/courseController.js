@@ -30,6 +30,14 @@ class CourseController extends Controller {
     res.redirect("/admin/courses");
   }
 
+  async edit(req, res) {
+
+  }
+
+  async update(req, res) {
+
+  }
+
   // Validate and Save course to the database
   async store(req, res) {
     const result = await this.validateData(req);
