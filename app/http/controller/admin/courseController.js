@@ -54,7 +54,7 @@ class CourseController extends Controller {
     const imageInfo = path.parse(image.path);
 
     const imagesAddress = {}; // All of the pictures address
-    imagesAddress["original"] = this.getImagePath(image.path);
+    imagesAddress["original"] = this.getImagePath("./" + image.path);
 
     // All of the resulotions
     [1080, 720, 420].map((size) => {
@@ -70,7 +70,8 @@ class CourseController extends Controller {
 
   // Return the path from public folder
   getImagePath(path) {
-    return path.substring(7);
+    console.log(path.substring(9));
+    return path.substring(9);
   }
 }
 
