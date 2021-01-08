@@ -32,11 +32,28 @@ class CourseController extends Controller {
 
   async edit(req, res) {
     const course = await Course.findOne({_id: req.params.id});
-    console.log(course);
     res.render("admin/courses/edit", {title: "ویرایش دوره", course});
   }
 
   async update(req, res) {
+    const result = await this.validateData(req);
+    if(!result) {
+      if(req.file)
+        fs.unlinkSync(req.file.path);
+      this.back(req, res);
+    }
+
+    const course = await Course.findById(req.params.id);
+    delete req.body.images;
+    const newCourse = {}; 
+    newCourse.slug = this.slug(req.body.title);
+    if(req.file){
+      Object.values(course.images).forEach(image => {fs.unlinkSync("public" + image)});
+      newCourse.images = await this.imageResize(req.file);
+      newCourse.thumbnail = newCourse.images[480];
+    }
+    await Course.findOneAndUpdate(req.params.id, {$set: {...req.body, ...newCourse }}, {useFindAndModify: false});
+    return res.redirect("/admin/courses");
   }
 
   // Validate and Save course to the database
