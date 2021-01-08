@@ -21,7 +21,7 @@ class CourseController extends Controller {
       res.end("invalid course id");
 
     //delete image
-    Object.values(course.images).forEach(image => {fs.unlinkSync("public/" + image)});
+    Object.values(course.images).forEach(image => {fs.unlinkSync("public" + image)});
 
     //delete course
     course.remove();
@@ -84,8 +84,8 @@ class CourseController extends Controller {
 
   // Return the path from public folder
   getImagePath(path) {
-    console.log(path.substring(9));
-    return path.substring(9);
+    console.log(path.substring(8));
+    return path.substring(8);
   }
 }
 
