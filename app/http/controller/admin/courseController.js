@@ -31,11 +31,12 @@ class CourseController extends Controller {
   }
 
   async edit(req, res) {
-
+    const course = await Course.findOne({_id: req.params.id});
+    console.log(course);
+    res.render("admin/courses/edit", {title: "ویرایش دوره", course});
   }
 
   async update(req, res) {
-
   }
 
   // Validate and Save course to the database
