@@ -30,7 +30,7 @@ class CourseController extends Controller {
     res.redirect("/admin/courses");
   }
 
-  async edit(req, res) {
+  async edit(req, res, next) {
     try {
       this.isMongoId(req.params.id);
 
