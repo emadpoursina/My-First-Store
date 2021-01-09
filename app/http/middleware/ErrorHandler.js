@@ -10,7 +10,7 @@ class ErrorHandler extends middleware {
     }
   }
 
-  handle(err) {
+  handle(err, req, res, next) {
     const statusCode = err.statusCode;
     const stack = err.stack;
     const message = err.message;
