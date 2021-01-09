@@ -56,4 +56,10 @@ module.exports =  class Controller {
 				this.error("Invalid Id", 405);
 			}
 		}
+
+		error(message, statusCode) {
+			const err = new Error(message);
+			err.statusCode = statusCode;
+			throw err;
+		} 
 }
