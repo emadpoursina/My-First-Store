@@ -19,14 +19,7 @@ const authRouter = require("app/route/web/auth");
 router.use("/auth", redirectIfAuthenticated.handle, authRouter);
 
 // Error Handeling
-router.all("*", (req, res, next) => {
-  try {
-    res.statusCode = 404;
-    throw Error("چنین صفحه ای وجود ندارد");
-  } catch (err) {
-    next(err);  
-  }
-});
+router.all("*", errorHandler.handle404);
 
 router.use(errorHandler.handle);
 
