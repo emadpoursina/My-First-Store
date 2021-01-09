@@ -75,5 +75,9 @@ module.exports = class Application {
     setRoutes() {
         //app.use(require("app/route/api"));
         app.use(require("app/route/web"));
+        // Error Handeling
+        const errorHandler = require("app/http/middleware/ErrorHandler");
+        app.all("*", errorHandler.handle404);
+        app.use(errorHandler.handle);
     }
 }
