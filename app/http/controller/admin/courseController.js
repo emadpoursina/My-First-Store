@@ -31,8 +31,14 @@ class CourseController extends Controller {
   }
 
   async edit(req, res) {
-    const course = await Course.findOne({_id: req.params.id});
-    res.render("admin/courses/edit", {title: "ویرایش دوره", course});
+    try {
+      this.isMongoId(req.params.id);
+
+      const course = await Course.findOne({_id: req.params.id});
+      res.render("admin/courses/edit", {title: "ویرایش دوره", course});
+    } catch (err) {
+      next(err); 
+    }
   }
 
   async update(req, res) {
