@@ -12,13 +12,17 @@ const courseValidator = require("app/http/validators/CourseValidator");
 const uploadImage = require("app/helpers/uploadImage.js") //helpers
 const convertFileToField = require("app/http/middleware/ConvertFileToField.js");
 
+// Set admin page layout
 router.use((req, res, next) => {
   res.locals.layout = "admin/master";
 
   next();
 })
 
+// Main admin page router
 router.get("/", adminController.index);
+
+// Course Routers
 router.get("/courses", courseController.index);
 router.get("/courses/create", courseController.creat);
 router.post("/courses/create",
@@ -27,7 +31,6 @@ router.post("/courses/create",
   courseValidator.handle(),
   courseController.store
 );
-router.delete("/courses/:id", courseController.destroy);
 router.get("/courses/:id/edit", courseController.edit);
 router.put("/courses/:id",
   uploadImage.single("images"),
@@ -35,5 +38,6 @@ router.put("/courses/:id",
   courseValidator.handle(),
   courseController.update,
 );
+router.delete("/courses/:id", courseController.destroy);
 
 module.exports = router;
