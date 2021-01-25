@@ -49,17 +49,24 @@ class CourseController extends Controller {
       this.back(req, res);
     }
 
-    const course = await Course.findById(req.params.id);
-    delete req.body.images;
-    const newCourse = {}; 
-    newCourse.slug = this.slug(req.body.title);
+    let newCourse = await Course.findById(req.params.id);
+    // Set updated fields
+    Object.keys(req.body).forEach(key => {
+      if(key !== "images" && req.body.images)
+        newCourse[key] = req.body[key];
+    });
+
+    // Delete old pics and set new ones
     if(req.file){
-      Object.values(course.images).forEach(image => {fs.unlinkSync("public" + image)});
-      newCourse.images = await this.imageResize(req.file);
-      newCourse.thumbnail = newCourse.images[480];
+      Object.values(newCourse.images).forEach(imagePath => { fs.unlinkSync("public" + imagePath) });
+      newCourse.images = this.imageResize(req.file);
+      newCourse.thumbnail = newCourse.images["480"];
     }
-    await Course.findOneAndUpdate(req.params.id, {$set: {...req.body, ...newCourse }}, {useFindAndModify: false});
-    return res.redirect("/admin/courses");
+    newCourse.slug = this.slug(newCourse.title);
+
+    newCourse.save();
+
+    res.redirect("/admin/courses");
   }
 
   // Validate and Save course to the database
@@ -83,7 +90,7 @@ class CourseController extends Controller {
       price,
       tags,
       images,
-      thumbnail: images["420"],
+      thumbnail: images["480"],
     }); 
 
     await newCourse.save();
@@ -104,7 +111,7 @@ class CourseController extends Controller {
     imagesAddress["original"] = this.getImagePath("./" + image.path);
 
     // All of the resulotions
-    [1080, 720, 420].map((size) => {
+    [1080, 720, 480].map((size) => {
     const imageName = `${imageInfo.name}-${size}${imageInfo.ext}`; // Name of the resized image
     imagesAddress[size] = this.getImagePath(`${image.destination}/${imageName}`);
     sharp(image.path)
