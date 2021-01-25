@@ -41,6 +41,7 @@ class CourseController extends Controller {
     }
   }
 
+	// Update the course object by changing the sutable ones
   async update(req, res) {
     const result = await this.validateData(req);
     if(!result) {

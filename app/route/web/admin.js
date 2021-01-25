@@ -26,8 +26,8 @@ router.get("/", adminController.index);
 router.get("/courses", courseController.index);
 router.get("/courses/create", courseController.creat);
 router.post("/courses/create",
-  uploadImage.single("images"),
-  convertFileToField.handle,
+  uploadImage.single("images"), // Generate req.file
+  convertFileToField.handle, // Set req.body.images
   courseValidator.handle(),
   courseController.store
 );
