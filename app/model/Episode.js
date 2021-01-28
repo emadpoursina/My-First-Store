@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require('mongoose-paginate'); 
+const EpisodeController = require("../http/controller/admin/EpisodeController");
 
 const episodeSchema = mongoose.Schema({
     course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
@@ -15,5 +16,16 @@ const episodeSchema = mongoose.Schema({
 }, {timestamps: true});
 
 episodeSchema.plugin(mongoosePaginate);
+
+episodeSchema.methods.typeToPersian = function() {
+  switch (this.type) {
+    case "cash":
+      return "نقدی";
+    case "vip":
+      return "اعضای ویژه";
+    default:
+      return "رایگان";
+  }
+}
 
 module.exports = new mongoose.model('Episode', episodeSchema);
