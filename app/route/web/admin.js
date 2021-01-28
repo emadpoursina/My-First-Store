@@ -4,6 +4,7 @@ const router = express.Router();
 // Controllers
 const adminController = require("app/http/controller/admin/adminController");
 const courseController = require("app/http/controller/admin/courseController");
+const episodeController = require("app/http/controller/admin/EpisodeController");
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
@@ -41,7 +42,6 @@ router.put("/courses/:id",
 router.delete("/courses/:id", courseController.destroy);
 
 // Episode Routers
-router.get("/episode", episodeController.index);
-router.get("/episode/create", episodeController.create);
+router.get("/episodes", episodeController.index);
 
 module.exports = router;
