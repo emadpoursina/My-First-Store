@@ -46,5 +46,6 @@ router.delete("/courses/:id", courseController.destroy);
 router.get("/episodes", episodeController.index);
 router.get("/episodes/create", episodeController.create);
 router.post("/episodes/create", episodeValidator.handle(), episodeController.store);
+router.delete("/episodes/:id", episodeController.destroy);
 
 module.exports = router;
