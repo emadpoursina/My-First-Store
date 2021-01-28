@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+    <h2>ایجاد قسمت</h2>
+</div>
+<form class="form-horizontal" action="/admin/episodes/create" method="post" enctype="multipart/form-data">
+
+  <%- include(viewPath('layout/error-messages')) -%>
+
+  <div class="form-group row">
+    <div class="col">
+      <label for="title" class="control-label font-weight-bold">عنوان قسمت</label>
+      <input type="text" class="form-control" name="title" id="title" placeholder="عنوان را وارد کنید" value="<%= old("title") %>">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label for="course" class="control-label font-weight-bold font-weight-bold">دوره مربوطه</label>
+      <select name="course" id="course" class="form-control">
+        <% courses.forEach(course => { %>
+          <option <%= String(old("course")) == String(course._id) ? "selected" : ""  %> value=<%= course._id %>><%= course.title %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="col">
+      <label for="time" class="control-label font-weight-bold">مدت زمان ویدیو</label>
+      <input type="text" class="form-control" name="time" id="time" placeholder="مدت زمان ویدیو را وارد کنید" value="<%= old("time") %>">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label for="videoUrl" class="control-label font-weight-bold">لینک قسمت</label>
+      <input dir="ltr" type="url" class="form-control" name="videoUrl" id="videoUrl" placeholder="آدرس ویدیو را وارد کنید" value="<%= old("videoUrl") %>">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label for="body" class="control-label font-weight-bold">متن</label>
+      <textarea rows="5" class="form-control" name="body" id="body" placeholder="متن توضیحات قسمت را وارد کنید"><%= old("body") %> </textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label for="type" class="control-label font-weight-bold font-weight-bold">نوع قسمت</label>
+      <select name="type" id="type" class="form-control">
+        <option <%= old("type") == "vip" ? "selected" : "" %>  value="vip" >اعضای ویژه</option>
+        <option <%= old("type") == "cash" ? "selected" : ""  %> value="cash" >نقدی</option>
+        <option <%= old("type") == "free" ? "selected" : ""  %> value="free" >رایگان</option>
+      </select>
+    </div>
+      <div class="col">
+          <label for="tags" class="control-label font-weight-bold">تگ ها</label>
+          <input type="text" class="form-control" name="tags" id="tags" value="<%= old("tags") %>" placeholder="تگ ها را وارد کنید" value="">
+      </div>
+  </div>
+  <div class="form-group row">
+      <div class="col">
+          <button type="submit" class="btn btn-danger">ارسال</button>
+      </div>
+  </div>
+</form>
