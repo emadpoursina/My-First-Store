@@ -1,4 +1,5 @@
-const  mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate'); 
 
 const episodeSchema = mongoose.Schema({
     course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
@@ -12,5 +13,7 @@ const episodeSchema = mongoose.Schema({
     viewCount: {type: Number, default: 0},
     commentCount: {type: Number, default: 0},
 }, {timestamps: true});
+
+episodeSchema.plugin(mongoosePaginate);
 
 module.exports = new mongoose.model('Episode', episodeSchema);
