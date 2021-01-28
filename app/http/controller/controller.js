@@ -31,7 +31,7 @@ module.exports =  class Controller {
 		});
 	}
 
-	async validateData(req) {
+	validateData(req) {
 		const errors = validationResult(req);
 		if(! errors.isEmpty()){
 			let message = [];
