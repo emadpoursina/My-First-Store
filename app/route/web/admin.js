@@ -40,4 +40,8 @@ router.put("/courses/:id",
 );
 router.delete("/courses/:id", courseController.destroy);
 
+// Episode Routers
+router.get("/episode", episodeController.index);
+router.get("/episode/create", episodeController.create);
+
 module.exports = router;
