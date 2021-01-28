@@ -8,6 +8,7 @@ const episodeController = require("app/http/controller/admin/EpisodeController")
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
+const episodeValidator = require("app/http/validators/EpisodeValidator");
 
 //Middlewares
 const uploadImage = require("app/helpers/uploadImage.js") //helpers
@@ -44,5 +45,6 @@ router.delete("/courses/:id", courseController.destroy);
 // Episode Routers
 router.get("/episodes", episodeController.index);
 router.get("/episodes/create", episodeController.create);
+router.post("/episodes/create", episodeValidator.handle(), episodeController.store);
 
 module.exports = router;
