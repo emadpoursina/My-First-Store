@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+	<h2>ویرایش قسمت</h2>
+</div>
+<form class="form-horizontal" action="/admin/episodes/<%= episode._id %>?_method=PUT" method="POST" >
+
+	<%- include(viewPath('layout/error-messages')) -%>
+
+	<div class="form-group row">
+		<div class="col">
+			<label for="title" class="control-label font-weight-bold">عنوان قسمت</label>
+			<input type="text" class="form-control" name="title" id="title" placeholder="عنوان را وارد کنید" value="<%= episode.title %>">
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col">
+				<label for="course" class="control-label font-weight-bold font-weight-bold">دوره مربوطه</label>
+				<select name="course" id="course" class="form-control">
+					<% courses.forEach(course => { %>
+						<option <%= String(course._id) == String(episode.course) ? "selected" : ""  %> value="<%= course._id %> " ><%= course.title %> </option>
+					<% }); %> 
+				</select>
+			</div>
+		<div class="col">
+			<label for="time" class="control-label font-weight-bold">مدت زمان ویدیو</label>
+			<input type="text" class="form-control" name="time" id="time" placeholder="زمان ویدیو را وارد کنید" value="<%= episode.time %>">
+		</div>
+	</div>
+	<div class="form-group row">
+			<div class="col">
+				<label for="videoUrl" class="control-label font-weight-bold">آدرس ویدیوی قسمت</label>
+				<input dir="ltr" type="url" class="form-control" name="videoUrl" id="videoUrl" placeholder="آدرس ویدیو را وارد کنید" value="<%= episode.videoUrl %>">
+			</div>
+		</div>
+    <div class="form-group row">
+      <div class="col">
+          <label for="body" class="control-label font-weight-bold">متن</label>
+          <textarea rows="5" class="form-control" name="body" id="body" placeholder="متن مقاله را وارد کنید"><%= episode.body %> </textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+			<div class="col">
+				<label for="type" class="control-label font-weight-bold font-weight-bold">نوع قسمت</label>
+				<select name="type" id="type" class="form-control">
+					<option <%= episode.type == "vip" ? "selected" : "" %>  value="vip" >اعضای ویژه</option>
+					<option <%= episode.type == "cash" ? "selected" : ""  %> value="cash" >نقدی</option>
+					<option <%= episode.type == "free" ? "selected" : ""  %> value="free" >رایگان</option>
+				</select>
+			</div>
+			<div class="col">
+					<label for="number" class="control-label font-weight-bold">شماره قسمت</label>
+					<input type="number" class="form-control" name="number" id="number" value="<%= episode.number %>" placeholder="شماره این قسمت را وارد کنید" value="">
+			</div>
+    </div>
+    <div class="form-group row">
+        <div class="col">
+            <button type="submit" class="btn btn-danger">ارسال</button>
+        </div>
+    </div>
+</form>
