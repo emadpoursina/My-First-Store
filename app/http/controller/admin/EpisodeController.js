@@ -39,6 +39,29 @@ class EpisodeController extends Controller {
 		res.render('admin/episodes/edit', {title: 'ویرایش قسمت', episode, courses});
 	}
 
+	async update(req, res, next) {
+		this.isMongoId(req.params.id);
+
+		const episode = await Episode.findOne({ _id: req.params.id });
+		if(!episode)
+			res.end('Invalid Id');
+
+		const status = this.validateData(req);
+		if(!status)
+			return this.back(req, res);
+
+		const newEpisode = await Episode.findOne({ _id: req.params.id });
+		Object.keys(req.body).forEach(key => {
+			if(key === 'course') {
+				newEpisode.course = (req.body.course).trim();
+			}
+			else
+				newEpisode[key] = req.body[key];
+		});
+
+		await newEpisode.save();
+		res.redirect('/admin/episodes');
+	}
 }
 
 module.exports = new EpisodeController();
