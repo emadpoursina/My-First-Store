@@ -33,6 +33,12 @@ class EpisodeController extends Controller {
 		return res.redirect('/admin/episodes');
 	}
 
+	async edit(req, res) {
+		const episode = await Episode.findOne({ _id: req.params.id })
+		const courses = await require('app/model/Course').find({});
+		res.render('admin/episodes/edit', {title: 'ویرایش قسمت', episode, courses});
+	}
+
 }
 
 module.exports = new EpisodeController();
