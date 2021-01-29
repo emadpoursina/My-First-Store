@@ -15,14 +15,14 @@ class EpisodeController extends Controller {
 	async store(req, res) {
 		const status = this.validateData(req);
 		if(!status)
-			this.back(req, res);
+			return this.back(req, res);
 		const newCourse = new Episode({ ...req.body });
 
 		await newCourse.save();
 		return res.redirect('/admin/episodes');
 	}
 
-	async destroy(req, res, next) {
+	async destroy(req, res) {
 		this.isMongoId(req.params.id);
 
 		const episode = await Episode.findOne({ _id: req.params.id });
@@ -32,6 +32,7 @@ class EpisodeController extends Controller {
 		episode.remove();
 		return res.redirect('/admin/episodes');
 	}
+
 }
 
 module.exports = new EpisodeController();
