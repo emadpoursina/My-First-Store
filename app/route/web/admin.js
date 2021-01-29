@@ -48,5 +48,6 @@ router.get("/episodes/create", episodeController.create);
 router.post("/episodes/create", episodeValidator.handle(), episodeController.store);
 router.delete("/episodes/:id", episodeController.destroy);
 router.get("/episodes/:id/edit", episodeController.edit);
+router.put("/episodes/:id", episodeValidator.handle(), episodeController.update);
 
 module.exports = router;
