@@ -25,9 +25,14 @@ class EpisodeValidator extends Validator {
         .not().isEmpty()
         .withMessage(' لینک دانلود نمیتواند خالی بماند')
         .custom(async (value, { req }) => {
-          const episode = await Episode.findOne({ videoUrl: req.body.videoUrl });
-          if(episode)
-            throw new Error('قسمتی با چنین لینکی از قبل موجود است');
+          const episode = await Episode.findOne({ videoUrl: value });
+          if(episode) {
+            if(req.query._method === 'PUT' && episode._id == req.params.id) {
+              return true;
+            }
+            throw new Error('ویدیو تکراری است');
+          }
+          return true;
         }),
 
       check('number')
