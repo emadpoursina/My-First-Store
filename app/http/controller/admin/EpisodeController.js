@@ -44,7 +44,7 @@ class EpisodeController extends Controller {
 
 		const episode = await Episode.findOne({ _id: req.params.id });
 		if(!episode)
-			res.end('Invalid Id');
+			this.error('قسمتی با چنین لینکی وجود ندارد', 404);
 
 		const status = this.validateData(req);
 		if(!status)
