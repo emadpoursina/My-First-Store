@@ -21,6 +21,9 @@ class EpisodeController extends Controller {
 		const newEpisode = new Episode({ ...req.body });
 		await newEpisode.save();
 
+		// Update course time
+		this.updateCourseTime(req.body.course);
+
 		return res.redirect('/admin/episodes');
 	}
 
@@ -32,6 +35,9 @@ class EpisodeController extends Controller {
 			res.end('Invalid Id');
 
 		episode.remove();
+
+		// Update course time
+		this.updateCourseTime(String(req.body.course));
 
 		return res.redirect('/admin/episodes');
 	}
@@ -53,7 +59,11 @@ class EpisodeController extends Controller {
 		if(!status)
 			return this.back(req, res);
 
+		// Episode data in the database
 		const newEpisode = await Episode.findOne({ _id: req.params.id });
+
+		// Id of the previuse course
+		const oldCourseId = newEpisode.course;
 
 		Object.keys(req.body).forEach(key => {
 			if(key === 'course') {
@@ -63,6 +73,11 @@ class EpisodeController extends Controller {
 		});
 
 		await newEpisode.save();
+
+		// Update time of the new And old course
+		this.updateCourseTime(newEpisode.course);
+		if(newEpisode.course != String(oldCourseId))
+			this.updateCourseTime(String(oldCourseId));
 
 		res.redirect('/admin/episodes');
 	}
