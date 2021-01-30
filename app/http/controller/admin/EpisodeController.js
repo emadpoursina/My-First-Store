@@ -1,5 +1,6 @@
 const Controller = require('../controller');
 const Episode = require('app/model/Episode');
+const Course = require('app/model/Course');
 
 class EpisodeController extends Controller {
 	async index(req, res) {
@@ -20,7 +21,6 @@ class EpisodeController extends Controller {
 		const newEpisode = new Episode({ ...req.body });
 		await newEpisode.save();
 
-
 		return res.redirect('/admin/episodes');
 	}
 
@@ -32,6 +32,7 @@ class EpisodeController extends Controller {
 			res.end('Invalid Id');
 
 		episode.remove();
+
 		return res.redirect('/admin/episodes');
 	}
 
@@ -53,6 +54,7 @@ class EpisodeController extends Controller {
 			return this.back(req, res);
 
 		const newEpisode = await Episode.findOne({ _id: req.params.id });
+
 		Object.keys(req.body).forEach(key => {
 			if(key === 'course') {
 				newEpisode.course = (req.body.course).trim();
@@ -61,7 +63,18 @@ class EpisodeController extends Controller {
 		});
 
 		await newEpisode.save();
+
 		res.redirect('/admin/episodes');
+	}
+
+	// This function will update the the course time attribuite
+	async updateCourseTime(courseId) {
+		const course = await Course.findById(courseId);
+		const episodes = await Episode.find({ course: courseId });
+
+		course.set({ time: this.getTime(episodes)});
+		
+		await course.save();
 	}
 }
 
