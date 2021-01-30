@@ -16,9 +16,11 @@ class EpisodeController extends Controller {
 		const status = this.validateData(req);
 		if(!status)
 			return this.back(req, res);
-		const newCourse = new Episode({ ...req.body });
 
-		await newCourse.save();
+		const newEpisode = new Episode({ ...req.body });
+		await newEpisode.save();
+
+
 		return res.redirect('/admin/episodes');
 	}
 
@@ -54,8 +56,7 @@ class EpisodeController extends Controller {
 		Object.keys(req.body).forEach(key => {
 			if(key === 'course') {
 				newEpisode.course = (req.body.course).trim();
-			}
-			else
+			}else
 				newEpisode[key] = req.body[key];
 		});
 
