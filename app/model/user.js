@@ -10,6 +10,12 @@ const userSchema = mongoose.Schema({
 	remember_token: {type: String, default: null}
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
+userSchema.virtual('courses', {
+	ref: 'Course',
+	localField: '_id',
+	foreignField: 'user',
+});
+
 userSchema.pre("save", function(next) {
 	const salt = bcrypt.genSaltSync(15);
 	const hash = bcrypt.hashSync(this.password, salt);
