@@ -62,4 +62,25 @@ module.exports =  class Controller {
 		err.statusCode = statusCode;
 		throw err;
 	} 
+
+	getTime(episodes){
+		let sec = 0;
+		episodes.forEach(episode => {
+			const times = episode.time.split(':');
+
+			// Convert time parts to int
+			for(let i = 0; i < times.length ; i++) {
+				times[i] = +times[i];
+			}
+
+			sec += times[times.length-1];
+			if(times.length >= 2)
+				sec += times[times.length-2] * 60;
+			if(times.length === 3)
+				sec += times[times.length-3] * 3600;
+
+		});
+			// Seconds to HH:MM:SS
+			return String(Math.floor(sec/3600)) + ':' + String(Math.floor((sec%3600)/60)) + ':' + Math.floor((sec%3600)%60);
+	}
 }
