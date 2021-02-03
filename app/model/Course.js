@@ -16,9 +16,15 @@ const CourseSchema = Schema({
     time:{type: String, default: "00:00:00"},
     viewCount: {type: Number, default: 0},
     commentCount: {type: Number, default: 0},
-}, {timeStamps: true})
+}, {timeStamps: true, toJSON: { virtuals: true }});
 
 CourseSchema.plugin(mongoosePaginate);
+
+CourseSchema.virtual('episodes', {
+  ref: 'Episode',
+  localField: '_id',
+  foreignField: 'course',
+});
 
 CourseSchema.methods.typeToPersian = function() {
   switch (this.type) {
