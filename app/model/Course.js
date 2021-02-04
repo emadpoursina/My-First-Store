@@ -37,4 +37,8 @@ CourseSchema.methods.typeToPersian = function() {
   }
 }
 
+CourseSchema.methods.path = function() {
+  return `/courses/${this.slug}`;
+}
+
 module.exports = mongoose.model("Course", CourseSchema);
