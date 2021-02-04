@@ -14,5 +14,6 @@ router.get("/logout", (req, res) => {
 router.get("/", homeController.index);
 router.get("/about-me", homeController.about);
 router.get("/courses", courseController.index);
+router.get("/courses/:course", courseController.single);
 
 module.exports = router;
