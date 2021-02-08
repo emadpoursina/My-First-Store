@@ -1,5 +1,9 @@
 const Controller = require('./controller');
 const Course = require('app/model/Course');
+const Episode = require('app/model/Episode');
+const fs = require('fs');
+const bcrypt = require('bcrypt');
+const { time } = require('console');
 
 class CourseController extends Controller {
   index(req, res, next) {
@@ -28,6 +32,26 @@ class CourseController extends Controller {
         }
     }
     return canUse;
+  }
+
+  async download(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const episode = await Episode.findById(req.params.id);
+      if (!episode) {
+        return this.error('چنین قسمتی وجود ندارد', 404)
+      }
+
+      if(! this.checkHash) this.err('لینک دانلود دیگر معتبر نیست', 403);
+
+      const filePath = `./public/download/${episode.videoUrl}`;
+      if(! fs.existsSync(filePath)) this.error('چنین فایلی وجود ندارد.', 404);
+
+      return res.download(filePath);
+    }catch(err) {
+      next(err);
+    }
   }
 
 }
