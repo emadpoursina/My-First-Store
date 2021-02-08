@@ -22,7 +22,7 @@ userSchema.pre("save", function(next) {
 
 	this.password = hash;
 	next();
-})
+});
 
 userSchema.methods.comparePassword = function (password){
 	return bcrypt.compareSync(password, this.password);
@@ -33,7 +33,21 @@ userSchema.methods.setRememberToken = function (res) {
 	res.cookie("remember_token", token, {maxAge: 1000 * 60 * 60 * 24 * 3, httpOnly: true, signed: true});
 	this.updateOne({remember_token: token}, err => {
 		if(err) console.log(err);
-	})
+	});
+}
+
+/*
+ * Check whether user is vip or not
+ */
+userSchema.methods.isVip = function () {
+	return false;
+}
+
+/*
+ * Check whether user buy a course of not
+ */
+userSchema.methods.checkLearning = function() {
+	return true;
 }
 
 module.exports = mongoose.model("User", userSchema);
