@@ -54,6 +54,13 @@ class CourseController extends Controller {
     }
   }
 
+  checkHash(episode, req) {
+    const timeStamps = new Date().getTime();
+    if(timeStamps > req.query.t) return false;
+
+    const text = `lsdjflksdjfkldsjf${episode.id}${req.query.t}`;
+    return bcrypt.compareSync(text, req.query.mac)
+  }
 }
 
 module.exports = new CourseController();
