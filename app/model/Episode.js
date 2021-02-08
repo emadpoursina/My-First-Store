@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require('mongoose-paginate'); 
-const EpisodeController = require("../http/controller/admin/EpisodeController");
+const bcrypt = require('bcrypt');
 
 const episodeSchema = mongoose.Schema({
     course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
@@ -26,6 +26,16 @@ episodeSchema.methods.typeToPersian = function() {
     default:
       return "رایگان";
   }
+}
+
+episodeSchema.methods.download = function() {
+  const timestamps = new Date().getTime() + 3600 * 1000;
+
+  const text = `lsdjflksdjfkldsjf${this.id}${timestamps}`;
+  const salt = bcrypt.genSaltSync(15);
+	const hash = bcrypt.hashSync(text, salt);
+
+  return `/download/${this.id}?mac=${hash}&t=${timestamps}`;
 }
 
 module.exports = new mongoose.model('Episode', episodeSchema);
