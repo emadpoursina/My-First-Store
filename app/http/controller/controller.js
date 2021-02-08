@@ -51,18 +51,30 @@ module.exports =  class Controller {
 		return res.redirect(req.header("Referer") || "/");
 	}
 
+	/**
+	 * @param {String} mongoId 
+	 * Return Boolean
+	 * Check if mongoId is valid
+	 */
 	isMongoId(mongoId) {
 		if(! isMongoId(mongoId)) {
 			this.error("Invalid Id", 404);
 		}
 	}
 
+	/**
+	 * Error thrower 
+	 */
 	error(message, statusCode) {
 		const err = new Error(message);
 		err.statusCode = statusCode;
 		throw err;
 	} 
 
+	/**
+	 * Returns total length of the episodes in sec
+	 * @param {Episode[]} episodes 
+	 */
 	getTime(episodes){
 		let sec = 0;
 		episodes.forEach(episode => {
