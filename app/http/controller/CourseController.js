@@ -14,21 +14,22 @@ class CourseController extends Controller {
 
   async canUse(req, course) {
     let canUse = false;
-      if(req.isAuthenticated()){
-        switch (course.type) {
-          case 'vip':
-            canUse = req.user.isVip();
-            break;
-          case 'cash':
-            canUse = req.user.checkLearning(course);
-            break;
-          default:
-            canUse = req.user.checkLearning(course);
-            break;
-          }
+    if(req.isAuthenticated()){
+      switch (course.type) {
+        case 'vip':
+          canUse = req.user.isVip();
+          break;
+        case 'cash':
+          canUse = req.user.checkLearning(course);
+          break;
+        default:
+          canUse = req.user.checkLearning(course);
+          break;
+        }
     }
     return canUse;
   }
+
 }
 
 module.exports = new CourseController();
