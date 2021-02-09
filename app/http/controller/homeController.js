@@ -15,7 +15,7 @@ class HomeController extends Controller{
     async comment(req, res, next) {
 			try{
 					const status = await this.validateData(req);
-					if(! status) this.back();
+					if(! status) this.back(req, res);
 
 					const newComment  = new Comment({
 							user: req.user.id,
