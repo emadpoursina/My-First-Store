@@ -16,5 +16,6 @@ router.get("/about-me", homeController.about);
 router.get("/courses", courseController.index);
 router.get("/courses/:course", courseController.single);
 router.get("/download/:id", courseController.download);
+router.post("/comment", homeController.comment);
 
 module.exports = router;
