@@ -17,6 +17,12 @@ class CourseController extends Controller {
     }, {
       path: 'episodes',
       options: { sort: { number: 1 }},
+    }, {
+      path: 'comment',
+      match: {
+        approved: true,
+        parent: null,
+      }
     }]);
     const canUserUse = await this.canUse(req, course);
     res.render('home/single-course.ejs', {title: course.title, course, canUserUse})
