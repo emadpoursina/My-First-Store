@@ -26,6 +26,12 @@ CourseSchema.virtual('episodes', {
   foreignField: 'course',
 });
 
+CourseSchema.virtual('comment', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'course',
+});
+
 CourseSchema.methods.typeToPersian = function() {
   switch (this.type) {
     case "cash":
