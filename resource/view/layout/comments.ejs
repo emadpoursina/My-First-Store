@@ -5,6 +5,7 @@
 <div class="card my-4">
 	<h5 class="card-header">ثبت نظر :</h5>
 	<div class="card-body">
+		<%- include(viewPath('layout/error-messages.ejs')); %> 
 		<form role="form" action="/comment" method="post">
 			<input type="hidden" name="<%= subject.constructor.modelName.toLowerCase().trim() %> " value="<%= subject._id %>">
 			<div class="form-group">
