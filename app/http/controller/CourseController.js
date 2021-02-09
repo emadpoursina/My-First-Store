@@ -11,7 +11,13 @@ class CourseController extends Controller {
   }
 
   async single(req, res, next) {
-    const course = await Course.findOne({ slug: req.params.course }).populate(['user', 'episodes']);
+    const course = await Course.findOne({ slug: req.params.course }).populate([{
+      path: 'user',
+      select: 'name',
+    }, {
+      path: 'episodes',
+      options: { sort: { number: 1 }},
+    }]);
     const canUserUse = await this.canUse(req, course);
     res.render('home/single-course.ejs', {title: course.title, course, canUserUse})
   }
