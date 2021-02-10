@@ -1,7 +1,7 @@
 const Middleware = require('./middleware');
 
 class RedirectIfNotAuthenticated extends Middleware {
-  handle(req, res) {
+  handle(req, res, next) {
     if(!req.isAuthenticated()) {
       res.redirect('/login');
     }else {

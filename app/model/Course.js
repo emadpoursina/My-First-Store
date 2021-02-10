@@ -26,7 +26,7 @@ CourseSchema.virtual('episodes', {
   foreignField: 'course',
 });
 
-CourseSchema.virtual('comment', {
+CourseSchema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
   foreignField: 'course',
