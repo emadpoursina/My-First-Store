@@ -3,7 +3,6 @@ const Course = require('app/model/Course');
 const Episode = require('app/model/Episode');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
-const { time } = require('console');
 
 class CourseController extends Controller {
   index(req, res, next) {
@@ -18,12 +17,24 @@ class CourseController extends Controller {
       path: 'episodes',
       options: { sort: { number: 1 }},
     }, {
-      path: 'comment',
+      path: 'comments',
       match: {
         approved: true,
         parent: null,
-      }
+      },
+      populate : [{
+          path : 'childs',
+          match : {
+            approved : true
+          },
+          populate: [{
+            path: 'user',
+            select: 'name'
+          }]
+        }
+      ]
     }]);
+
     const canUserUse = await this.canUse(req, course);
     res.render('home/single-course.ejs', {title: course.title, course, canUserUse})
   }
