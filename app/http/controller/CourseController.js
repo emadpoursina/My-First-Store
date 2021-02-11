@@ -23,13 +23,16 @@ class CourseController extends Controller {
         parent: null,
       },
       populate : [{
+        path: 'user',
+        select: 'name',
+      },{
           path : 'childs',
           match : {
             approved : true
           },
           populate: [{
             path: 'user',
-            select: 'name'
+            select: 'name',
           }]
         }
       ]
