@@ -16,26 +16,29 @@
 	</div>
 </div>
 <hr>
+<% comments.forEach(comment => { %>
 	<div class="media mb-4">
 		<img class="d-flex ml-3 rounded-circle" src="http://placehold.it/50x50" alt="">
 		<div class="media-body">
 			<h5 class="mt-0">
-				حسام موسوی
+				<%= comment.user.name %> 
 				<button class="float-left btn-sm btn btn-xs btn-success" data-toggle="modal" data-target="#sendCommentModal" data-parent="5b30616db2f8293ca4cad0b9">پاسخ</button>
 			</h5>
-			دوره مناسبی بود
-				<div class="media mt-4">
-					<img class="d-flex ml-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-					<div class="media-body">
-						<h5 class="mt-0">
-							حسام موسوی
-						</h5>
-						نبود
+				<%= comment.comment %> 
+				<% comment.childs.forEach(comment => { %> 
+					<div class="media mt-4">
+						<img class="d-flex ml-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+						<div class="media-body">
+							<h5 class="mt-0">
+								<%= comment.user.name %> 
+							</h5>
+							<%= comment.comment %>
+						</div>
 					</div>
-				</div>
+				<% }); %> 
 		</div>
 	</div>
-
+<% }); %> 
 <!-- Comment -->
 
 <div class="modal fade" id="sendCommentModal" tabindex="-1" role="dialog" aria-labelledby="sendCommentModalLabel" aria-hidden="true" style="display: none;">

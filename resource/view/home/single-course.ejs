@@ -58,7 +58,7 @@
 			</tbody>
 		</table>
 
-	<%- include(viewPath('layout/comments'), { subject: course }); %>
+	<%- include(viewPath('layout/comments'), { subject: course, comments: course.comments }); %>
 
 	</div>
 	<!-- Blog Sidebar Widgets Column -->
