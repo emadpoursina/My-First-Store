@@ -38,4 +38,8 @@ episodeSchema.methods.download = function() {
   return `/download/${this.id}?mac=${hash}&t=${timestamps}`;
 }
 
+episodeSchema.methods.path = function() {
+  return `${this.course.path()}/${this.number}`;
+}
+
 module.exports = new mongoose.model('Episode', episodeSchema);
