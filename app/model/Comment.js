@@ -12,4 +12,10 @@ const CommentSchema = new mongoose.Schema({
 
 CommentSchema.plugin(mongoosePaginate);
 
+CommentSchema.virtual('childs', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'parent',
+});
+
 module.exports = mongoose.model('Comment', CommentSchema);
