@@ -5,6 +5,7 @@ const router = express.Router();
 const adminController = require("app/http/controller/admin/adminController");
 const courseController = require("app/http/controller/admin/courseController");
 const episodeController = require("app/http/controller/admin/EpisodeController");
+const commentController = require('app/http/controller/admin/CommentController')
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
@@ -49,5 +50,11 @@ router.post("/episodes/create", episodeValidator.handle(), episodeController.sto
 router.delete("/episodes/:id", episodeController.destroy);
 router.get("/episodes/:id/edit", episodeController.edit);
 router.put("/episodes/:id", episodeValidator.handle(), episodeController.update);
+
+// Comments Routers
+router.get('/comments', commentController.index);
+router.get('/comments/approved', commentController.approved);
+router.put('/comments/:id/approve', commentController.approve);
+router.delete('/comments/:id', commentController.destroy);
 
 module.exports = router;

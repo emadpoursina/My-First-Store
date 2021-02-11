@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-between align-items-center mb-3 border-bottom-1">
+	<h2>کامنت ها</h2>
+	<div class="btn-group">
+		<a
+		<% if(approved) { %> 
+		href="/admin/comments/"
+		<% }else { %> 
+		href="/admin/comments/approved"
+		<% } %> 
+		class="btn btn-sm btn-danger">تایید نشده</a>
+	</div>
+</div>
+<div class="table-responsive">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>نام ارسال کننده</th>
+				<th>مطلب</th>
+				<th>متن نظر</th>
+				<th>وضعیت تاییدیه</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% comments.docs.forEach(comment => { %>
+				<tr>
+					<td><%= comment.user.name %></td>
+					<td>
+						<% if(comment.course){ %> 
+							<a href="<%= comment.course.path() %> "><%= comment.course.title %></a> 	
+						<% }else if(comment.episode){ %> 
+							<a href="<%= comment.episode.path() %> "><%= comment.episode.title %></a> 	
+						<% } %> 
+					</td>
+					<td><%= comment.comment %> </td>
+					<td>
+						<% if(comment.approved) { %>
+							✅
+						<% }else { %> 
+							❌
+						<% } %> 
+					</td>
+					<td>
+						<form action="/admin/comments/<%= comment._id %>?_method=DELETE" method="POST">
+							<div class="btn-group btn-group-sm">
+								<button type="submit" class="btn btn-danger">حذف</button>
+							</div>
+						</form>
+						<% if(approved) { %> 
+						<form action="/admin/comments/<%= comment._id %>/approve?_method=PUT" method="POST">
+							<div class="btn-group btn-group-sm">
+								<button type="submit" class="btn btn-success">تایید</button>
+							</div>
+						</form>
+						<% } %> 
+					</td>
+				</tr>
+			<% }); %> 
+		</tbody>
+	</table>
+	<%- include(viewPath('layout/pagination'), { pagination: comments}); %>
+</div>
