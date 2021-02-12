@@ -10,7 +10,7 @@ class CourseController extends Controller {
   }
 
   async single(req, res, next) {
-    const course = await Course.findOne({ slug: req.params.course }).populate([{
+    const course = await Course.findOneAndUpdate({ slug: req.params.course }, { $inc: { viewCount: 1}}, { useFindAndModify: false }).populate([{
       path: 'user',
       select: 'name',
     }, {
@@ -73,6 +73,8 @@ class CourseController extends Controller {
 
       const filePath = `./public/download/${episode.videoUrl}`;
       if(! fs.existsSync(filePath)) this.error('چنین فایلی وجود ندارد.', 404);
+
+      await Episode.update({ _id: episode._id }, { $inc: { downloadCount: 1 }});
 
       return res.download(filePath);
     }catch(err) {
