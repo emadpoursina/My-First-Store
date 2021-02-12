@@ -18,4 +18,21 @@ CommentSchema.virtual('childs', {
   foreignField: 'parent',
 });
 
+CommentSchema.virtual('belongTo', {
+  ref: doc => {
+    if(doc.course)
+      return 'Course';
+    else if(doc.episode)
+      return 'Episode';
+  },
+  localField: doc => {
+    if(doc.course)
+      return 'course';
+    else if(doc.episode)
+      return 'episode';
+  },
+  foreignField: '_id',
+  justOne: true,
+});
+
 module.exports = mongoose.model('Comment', CommentSchema);
