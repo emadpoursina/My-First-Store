@@ -2,6 +2,12 @@ const Controller = require('./../controller');
 const Comment = require('app/model/Comment');
 
 class CommentController extends Controller {
+  /**
+   * Render all of the approved comments 
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   */
   async approved(req, res, next) {
     try {
       const page = req.query.page | 1;
@@ -27,15 +33,23 @@ class CommentController extends Controller {
     }
   }
 
+  /**
+   * Approve a comment
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   */
   async approve(req, res, next) {
     try {
       this.isMongoId(req.params.id);
 
-      const comment = await Comment.findById(req.params.id);
+      const comment = await Comment.findById(req.params.id).populate('belongTo');
       if(!comment) this.error('چنین کامنتی وجود ندارد.', 404);
 
       comment['approved'] = true;
 
+      comment.belongTo.commentCount += 1;
+      await comment.belongTo.save();
       await comment.save();
 
       return this.back(req, res);
@@ -69,6 +83,12 @@ class CommentController extends Controller {
     }
   }
 
+  /**
+   * Delete a comment
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   */
   async destroy(req, res, next) {
     try {
       this.isMongoId(req.params.id);
