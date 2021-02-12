@@ -10,7 +10,7 @@ const episodeSchema = mongoose.Schema({
   time: {type: String, default: "00:00:00"},
   number: {type: Number, required: true},
   videoUrl: {type: String, required: true},
-  downloadCoutn: {type: Number, default: 0},
+  downloadCount: {type: Number, default: 0},
   viewCount: {type: Number, default: 0},
   commentCount: {type: Number, default: 0},
 }, {timestamps: true});
