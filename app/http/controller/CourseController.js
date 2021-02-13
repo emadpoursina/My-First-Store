@@ -8,14 +8,20 @@ class CourseController extends Controller {
   async index(req, res, next) {
     try {
       const query = {};
+      let courses;
 
       if(req.query.search)
         query.title = new RegExp(req.query.search, 'gi');
 
       if(req.query.type && req.query.type !== 'all')
         query.type = new RegExp(req.query.type, 'gi');
+
+      if(req.query.order === '1')
+        courses = await Course.find({ ...query }).sort({ createdAt: 1 });
+      else
+        courses = await Course.find({ ...query });
+
       
-      const courses = await Course.find({ ...query });
       res.render('home/courses', {title: 'آخرین دوره ها', courses});
     } catch (error) {
       next(error);
