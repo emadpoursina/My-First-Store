@@ -53,7 +53,7 @@ class CourseController extends Controller {
     let newCourse = await Course.findById(req.params.id);
     // Set updated fields
     Object.keys(req.body).forEach(key => {
-      if(key !== "images" && req.body.images)
+      if(key !== "images")
         newCourse[key] = req.body[key];
     });
 

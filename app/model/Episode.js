@@ -3,16 +3,16 @@ const mongoosePaginate = require('mongoose-paginate');
 const bcrypt = require('bcrypt');
 
 const episodeSchema = mongoose.Schema({
-    course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
-    title: {type: String, required: true},
-    type: {type: String, required: true},
-    body: {type: String, required: true},
-    time: {type: String, default: "00:00:00"},
-    number: {type: Number, required: true},
-    videoUrl: {type: String, required: true},
-    downloadCoutn: {type: Number, default: 0},
-    viewCount: {type: Number, default: 0},
-    commentCount: {type: Number, default: 0},
+  course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
+  title: {type: String, required: true},
+  type: {type: String, required: true},
+  body: {type: String, required: true},
+  time: {type: String, default: "00:00:00"},
+  number: {type: Number, required: true},
+  videoUrl: {type: String, required: true},
+  downloadCount: {type: Number, default: 0},
+  viewCount: {type: Number, default: 0},
+  commentCount: {type: Number, default: 0},
 }, {timestamps: true});
 
 episodeSchema.plugin(mongoosePaginate);
@@ -36,6 +36,10 @@ episodeSchema.methods.download = function() {
 	const hash = bcrypt.hashSync(text, salt);
 
   return `/download/${this.id}?mac=${hash}&t=${timestamps}`;
+}
+
+episodeSchema.methods.path = function() {
+  return `${this.course.path()}/${this.number}`;
 }
 
 module.exports = new mongoose.model('Episode', episodeSchema);

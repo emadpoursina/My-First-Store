@@ -3,7 +3,6 @@ const Course = require('app/model/Course');
 const Episode = require('app/model/Episode');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
-const { time } = require('console');
 
 class CourseController extends Controller {
   index(req, res, next) {
@@ -11,7 +10,34 @@ class CourseController extends Controller {
   }
 
   async single(req, res, next) {
-    const course = await Course.findOne({ slug: req.params.course }).populate(['user', 'episodes']);
+    const course = await Course.findOneAndUpdate({ slug: req.params.course }, { $inc: { viewCount: 1}}, { useFindAndModify: false }).populate([{
+      path: 'user',
+      select: 'name',
+    }, {
+      path: 'episodes',
+      options: { sort: { number: 1 }},
+    }, {
+      path: 'comments',
+      match: {
+        approved: true,
+        parent: null,
+      },
+      populate : [{
+        path: 'user',
+        select: 'name',
+      },{
+          path : 'childs',
+          match : {
+            approved : true
+          },
+          populate: [{
+            path: 'user',
+            select: 'name',
+          }]
+        }
+      ]
+    }]);
+
     const canUserUse = await this.canUse(req, course);
     res.render('home/single-course.ejs', {title: course.title, course, canUserUse})
   }
@@ -47,6 +73,8 @@ class CourseController extends Controller {
 
       const filePath = `./public/download/${episode.videoUrl}`;
       if(! fs.existsSync(filePath)) this.error('چنین فایلی وجود ندارد.', 404);
+
+      await Episode.update({ _id: episode._id }, { $inc: { downloadCount: 1 }});
 
       return res.download(filePath);
     }catch(err) {

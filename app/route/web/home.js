@@ -5,6 +5,12 @@ const router = express.Router();
 const homeController = require("app/http/controller/homeController");
 const courseController = require('app/http/controller/CourseController');
 
+//Vlidators
+const commentValidator = require('app/http/validators/CommentValidator');
+
+//Middlewares
+const redirectIfNotAuthenticate = require('app/http/middleware/RedirectIfNotAuthenticated.js');
+
 router.get("/logout", (req, res) => {
     req.logOut();
     res.clearCookie("remember_token");
@@ -16,5 +22,6 @@ router.get("/about-me", homeController.about);
 router.get("/courses", courseController.index);
 router.get("/courses/:course", courseController.single);
 router.get("/download/:id", courseController.download);
+router.post("/comment", redirectIfNotAuthenticate.handle, commentValidator.handle(),  homeController.comment);
 
 module.exports = router;
