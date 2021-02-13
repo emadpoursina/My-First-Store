@@ -1,5 +1,9 @@
 const path = require("path");
 const autoBind = require("auto-bind");
+const moment = require('moment-jalali');
+moment.loadPersian({
+    usePersianDigits: true,
+});
 
 module.exports = class Helper {
     constructor(req, res) {
@@ -16,6 +20,7 @@ module.exports = class Helper {
             viewPath: this.viewPath,
             ...this.getGlobalVariables(),
             old: this.old,
+            date: this.date,
         };
     }
 
@@ -38,5 +43,9 @@ module.exports = class Helper {
 
     old(field, defaultValue="") {
         return this.formdata && this.formdata.hasOwnProperty(field) ? this.formdata[field] : defaultValue;
+    }
+
+    date(time) {
+        return moment(time);
     }
 }
