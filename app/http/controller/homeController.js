@@ -3,33 +3,32 @@ const Course = require('app/model/Course');
 const Comment = require('app/model/Comment');
 
 class HomeController extends Controller{
-    async index(req, res) {
-        const courses = await Course.find({}).sort({ createdAt: 1 }).limit(8).exec();
-        res.render("home/", {title: "Home", courses});
-    }
+	async index(req, res) {
+		const courses = await Course.find({}).sort({ createdAt: 1 }).limit(8).exec();
+		res.render("home/", {title: "Home", courses});
+	}
 
-    about(req, res) {
-        res.render("home/about", {title: 'aboutme'});
-    }
+	about(req, res) {
+		res.render("home/about", {title: 'aboutme'});
+	}
 
-    async comment(req, res, next) {
-			try{
-					const status = await this.validateData(req);
-					if(! status) this.back(req, res);
+	async comment(req, res, next) {
+		try{
+			const status = await this.validateData(req);
+			if(! status) this.back(req, res);
 
-					const newComment  = new Comment({
-							user: req.user.id,
-							...req.body
-					});
+			const newComment  = new Comment({
+				user: req.user.id,
+				...req.body
+			});
 
-					await newComment.save();
+			await newComment.save();
 
-					return this.back(req, res);
-
-			}catch(err){
-				next(err);
-			}
-    }
+			return this.back(req, res);
+		}catch(err){
+			next(err);
+		}
+	}
 }
 
 module.exports = new HomeController();
