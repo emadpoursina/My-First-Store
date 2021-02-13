@@ -7,7 +7,12 @@ const bcrypt = require('bcrypt');
 class CourseController extends Controller {
   async index(req, res, next) {
     try {
-      const courses = await Course.find({});
+      const query = {};
+
+      if(req.query.search)
+        query.title = new RegExp(req.query.search, 'gi');
+      
+      const courses = await Course.find({ ...query });
       res.render('home/courses', {title: 'آخرین دوره ها', courses});
     } catch (error) {
       next(error);
