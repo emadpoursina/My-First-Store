@@ -5,8 +5,13 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 
 class CourseController extends Controller {
-  index(req, res, next) {
-    res.render('home/courses', {title: 'آخرین دوره ها'});
+  async index(req, res, next) {
+    try {
+      const courses = await Course.find({});
+      res.render('home/courses', {title: 'آخرین دوره ها', courses});
+    } catch (error) {
+      next(error);
+    }
   }
 
   async single(req, res, next) {
