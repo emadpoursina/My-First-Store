@@ -11,6 +11,9 @@ class CourseController extends Controller {
 
       if(req.query.search)
         query.title = new RegExp(req.query.search, 'gi');
+
+      if(req.query.type && req.query.type !== 'all')
+        query.type = new RegExp(req.query.type, 'gi');
       
       const courses = await Course.find({ ...query });
       res.render('home/courses', {title: 'آخرین دوره ها', courses});
