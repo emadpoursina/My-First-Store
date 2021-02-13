@@ -35,18 +35,20 @@
   <hr>
 
   <div class="row">
+    <% courses.forEach(course => { %> 
         <div class="col-6 col-md-3">
           <div class="card">
-            <img class="card-img-top" src="sdkfjd" alt="dksjfsj">
+            <img class="card-img-top" src="<%= course.thumbnail %> " alt="<%= course.title %> ">
             <div class="card-body">
-              <h3><a href="jskdfjdsflj">skdljfdlskj</a></h3>
-              <p class="card-text">sldjfdsjf</p>
-              <a href="sdljfdsljkf" class="btn btn-primary btn-sm">اطلاعات بیشتر</a>
+               <h3><a href="courses/<%= course.slug %> "><%= course.title %> </a></h3>
+              <p class="card-text"><%= course.body %> </p>
+              <a href="courses/<%= course.slug %> " class="btn btn-primary btn-sm">اطلاعات بیشتر</a>
             </div>
             <div class="card-footer text-muted">
-              sdkljfdsfj بازدید
+              <%= course.viewCount %> بازدید
             </div>
           </div>
         </div>
+    <% }); %> 
   </div>
 </div>
