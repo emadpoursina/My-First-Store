@@ -21,6 +21,7 @@ module.exports = class Helper {
             ...this.getGlobalVariables(),
             old: this.old,
             date: this.date,
+            req: this.req,
         };
     }
 
