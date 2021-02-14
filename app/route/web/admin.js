@@ -11,6 +11,7 @@ const categoryController = require('app/http/controller/admin/CategoryController
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
 const episodeValidator = require("app/http/validators/EpisodeValidator");
+const categoryValidator = require('app/http/validators/CategoryValidator');
 
 //Middlewares
 const uploadImage = require("app/helpers/uploadImage.js") //helpers
@@ -55,7 +56,7 @@ router.put("/episodes/:id", episodeValidator.handle(), episodeController.update)
 // Category Routers
 router.get('/categories', categoryController.index);
 router.get('/categories/create', categoryController.create);
-router.post('/categories/create', categoryController.store);
+router.post('/categories/create', categoryValidator.handle(), categoryController.store);
 
 // Comments Routers
 router.get('/comments', commentController.index);
