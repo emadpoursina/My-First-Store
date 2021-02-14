@@ -8,4 +8,10 @@ const CategorySchema = mongoose.Schema({
 
 CategorySchema.plugin(mongoosePaginate);
 
+CategorySchema.virtual('childs', {
+  ref: 'Category',
+  localField: '_id',
+  foreignField: 'parent',
+});
+
 module.exports = mongoose.model('Category', CategorySchema);
