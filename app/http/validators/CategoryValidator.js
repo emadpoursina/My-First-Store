@@ -8,8 +8,13 @@ class CategoryValidator extends Validator {
       check("name")
 				.isLength({ min: 3, max: 50 })
         .withMessage('طول نام دسته نمی تواند کمتر از  دو کاراکتر و کمتر از پنجاه کاراکتر باشد.')
-        .custom(async (value) => {
-          const category = await Category.findOne({ name: value });
+        .custom(async (value, { req }) => {
+          let category;
+          if(req.method === 'put')
+            category = await Category.findOne({ name: value, _id: { $ne: req.params.id } });
+          else
+            category = await Category.findOne({ name: value });
+
           if(category){
             throw new Error('نام دسته تکراری است');
           }
