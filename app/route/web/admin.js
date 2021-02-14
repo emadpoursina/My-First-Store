@@ -57,6 +57,7 @@ router.put("/episodes/:id", episodeValidator.handle(), episodeController.update)
 router.get('/categories', categoryController.index);
 router.get('/categories/create', categoryController.create);
 router.post('/categories/create', categoryValidator.handle(), categoryController.store);
+router.get('/categories/:id/edit', categoryController.edit);
 
 // Comments Routers
 router.get('/comments', commentController.index);
