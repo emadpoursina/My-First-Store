@@ -15,8 +15,9 @@
     <div class="col">
       <label for="parent" class="control-label font-weight-bold font-weight-bold">دسته والد</label>
       <select name="parent" id="parent" class="form-control">
+        <option value="none">هیچکدام</option>
         <% categories.forEach(category => { %> 
-          <option  value="<%= category.parent.name === category.name ? 'selected' : ''; %> "><%= category.name %> </option>
+          <option  value="<%= category._id %>"><%= category.name %></option>
         <% }); %> 
       </select>
     </div>
