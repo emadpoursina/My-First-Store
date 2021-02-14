@@ -20,6 +20,25 @@ class CategoryController extends controller {
       next(error);
     }
   }
+
+  async store(req, res, next) {
+    try {
+      const status = await this.validateData(req);
+      if(!status)
+        return this.back(req, res);
+
+      const newCategory = await new Category({
+        name: req.body.name,
+        parent: req.body.parent !== 'none' ? req.body.parent : null,
+      });
+
+      await newCategory.save();
+
+      res.redirect('/admin/categories');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new CategoryController();
