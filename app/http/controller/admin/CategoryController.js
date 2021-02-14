@@ -53,6 +53,27 @@ class CategoryController extends controller {
       next(error);
     }
   }
+
+  async update(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const result = this.validateData(req);
+      if(!result) return this.back(req, res);
+
+      const category = await Category.findById(req.params.id);
+      if(!category) this.error('چنین دسته ای وجود ندارد.');
+      if(String(req.body.parent) === String(category._id)) this.error('هیچ دسته ای نمی تواند زیر مجموعه خودش باشد.', 403);
+
+      category.name = req.body.name;
+      category.parent = req.body.parent;
+      await category.save();
+
+      res.redirect('/admin/categories/');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new CategoryController();
