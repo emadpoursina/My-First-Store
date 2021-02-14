@@ -11,6 +11,15 @@ class CategoryController extends controller {
       next(error);
     }
   }
+
+  async create(req, res, next) {
+    try {
+      const categories = await Category.find({});
+      res.render('admin/category/create', { title: 'ایجاد دسته', categories });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new CategoryController();
