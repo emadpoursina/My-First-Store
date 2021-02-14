@@ -39,6 +39,20 @@ class CategoryController extends controller {
       next(error);
     }
   }
+
+  async edit(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const category = await Category.findById(req.params.id);
+      const categories = await Category.find({});
+      if(!category) this.error('چنین دسته ای وجود ندارد.', 404);
+
+      return res.render('admin/category/edit', { title: 'ویرایش دسته', category, categories });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new CategoryController();
