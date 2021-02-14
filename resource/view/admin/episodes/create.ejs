@@ -16,7 +16,7 @@
       <label for="course" class="control-label font-weight-bold font-weight-bold">دوره مربوطه</label>
       <select name="course" id="course" class="form-control">
         <% courses.forEach(course => { %>
-          <option <%= String(old("course")) == String(course._id) ? "selected" : ""  %> value=<%= course._id %>><%= course.title %></option>
+          <option <%= String(old("course")) == String(course._id) ? "selected" : ""  %> value="<%= course._id %>"><%= course.title %></option>
         <% }); %>
       </select>
     </div>
@@ -48,7 +48,7 @@
     </div>
       <div class="col">
         <label for="number" class="control-label font-weight-bold">شماره قسمت</label>
-        <input type="number" class="form-control" name="number" id="number" value="<%= old("number") %>" placeholder="شماره دوره را وارد کنید." value="">
+        <input type="number" class="form-control" name="number" id="number" value="<%= old("number") %>" placeholder="شماره دوره را وارد کنید.">
       </div>
   </div>
   <div class="form-group row">
