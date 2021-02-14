@@ -16,14 +16,14 @@
 		<tbody>
 			<% categories.docs.forEach(category => { %>
 				<tr>
-					<td><%= category.name %> </td>
-					<td><%= category.parent %> </td>
+					<td><%= category.name %></td>
+					<td><%= category.parent %></td>
 					<td>
 						<form action="/admin/episodes/sdljfdskflf?_method=DELETE" method="POST">
 							<input type="hidden" name="_method" value="delete">
 							<input type="hidden" name="_token" value="<%= category._id %> ">
 							<div class="btn-group btn-group-sm">
-								<a href="/admin/categories/<%= category._id %> /edit" class="btn btn-primary">ویرایش</a>
+								<a href="/admin/categories/<%= category._id %>/edit" class="btn btn-primary">ویرایش</a>
 								<button type="submit" class="btn btn-danger">حذف</button>
 							</div>
 						</form>
