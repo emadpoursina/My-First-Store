@@ -6,6 +6,7 @@ const adminController = require("app/http/controller/admin/adminController");
 const courseController = require("app/http/controller/admin/courseController");
 const episodeController = require("app/http/controller/admin/EpisodeController");
 const commentController = require('app/http/controller/admin/CommentController')
+const categoryController = require('app/http/controller/admin/CategoryController');
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
@@ -50,6 +51,9 @@ router.post("/episodes/create", episodeValidator.handle(), episodeController.sto
 router.delete("/episodes/:id", episodeController.destroy);
 router.get("/episodes/:id/edit", episodeController.edit);
 router.put("/episodes/:id", episodeValidator.handle(), episodeController.update);
+
+// Category Routers
+router.get('/categories', categoryController.index);
 
 // Comments Routers
 router.get('/comments', commentController.index);
