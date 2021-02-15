@@ -95,4 +95,23 @@ module.exports =  class Controller {
 			// Seconds to HH:MM:SS
 			return String(Math.floor(sec/3600)) + ':' + String(Math.floor((sec%3600)/60)) + ':' + Math.floor((sec%3600)%60);
 	}
+
+	 // Return an option array for multiple select
+	 /**
+		* 
+		* @param {Array} items 
+		* @param {String} labelFieldName 
+		* @param {String} valueFieldName 
+		* @param {Objec} extraOptions 
+		*/
+	makeOptions(items, labelFieldName, valueFieldName) {
+    const options = [];
+    items.forEach(item => {
+      options.push({
+        label: item[labelFieldName],
+        value: item[valueFieldName],
+      });
+    });
+		return options;
+	}
 }
