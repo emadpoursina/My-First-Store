@@ -88,6 +88,7 @@ class CourseController extends Controller {
 
     const newCourse = new Course({
       user: req.user._id,
+      categories: req.body.categories.split(','),
       title,
       body,
       slug: this.slug(title),
