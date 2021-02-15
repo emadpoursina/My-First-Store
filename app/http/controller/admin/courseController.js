@@ -14,13 +14,8 @@ class CourseController extends Controller {
 
   async creat(req, res) {
     const categories = await Category.find({});
-    const categoryOptions = [];
-    categories.forEach(category => {
-      categoryOptions.push({
-        label: category.name,
-        value: category.parent,
-      });
-    });
+    const categoryOptions = this.makeOptions(categories, 'name', 'parent');
+
     res.render("admin/courses/creat", {title: 'ایجاد دوره جدید', categories: JSON.stringify(categoryOptions) });
   }
 
