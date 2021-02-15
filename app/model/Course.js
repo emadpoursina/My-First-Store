@@ -17,7 +17,7 @@ const CourseSchema = Schema({
     time:{type: String, default: "00:00:00"},
     viewCount: {type: Number, default: 0},
     commentCount: {type: Number, default: 0},
-}, {timeStamps: true, toJSON: { virtuals: true }});
+}, {timestamps: true, toJSON: { virtuals: true }});
 
 CourseSchema.plugin(mongoosePaginate);
 
