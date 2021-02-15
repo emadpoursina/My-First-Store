@@ -32,15 +32,15 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		<div class="col-sm-2">
-			<label class="control-label">
-			<% Object.entries(course.images).forEach(([size, image]) => { %>
-				<%= size %> 
-				<input type="radio" class="form-control" name="imagesThumb" value="<%= image %>">
-				<a href="<%= image %> " target="_blank"><img src="<%= image %> " width="100%"/></a>
-			<% }); %> 
-			</label>
-		</div>
+		<% Object.entries(course.images).forEach(([size, image]) => { %>
+			<div class="col-sm-2">
+				<label class="control-label">
+					<%= size %> 
+					<input type="radio" class="form-control" name="imagesThumb" value="<%= image %>">
+					<a href="<%= image %> " target="_blank"><img src="<%= image %> " width="100%"/></a>
+				</label>
+			</div>
+		<% }); %> 
 	</div>
 	<div class="form-group row">
 		<div class="col">
