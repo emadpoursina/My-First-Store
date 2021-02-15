@@ -1,5 +1,6 @@
 const Controller = require("./../controller");
 const Course = require("app/model/Course");
+const Category = require('app/model/Category');
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
@@ -11,8 +12,16 @@ class CourseController extends Controller {
     res.render("admin/courses/index", {title: "دوره ها", courses});
   }
 
-  creat(req, res) {
-    res.render("admin/courses/creat");
+  async creat(req, res) {
+    const categories = await Category.find({});
+    const categoryOptions = [];
+    categories.forEach(category => {
+      categoryOptions.push({
+        label: category.name,
+        value: category.parent,
+      });
+    });
+    res.render("admin/courses/creat", {title: 'ایجاد دوره جدید', categories: JSON.stringify(categoryOptions) });
   }
 
   async destroy(req, res) {
