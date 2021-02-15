@@ -1,5 +1,6 @@
 const controller = require('./../controller');
 const Category = require('app/model/Category');
+const { populate } = require('../../../model/Category');
 
 class CategoryController extends controller {
   async index(req, res, next) {
@@ -72,6 +73,29 @@ class CategoryController extends controller {
         category.parent = req.body.parent;
 
       await category.save();
+
+      res.redirect('/admin/categories/');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async destroy(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const category = await Category.findById(req.params.id)
+        .populate(['childs']);
+      if(!category) this.error('چینین دوره ای وجود ندارد.', 404);
+
+      if(category.childs.length > 0){
+        category.childs.forEach(child => {
+          child.parent = null;
+          child.save();
+        });
+      }
+
+      category.remove();
 
       res.redirect('/admin/categories/');
     } catch (error) {
