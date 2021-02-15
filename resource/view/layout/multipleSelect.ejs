@@ -1,0 +1,15 @@
+<div id="<%= containerId %>"></div>
+
+<link rel="stylesheet" href="/js/virtual-select-master/dist/virtual-select.min.css" />
+<script src="/js/virtual-select-master/dist/virtual-select.min.js"></script>
+
+<script>
+  VirtualSelect.init({
+    ele: '#<%= containerId %>',
+    options: <%- selectOptions %>,
+    <% for (const [key, value] of Object.entries(options)) { %>
+      <%= `${key}: ${value},`; %>
+    <% } %>
+  });
+  document.getElementsByClassName('vscomp-hidden-input')[0].name = "<%= inputName %>";
+</script>
