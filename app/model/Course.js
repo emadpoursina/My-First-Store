@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const CourseSchema = Schema({
     user:{type: Schema.Types.ObjectId, ref: "User"},
+    categories: [{type: Schema.Types.ObjectId, ref: "Category"}],
     title:{type: String, required: true},
     slug:{type: String, required: true},
     type:{type: String, required: true},
