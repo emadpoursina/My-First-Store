@@ -20,18 +20,21 @@ class CourseController extends Controller {
   }
 
   async destroy(req, res) {
-    const course = await Course.findOne({_id: req.params.id});
-    if(!course)
-      res.end("invalid course id");
+    try {
+      const course = await Course.findOne({_id: req.params.id});
+      if(!course) this.error('چنین دوره موجود نیست.', 404);
 
-    //delete image
-    Object.values(course.images).forEach(image => {fs.unlinkSync("public" + image)});
+      //delete image
+      Object.values(course.images).forEach(image => {fs.unlinkSync("public" + image)});
 
-    //delete course
-    course.remove();
+      //delete course
+      course.remove();
 
-    //send respond
-    res.redirect("/admin/courses");
+      //send respond
+      res.redirect("/admin/courses");
+    } catch (error) {
+      next(error);
+    }
   }
 
   async edit(req, res, next) {
@@ -76,31 +79,36 @@ class CourseController extends Controller {
 
   // Validate and Save course to the database
   async store(req, res) {
-    const result = await this.validateData(req);
-    if(!result) {
-      if(req.file)
-        fs.unlinkSync(req.file.path);
-      return this.back(req, res);
+    try {
+      const result = await this.validateData(req);
+      if(!result) {
+        if(req.file)
+          fs.unlinkSync(req.file.path);
+        return this.back(req, res);
+      }
+
+      const images = this.imageResize(req.file);
+      const { title , body , type , price , tags } = req.body;
+
+      const newCourse = new Course({
+        user: req.user._id,
+        categories: req.body.categories.split(','),
+        title,
+        body,
+        slug: this.slug(title),
+        type,
+        price,
+        tags,
+        images,
+        thumbnail: images["480"],
+      }); 
+
+      await newCourse.save();
+      return res.redirect("/admin/courses");
+        
+    } catch (error) {
+      next(error);
     }
-
-    const images = this.imageResize(req.file);
-    const { title , body , type , price , tags } = req.body;
-
-    const newCourse = new Course({
-      user: req.user._id,
-      categories: req.body.categories.split(','),
-      title,
-      body,
-      slug: this.slug(title),
-      type,
-      price,
-      tags,
-      images,
-      thumbnail: images["480"],
-    }); 
-
-    await newCourse.save();
-    return res.redirect("/admin/courses");
   }
 
   // Make a valid url
