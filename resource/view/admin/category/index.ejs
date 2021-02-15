@@ -19,7 +19,7 @@
 					<td><%= category.name %></td>
 					<td><%= category.parent %></td>
 					<td>
-						<form action="/admin/episodes/sdljfdskflf?_method=DELETE" method="POST">
+						<form action="/admin/categories/<%= category._id %>/?_method=DELETE" method="POST">
 							<input type="hidden" name="_method" value="delete">
 							<input type="hidden" name="_token" value="<%= category._id %> ">
 							<div class="btn-group btn-group-sm">
