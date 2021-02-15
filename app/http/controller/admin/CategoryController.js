@@ -66,7 +66,11 @@ class CategoryController extends controller {
       if(String(req.body.parent) === String(category._id)) this.error('هیچ دسته ای نمی تواند زیر مجموعه خودش باشد.', 403);
 
       category.name = req.body.name;
-      category.parent = req.body.parent;
+      if(req.body.parent === 'none')
+        category.parent = null;
+      else
+        category.parent = req.body.parent;
+
       await category.save();
 
       res.redirect('/admin/categories/');
