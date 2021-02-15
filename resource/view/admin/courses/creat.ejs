@@ -18,11 +18,8 @@
 				<option <%= old("type") == "free" ? "selected" : ""  %> value="free" >رایگان</option>
 			</select>
 		</div>
-			<div id="category-select" class="col">
-				<label for="categories" class="control-label font-weight-bold font-weight-bold">دسته ها</label>
-				<select name="categories" id="categories" class="form-control">
-					<option <%= old("type") == "free" ? "selected" : ""  %> value="free" >رایگان</option>
-				</select>
+		<div class="col">
+			<%- include(viewPath('layout/multipleSelect'), { containerId: 'category-select', inputName: 'categories', selectOptions: categories, options: { multiple: true, search: false }}); %> 
 		</div>
 	</div>
 	<div class="form-group row">
@@ -53,8 +50,3 @@
 		</div>
 	</div>
 </form>
-
-<link rel="stylesheet" href="/js/virtual-select-master/dist/virtual-select.min.css" />
-<script src="/js/virtual-select-master/dist/virtual-select.min.js"></script>
-
-<%- `<script>VirtualSelect.init({ ele: '#category-select', options: ${categories}, multiple: true }); </script>` %>
