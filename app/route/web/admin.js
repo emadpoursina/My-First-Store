@@ -58,7 +58,8 @@ router.get('/categories', categoryController.index);
 router.get('/categories/create', categoryController.create);
 router.post('/categories/create', categoryValidator.handle(), categoryController.store);
 router.get('/categories/:id/edit', categoryController.edit);
-router.put('/categories/:id/',categoryValidator.handle(), categoryController.update);
+router.put('/categories/:id/', categoryValidator.handle(), categoryController.update);
+router.delete('/categories/:id', categoryController.destroy);
 
 // Comments Routers
 router.get('/comments', commentController.index);
