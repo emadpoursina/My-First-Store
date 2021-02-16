@@ -8,8 +8,9 @@
     ele: '#<%= containerId %>',
     options: <%- selectOptions %>,
     <% for (const [key, value] of Object.entries(options)) { %>
-      <%= `${key}: ${value},`; %>
+      <%- `${key}: '${value}',`; %>
     <% } %>
   });
-  document.getElementsByClassName('vscomp-hidden-input')[0].name = "<%= inputName %>";
+
+  document.querySelector('#<%= containerId %>').setValue(<%- values %>);
 </script>
