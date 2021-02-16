@@ -99,12 +99,16 @@ module.exports =  class Controller {
 	 // Return an option array for multiple select
 	 /**
 		* 
-		* @param {Array} items 
+		* An array of items should go make options from
+		* @param {Array} items
+		* The item attribute that appear on the lable of select
 		* @param {String} labelFieldName 
+		* The item attribute that appear on the value of select
 		* @param {String} valueFieldName 
-		* @param {Objec} extraOptions 
+		* If true return an string in json format else return an object
+		* @param {boolean} json 
 		*/
-	makeOptions(items, labelFieldName, valueFieldName) {
+	makeOptions(items, labelFieldName, valueFieldName, json=false) {
     const options = [];
     items.forEach(item => {
       options.push({
@@ -112,6 +116,9 @@ module.exports =  class Controller {
         value: item[valueFieldName],
       });
     });
-		return options;
+		if(!json)
+			return options;
+		else
+			return JSON.stringify(options);
 	}
 }
