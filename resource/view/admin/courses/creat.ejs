@@ -19,7 +19,14 @@
 			</select>
 		</div>
 		<div class="col">
-			<%- include(viewPath('layout/multipleSelect'), { containerId: 'category-select', inputName: 'categories', selectOptions: categories, options: { multiple: true, search: false }}); %> 
+			<%- include(viewPath('layout/multipleSelect'), {
+				containerId: 'category-select',
+				selectOptions: categories,
+				options: {
+					multiple: true,
+					search: false,
+					hiddenInputName: 'categories',
+				}}); %> 
 		</div>
 	</div>
 	<div class="form-group row">
