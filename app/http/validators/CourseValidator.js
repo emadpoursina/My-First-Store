@@ -41,6 +41,9 @@ class CousreValidator extends Validator{
 			check("tags")
 				.isLength({ min: 3, max: 50 })
 				.withMessage("طول برچسب دوره نمی توانم کمتر از 3 و بیشتر از 150 کاراکتر باشد."),
+		  check('categories')
+				.isLength({ min: 1 })
+				.withMessage('حداقل یک دسته را باید انتخاب کنید.'),
 		];
 	}
 
