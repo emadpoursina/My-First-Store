@@ -63,7 +63,9 @@ class CourseController extends Controller {
     let newCourse = await Course.findById(req.params.id);
     // Set updated fields
     Object.keys(req.body).forEach(key => {
-      if(key !== "images")
+      if(key === "categories"){
+        newCourse[key] = req.body[key].split(',');
+      }else if(key !== "images")
         newCourse[key] = req.body[key];
     });
 
@@ -81,7 +83,7 @@ class CourseController extends Controller {
   }
 
   // Validate and Save course to the database
-  async store(req, res) {
+  async store(req, res, next) {
     try {
       const result = await this.validateData(req);
       if(!result) {
