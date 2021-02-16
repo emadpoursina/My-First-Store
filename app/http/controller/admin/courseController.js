@@ -14,9 +14,9 @@ class CourseController extends Controller {
 
   async creat(req, res) {
     const categories = await Category.find({});
-    const categoryOptions = this.makeOptions(categories, 'name', '_id');
+    const categoryOptions = this.makeOptions(categories, 'name', '_id', true);
 
-    res.render("admin/courses/creat", {title: 'ایجاد دوره جدید', categories: JSON.stringify(categoryOptions) });
+    res.render("admin/courses/creat", {title: 'ایجاد دوره جدید', categories: categoryOptions });
   }
 
   async destroy(req, res) {
@@ -42,7 +42,10 @@ class CourseController extends Controller {
       this.isMongoId(req.params.id);
 
       const course = await Course.findOne({_id: req.params.id});
-      res.render("admin/courses/edit", {title: "ویرایش دوره", course});
+      const categories = await Category.find({});
+      const categoryOptions = this.makeOptions(categories, 'name', '_id', true);
+
+      res.render("admin/courses/edit", {title: "ویرایش دوره", course, categories: categoryOptions});
     } catch (err) {
       next(err); 
     }
