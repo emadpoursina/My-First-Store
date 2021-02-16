@@ -12,5 +12,7 @@
     <% } %>
   });
 
-  document.querySelector('#<%= containerId %>').setValue(<%- values %>);
+  <% if(locals.values){ %>
+    document.querySelector('#<%= containerId %>').setValue(<%- values %>);
+  <% } %> 
 </script>
