@@ -23,5 +23,6 @@ router.get("/courses", courseController.index);
 router.get("/courses/:course", courseController.single);
 router.get("/download/:id", courseController.download);
 router.post("/comment", redirectIfNotAuthenticate.handle, commentValidator.handle(),  homeController.comment);
+router.get("/test", homeController.test);
 
 module.exports = router;

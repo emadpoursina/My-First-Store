@@ -29,6 +29,9 @@ class HomeController extends Controller{
 			next(err);
 		}
 	}
+
+	test(req, res, next) {
+	}
 }
 
 module.exports = new HomeController();
