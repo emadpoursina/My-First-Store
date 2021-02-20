@@ -3,6 +3,7 @@ const Course = require('app/model/Course');
 const Episode = require('app/model/Episode');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const Category = require('app/model/Category');
 
 class CourseController extends Controller {
   async index(req, res, next) {
@@ -56,9 +57,10 @@ class CourseController extends Controller {
         }
       ]
     }]);
+    const categories = await Category.find({ parent : null }).populate('childs');
 
     const canUserUse = await this.canUse(req, course);
-    res.render('home/single-course.ejs', {title: course.title, course, canUserUse})
+    res.render('home/single-course.ejs', {title: course.title, course, canUserUse, categories})
   }
 
   async canUse(req, course) {
