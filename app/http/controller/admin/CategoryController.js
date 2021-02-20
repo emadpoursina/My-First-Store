@@ -102,6 +102,14 @@ class CategoryController extends controller {
       next(error);
     }
   }
+
+  /**
+   *  Turn title to a valid url 
+   * @param {String} title 
+   */
+  slug(title) {
+    return title.replace(/([^۰-۹آ-یa-z0-9]|-)+/g , "-")
+  }
 }
 
 module.exports = new CategoryController();
