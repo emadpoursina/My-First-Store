@@ -1,12 +1,12 @@
 const controller = require('./../controller');
 const Category = require('app/model/Category');
-const { populate } = require('../../../model/Category');
 
 class CategoryController extends controller {
   async index(req, res, next) {
     try {
       const page = req.query.page | 1;
       const categories = await Category.paginate({}, { page, limit: 10 });
+
       res.render('admin/category/index', { title: 'دسته ها', categories });
     } catch (error) {
       next(error);
@@ -32,6 +32,8 @@ class CategoryController extends controller {
         name: req.body.name,
         parent: req.body.parent !== 'none' ? req.body.parent : null,
       });
+
+      newCategory.slug = this.slug(newCategory.name);
 
       await newCategory.save();
 
@@ -71,6 +73,8 @@ class CategoryController extends controller {
         category.parent = null;
       else
         category.parent = req.body.parent;
+
+      category.slug = this.slug(category.name);
 
       await category.save();
 
