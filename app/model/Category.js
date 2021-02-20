@@ -3,6 +3,7 @@ const mongoosePaginate = require('mongoose-paginate');
 
 const CategorySchema = mongoose.Schema({
   name: { type: String, required: true },
+  slug: { type: String, required: true, unique: true},
   parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category', default: null },
 }, { timestamps: true, toJSON: { virtuals: true }});
 
