@@ -17,7 +17,13 @@
 			<% categories.docs.forEach(category => { %>
 				<tr>
 					<td><%= category.name %></td>
-					<td><%= category.parent %></td>
+					<td>
+						<% if(category.parent){ %>
+						 <%= category.parent.name %>
+						<% }else{ %>
+							دسته اصلی
+						<% } %> 
+					</td>
 					<td>
 						<form action="/admin/categories/<%= category._id %>/?_method=DELETE" method="POST">
 							<input type="hidden" name="_method" value="delete">

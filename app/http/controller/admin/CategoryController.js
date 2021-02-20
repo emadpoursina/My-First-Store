@@ -5,7 +5,11 @@ class CategoryController extends controller {
   async index(req, res, next) {
     try {
       const page = req.query.page | 1;
-      const categories = await Category.paginate({}, { page, limit: 10 });
+      const categories = await Category.paginate({}, {
+        page,
+        limit: 10,
+        populate: 'parent', 
+      });
 
       res.render('admin/category/index', { title: 'دسته ها', categories });
     } catch (error) {
