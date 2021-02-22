@@ -19,12 +19,23 @@ class CourseController extends Controller {
       if(type && type !== 'all')
         query.type = new RegExp(type, 'gi');
 
+      if(category && category !== 'all'){
+        const dbCategory = await Category.findOne({ slug: category });
+        if(dbCategory) {
+          query.categories =  dbCategory._id;
+        }else {
+          return this.error('چنین دسته ای وجود ندارد.', 404);
+        }
+      }
+
       if(order === '1')
         courses = await Course.find({ ...query }).sort({ createdAt: 1 });
       else
         courses = await Course.find({ ...query });
 
-      res.render('home/courses', {title: 'آخرین دوره ها', courses});
+      const categories = await Category.find({});
+
+      res.render('home/courses', {title: 'آخرین دوره ها', courses, categories});
     } catch (error) {
       next(error);
     }
