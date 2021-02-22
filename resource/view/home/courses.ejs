@@ -4,7 +4,7 @@
     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.</p>
   </header>
 
-  <% const { search, type, order } = req.query; %> 
+  <% const { search, type, order, category } = req.query; %> 
 
   <form action="/courses" method="GET">
 
@@ -12,7 +12,7 @@
       <div class="form-group col-md-3">
         <input type="hidden" name="search" value="<%= search %>">
         <span>عبارت جستجو شده : <%= search %> 
-          <a href="/courses?<%= type ? 'type='+type : ''; %><%= type && order ? '&' : '' %><%= order ? 'order=1' : ''; %>" class="btn btn-sm btn-dark">حذف</a>
+          <a href="/courses?<%= req.url.substring(req.url.indexOf('&')) %> " class="btn btn-sm btn-dark">حذف</a>
           <a href="/courses" class="btn btn-sm btn-danger">ریست</a>
         </span> 
       </div>  
@@ -27,6 +27,14 @@
       </select>
     </div>
 
+    <div class="form-group col-md-3">
+      <select name="category" class="form-control">
+        <option value="all" >همه دسته ها</option>
+        <% categories.forEach(cat => { %> 
+          <option value="<%= cat.slug %>" <%= category === cat.slug ? 'selected' : ''; %> ><%= cat.name %></option>
+        <% }); %> 
+      </select>
+    </div>
 
     <div class="form-group col-md-3">
       <label class="checkbox-inline">
