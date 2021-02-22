@@ -11,18 +11,19 @@ class CourseController extends Controller {
       const query = {};
       let courses;
 
-      if(req.query.search)
-        query.title = new RegExp(req.query.search, 'gi');
+      const { search, type, category, order} = req.query;
 
-      if(req.query.type && req.query.type !== 'all')
-        query.type = new RegExp(req.query.type, 'gi');
+      if(search)
+        query.title = new RegExp(search, 'gi');
 
-      if(req.query.order === '1')
+      if(type && type !== 'all')
+        query.type = new RegExp(type, 'gi');
+
+      if(order === '1')
         courses = await Course.find({ ...query }).sort({ createdAt: 1 });
       else
         courses = await Course.find({ ...query });
 
-      
       res.render('home/courses', {title: 'آخرین دوره ها', courses});
     } catch (error) {
       next(error);
