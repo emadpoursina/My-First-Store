@@ -67,4 +67,8 @@ router.get('/comments/approved', commentController.approved);
 router.put('/comments/:id/approve', commentController.approve);
 router.delete('/comments/:id', commentController.destroy);
 
+// Upload image for ckeditor
+router.post("/upload-image", uploadImage.single("upload"), adminController.uploadImage);
+  
+
 module.exports = router;
