@@ -20,6 +20,7 @@ router.get("/logout", (req, res) => {
 // Courses routes
 router.get("/courses", courseController.index);
 router.get("/courses/:course", courseController.single);
+router.post("/courses/payment", redirectIfNotAuthenticate.handle, courseController.payment)
 
 router.get("/", homeController.index);
 router.get("/about-me", homeController.about);
