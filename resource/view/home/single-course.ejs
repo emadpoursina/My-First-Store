@@ -65,11 +65,48 @@
 	<div class="col-md-4">
 	<div class="card my-4">
 		<div class="card-body">
-			<p>برای استفاده از این دوره نیاز است این دوره را با مبلغ 60000 تومان خریداری کنید</p>
-			<form action="/course/payment" method="post">
-				<input type="hidden" name="course_id" value="5b1e4a0ac4cf2d675052a78a">
-				<button type="submit" class="btn btn-success">خرید دوره</button>
-			</form>
+			<% if(auth.check){ %>
+				<% switch (course.type) {
+					case 'vip':
+						if(canUserUse){ %>
+							<p>شما عضو ویژه بوده و می توانید از این دوره بهره ببرید.</p>
+						<% }else{ %>
+							<p>برای اسفاده از این دوره نیاز است که عضویت ویژه ما را خریداری کنید.</p>
+							<form action="#" method="post">
+								<input type="hidden" name="" value="">
+								<button type="submit" class="btn btn-success">خرید عضویت ویژه</button>
+							</form>
+						<% }
+						break;
+					case 'cash':
+						if(canUserUse){ %>
+							<p>شما این دوره را خریداری کرده و می توانید از آن استفاده کنید.</p>
+						<% }else{ %>
+							<p>برای استفاده از این دوره نیاز است این دوره را با مبلغ <%= course.price %> تومان خریداری کنید</p>
+							<form action="/courses/payment" method="post">
+								<input type="hidden" name="course_id" value="<%= course._id %>">
+								<button type="submit" class="btn btn-success">خرید دوره</button>
+							</form>
+						<% }
+						break;
+					case 'free':
+						if(canUserUse){ %>
+							<p>شما در این دوره ثبت نام کرده و می توانید از آن استفاده کنید</p>
+						<% }else{ %>
+							<p>این دوره رایگان بوده و برای استفاده از آن تنها باید ثبت نام کنید.</p>
+							<form action="/course/payment" method="post">
+								<input type="hidden" name="course_id" value="5b1e4a0ac4cf2d675052a78a">
+								<button type="submit" class="btn btn-success">ثبت نام دوره</button>
+							</form>
+						<% }
+						break;
+					default:
+						break;
+				}	
+			}else { %>
+				<p>برای مشاهده دوره ابتدا وارد شوید.</p>
+				<a href="/auth/login" class="btn btn-success" role="button">login</a>
+			<% } %>
 		</div>
 	</div>
 		<!-- Search Widget -->
