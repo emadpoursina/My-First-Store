@@ -58,7 +58,7 @@ module.exports =  class Controller {
 	 */
 	isMongoId(mongoId) {
 		if(! isMongoId(mongoId)) {
-			this.error("Invalid Id", 404);
+			this.error("Invalid Id", 403);
 		}
 	}
 
