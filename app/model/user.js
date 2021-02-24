@@ -48,7 +48,7 @@ userSchema.methods.isVip = function () {
 /*
  * Check whether user buy a course of not
  */
-userSchema.methods.checkLearning = async function(courseId) {
+userSchema.methods.checkLearning = function(courseId) {
 	return !! this.learning.includes(courseId);
 }
 

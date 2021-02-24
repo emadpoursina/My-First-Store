@@ -89,10 +89,10 @@ class CourseController extends Controller {
           canUse = req.user.isVip();
           break;
         case 'cash':
-          canUse = req.user.checkLearning(course);
+          canUse = req.user.checkLearning(course._id);
           break;
         default:
-          canUse = req.user.checkLearning(course);
+          canUse = req.user.checkLearning(course._id);
           break;
         }
     }
@@ -139,7 +139,7 @@ class CourseController extends Controller {
       if(!course) this.error('چنین دوره ای وجود ندارد.', 404);
 
       if(req.user.checkLearning(req)) this.error('شما قبلا در این دوره ثبت نام کرده اید.', 403);
-
+     
       if(course.price === 0 && course.type === 'vip') this.error('این دوره مخصوص اعضا ویژه است.', 403);
 
       if(course.price === 0 && course.type === 'free') {
