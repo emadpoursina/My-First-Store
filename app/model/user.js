@@ -9,7 +9,7 @@ const userSchema = Schema({
 	password: { type: String, require: true },
 	admin: { type: Boolean, default: false },
 	remember_token: {type: String, default: null},
-	learning: { type: Schema.Types.ObjectId, default: [], ref: 'Course'},
+	learning: { type: [Schema.Types.ObjectId], default: [], ref: 'Course'},
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userSchema.virtual('courses', {
@@ -48,8 +48,8 @@ userSchema.methods.isVip = function () {
 /*
  * Check whether user buy a course of not
  */
-userSchema.methods.checkLearning = function() {
-	return false;
+userSchema.methods.checkLearning = async function(courseId) {
+	return !! this.learning.includes(courseId);
 }
 
 module.exports = mongoose.model("User", userSchema);
