@@ -17,10 +17,12 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
-router.get("/", homeController.index);
-router.get("/about-me", homeController.about);
+// Courses routes
 router.get("/courses", courseController.index);
 router.get("/courses/:course", courseController.single);
+
+router.get("/", homeController.index);
+router.get("/about-me", homeController.about);
 router.get("/download/:id", courseController.download);
 router.post("/comment", redirectIfNotAuthenticate.handle, commentValidator.handle(),  homeController.comment);
 router.get("/test", homeController.test);
