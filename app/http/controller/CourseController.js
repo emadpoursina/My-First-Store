@@ -42,37 +42,43 @@ class CourseController extends Controller {
   }
 
   async single(req, res, next) {
-    const course = await Course.findOneAndUpdate({ slug: req.params.course }, { $inc: { viewCount: 1}}, { useFindAndModify: false }).populate([{
-      path: 'user',
-      select: 'name',
-    }, {
-      path: 'episodes',
-      options: { sort: { number: 1 }},
-    }, {
-      path: 'comments',
-      match: {
-        approved: true,
-        parent: null,
-      },
-      populate : [{
+    try {
+      const course = await Course.findOneAndUpdate({ slug: req.params.course }, { $inc: { viewCount: 1}}, { useFindAndModify: false }).populate([{
         path: 'user',
         select: 'name',
-      },{
-          path : 'childs',
-          match : {
-            approved : true
-          },
-          populate: [{
-            path: 'user',
-            select: 'name',
-          }]
-        }
-      ]
-    }]);
-    const categories = await Category.find({ parent : null }).populate('childs');
+      }, {
+        path: 'episodes',
+        options: { sort: { number: 1 }},
+      }, {
+        path: 'comments',
+        match: {
+          approved: true,
+          parent: null,
+        },
+        populate : [{
+          path: 'user',
+          select: 'name',
+        },{
+            path : 'childs',
+            match : {
+              approved : true
+            },
+            populate: [{
+              path: 'user',
+              select: 'name',
+            }]
+          }
+        ]
+      }]);
+      if(!course) this.error('چنین دوره ای وجود ندارید.', 404);
 
-    const canUserUse = await this.canUse(req, course);
-    res.render('home/single-course.ejs', {title: course.title, course, canUserUse, categories})
+      const categories = await Category.find({ parent : null }).populate('childs');
+
+      const canUserUse = await this.canUse(req, course);
+      res.render('home/single-course.ejs', {title: course.title, course, canUserUse, categories})
+    } catch (error) {
+      next(error);  
+    }
   }
 
   async canUse(req, course) {
