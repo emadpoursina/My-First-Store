@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const uniqueString = require("unique-string");
 
-const userSchema = mongoose.Schema({
+const userSchema = Schema({
 	name: { type: String, require: true },
 	email: { type: String, unique: true, require: true },
 	password: { type: String, require: true },
 	admin: { type: Boolean, default: false },
-	remember_token: {type: String, default: null}
+	remember_token: {type: String, default: null},
+	learning: { type: Schema.Types.ObjectId, default: [], ref: 'Course'},
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userSchema.virtual('courses', {
@@ -47,7 +49,7 @@ userSchema.methods.isVip = function () {
  * Check whether user buy a course of not
  */
 userSchema.methods.checkLearning = function() {
-	return true;
+	return false;
 }
 
 module.exports = mongoose.model("User", userSchema);
