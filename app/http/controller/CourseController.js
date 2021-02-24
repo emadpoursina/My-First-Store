@@ -122,6 +122,30 @@ class CourseController extends Controller {
     const text = `lsdjflksdjfkldsjf${episode.id}${req.query.t}`;
     return bcrypt.compareSync(text, req.query.mac)
   }
+
+  async payment(req, res, next) {
+    try {
+      const courseId = req.body.course_id;
+
+      this.isMongoId(courseId);
+
+      const course = await Course.findById(courseId);
+      if(!course) this.error('چنین دوره ای وجود ندارد.', 404);
+
+      if(req.user.checkLearning(req)) this.error('شما قبلا در این دوره ثبت نام کرده اید.', 403);
+
+      if(course.price === 0 && course.type === 'vip') this.error('این دوره مخصوص اعضا ویژه است.', 403);
+
+      if(course.price === 0 && course.type === 'free') {
+        // Free course buy process
+      }
+
+      // Cash course buey process
+      res.end('Thank you page');
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new CourseController();
