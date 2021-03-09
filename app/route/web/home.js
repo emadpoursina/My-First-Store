@@ -29,5 +29,6 @@ router.get("/download/:id", courseController.download);
 router.post("/comment", redirectIfNotAuthenticate.handle, commentValidator.handle(),  homeController.comment);
 router.get("/test", homeController.test);
 router.get("/user/panel", redirectIfNotAuthenticate.handle, userController.index);
+router.get("/user/panel/history", redirectIfNotAuthenticate.handle, userController.history);
 
 module.exports = router;
