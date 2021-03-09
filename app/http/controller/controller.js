@@ -121,4 +121,8 @@ module.exports =  class Controller {
 		else
 			return JSON.stringify(options);
 	}
+
+	sweetAlert(req, alertInfo) {
+		req.flash('sweetAlert', alertInfo);
+	}
 }
