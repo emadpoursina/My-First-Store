@@ -28,6 +28,6 @@ router.get("/about-me", homeController.about);
 router.get("/download/:id", courseController.download);
 router.post("/comment", redirectIfNotAuthenticate.handle, commentValidator.handle(),  homeController.comment);
 router.get("/test", homeController.test);
-router.get("/panel", redirectIfNotAuthenticate.handle, userController.index);
+router.get("/user/panel", redirectIfNotAuthenticate.handle, userController.index);
 
 module.exports = router;
