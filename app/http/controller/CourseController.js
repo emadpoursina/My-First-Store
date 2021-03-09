@@ -6,6 +6,13 @@ const bcrypt = require('bcrypt');
 const Category = require('app/model/Category');
 
 class CourseController extends Controller {
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   * @returns Site course list in an array
+   */
   async index(req, res, next) {
     try {
       const query = {};
@@ -41,6 +48,12 @@ class CourseController extends Controller {
     }
   }
 
+  /**
+   * Send Course info to single-course view
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   */
   async single(req, res, next) {
     try {
       const course = await Course.findOneAndUpdate({ slug: req.params.course }, { $inc: { viewCount: 1}}, { useFindAndModify: false }).populate([{
@@ -81,6 +94,12 @@ class CourseController extends Controller {
     }
   }
 
+  /**
+   * 
+   * @param {*} req 
+   * @param {Course model} course 
+   * @returns True if user can see course videos and false otherwise
+   */
   async canUse(req, course) {
     let canUse = false;
     if(req.isAuthenticated()){
@@ -99,6 +118,13 @@ class CourseController extends Controller {
     return canUse;
   }
 
+  /**
+   *  Run when ever user wants to download an video episode 
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   * @returns Download link if user can download the episode
+   */
   async download(req, res, next) {
     try {
       this.isMongoId(req.params.id);
@@ -121,6 +147,12 @@ class CourseController extends Controller {
     }
   }
 
+  /**
+   * 
+   * @param {Episode model} episode 
+   * @param {*} req 
+   * @returns True if user download link is valid
+   */
   checkHash(episode, req) {
     const timeStamps = new Date().getTime();
     if(timeStamps > req.query.t) return false;
@@ -129,6 +161,12 @@ class CourseController extends Controller {
     return bcrypt.compareSync(text, req.query.mac)
   }
 
+  /**
+   * Buying course process  
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   */
   async payment(req, res, next) {
     try {
       const courseId = req.body.course_id;
@@ -146,7 +184,7 @@ class CourseController extends Controller {
         // Free course buy process
       }
 
-      // Cash course buey process
+      // Cash course buy process
       res.end('Thank you page');
     } catch (err) {
       next(err);
