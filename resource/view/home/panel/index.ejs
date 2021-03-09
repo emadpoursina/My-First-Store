@@ -1,7 +1,7 @@
 <%- include(viewPath('/home/panel/head')); %> 
 
 <ul style="margin: 20px">
-    <li>lsdkjfdslkjfkl</li>
-    <li>lskdjflkdsjf</li>
-    <li>lskdfjklds</li>
+	<li>user: <%= user.name %> </li>
+	<li>email: <%= user.email %> </li>
+	<li><%= user.isVip() ? 'زمان باقی مانده عضویت ویژه شما' : 'شما یک آلفا نیستید.' %> </li>
 </ul>
