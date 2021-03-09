@@ -95,7 +95,7 @@
 						<% }else{ %>
 							<p>این دوره رایگان بوده و برای استفاده از آن تنها باید ثبت نام کنید.</p>
 							<form action="/courses/payment" method="post">
-								<input type="hidden" name="course_id" value="5b1e4a0ac4cf2d675052a78a">
+								<input type="hidden" name="course_id" value="<%= course._id %>">
 								<button type="submit" class="btn btn-success">ثبت نام دوره</button>
 							</form>
 						<% }
