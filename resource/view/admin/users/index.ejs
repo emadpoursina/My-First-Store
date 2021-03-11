@@ -18,28 +18,24 @@
 			</tr>
 		</thead>
 		<tbody>
-				<% courses.docs.forEach(course => { %>
 			<tr>
-				<td><a href=""><%= course.title %> </a></td>
-				<td><%= course.commentCount %></td>
-				<td><%= course.viewCount %> </td>
-				<td><%= course.title %></td>
+				<td><a href="">ldkfjdsklf</a></td>
+				<td>sdlkfjdslkfjdslkfj</td>
+				<td>sdlkfjdslkfjdslkfj </td>
+				<td>sdlkfjdslkfjdslkfj</td>
 				<td>
-					<%= course.typeToPersian() %> 
 				</td>
 				<td>
-					<form action="/admin/courses/<%= course._id %>?_method=DELETE" method="POST">
+					<form action="/admin/courses/sdlkfjdslkfjdslkfj?_method=DELETE" method="POST">
 						<input type="hidden" name="_method" value="delete">
 						<input type="hidden" name="_token" value="Dso45XzqoXsAkRC8BBMQ63ZsOFS0c2tELkxR4i3Y">
 						<div class="btn-group btn-group-sm">
-							<a href="/admin/courses/<%= course._id %>/edit" class="btn btn-primary">ویرایش</a>
+							<a href="/admin/courses/sdlkfjdslkfjdslkfj/edit" class="btn btn-primary">ویرایش</a>
 							<button type="submit" class="btn btn-danger">حذف</button>
 						</div>
 					</form>
 				</td>
 			</tr>
-		<% }); %>
 		</tbody>
 	</table>
-		<%- include(viewPath("layout/pagination"), {pagination: courses}); %> 
 </div>
