@@ -50,8 +50,27 @@ class UserController extends Controller {
 
   async create(req, res, next) {
     try {
-      res.render('admin/users/create')      
+      res.render('admin/users/create');      
     }catch(error) {
+      next(error);
+    }
+  }
+
+  async store(req, res, next) {
+    try {
+      const result = await this.validateData(req);
+      if(!result) {
+        return this.back(req, res);
+      }
+
+      const newUser = new User({
+        ...req.body,
+      });
+
+      await newUser.save();
+
+      return res.redirect('/admin/users');
+    }catch (error) {
       next(error);
     }
   }
