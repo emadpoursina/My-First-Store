@@ -4,8 +4,23 @@ const User = require('app/model/user');
 class UserController extends Controller {
   async index(req, res, next) {
     try {
+      const query = {};
+      let users = [];
+
+      const {word, admin} = req.query;
+
+      if(word) {
+        query.$or = [
+            { email: { $regex: `.*${word}.*` } },
+            { name: { $regex: `.*${word}.*` } },
+          ];
+      }
+
+      if(admin === "1")
+        query.admin = true;
+
       const page = req.query.page || 1;
-      const users = await User.paginate({}, { page, limit: 20 });
+      users = await User.paginate(query, { page, limit: 20 });
 
       res.render('admin/users/index', { title: 'کاربران', users});
     } catch (error) {
