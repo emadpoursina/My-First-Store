@@ -1,9 +1,13 @@
 const Controller = require('../controller');
+const User = require('app/model/user');
 
 class UserController extends Controller {
-  index(req, res, next) {
+  async index(req, res, next) {
     try {
-      res.render('admin/users/index');
+      const page = req.query.page || 1;
+      const users = await User.paginate({}, { page, limit: 20 });
+
+      res.render('admin/users/index', { title: 'کاربران', users});
     } catch (error) {
       next(error);
     }
