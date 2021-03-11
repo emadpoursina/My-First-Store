@@ -15,15 +15,6 @@
 	</div>
 	<div class="form-group row">
 		<div class="col">
-			<p>آیا این کاربر ادمین هست یا خیر ؟</p>
-			<label for="yes" class="control-label font-weight-bold">بله</label>
-			<input type="radio" class="form-control" name="admin" id="yes" value="yes" <%= old('admin') === 'yes' ? 'checked' : ''; %> >
-			<label for="no" class="control-label font-weight-bold">خیر</label>
-			<input type="radio" class="form-control" name="admin" id="admin" value="no" <%= old('admin') === 'no' || !old('admin') ? 'checked' : ''; %> >
-		</div>
-	</div>
-	<div class="form-group row">
-		<div class="col">
 			<label for="password" class="control-label font-weight-bold">رمز عبور</label>
 			<input type="text" class="form-control" name="password" id="password" placeholder="رمز عبور را وارد کنید." value="<%= old('password') %>" required>
 		</div>
