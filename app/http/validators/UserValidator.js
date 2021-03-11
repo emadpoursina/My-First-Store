@@ -5,7 +5,7 @@ class UserValidator extends Validator {
   handle(req, res) {
     return [
       check('name')
-        .isLength({ max: 10 })
+        .isLength({ max: 20, min: 3 })
         .withMessage('طول نام نمی تواند بیشتر از 10 کاراکتر باشد.'),
       check('email')
         .isLength({ max: 50 })
