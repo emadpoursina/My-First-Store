@@ -7,11 +7,13 @@ const courseController = require("app/http/controller/admin/courseController");
 const episodeController = require("app/http/controller/admin/EpisodeController");
 const commentController = require('app/http/controller/admin/CommentController')
 const categoryController = require('app/http/controller/admin/CategoryController');
+const userController = require('app/http/controller/admin/UserController');
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
 const episodeValidator = require("app/http/validators/EpisodeValidator");
 const categoryValidator = require('app/http/validators/CategoryValidator');
+const userValidator = require('app/http/validators/UserValidator');
 
 //Middlewares
 const uploadImage = require("app/helpers/uploadImage.js") //helpers
@@ -44,6 +46,13 @@ router.put("/courses/:id",
   courseController.update,
 );
 router.delete("/courses/:id", courseController.destroy);
+
+// User routes
+router.get('/users', userController.index);
+router.get('/users/:id/toggleadmin', userController.toggleAdmin);
+router.delete('/users/:id/', userController.destroy);
+router.get('/users/create', userController.create);
+router.post('/users/create', userValidator.handle(), userController.store);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);

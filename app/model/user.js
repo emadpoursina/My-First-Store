@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const uniqueString = require("unique-string");
+const mogoosePaginate = require('mongoose-paginate');
 
 const userSchema = Schema({
 	name: { type: String, require: true },
@@ -11,6 +12,8 @@ const userSchema = Schema({
 	remember_token: {type: String, default: null},
 	learning: { type: [Schema.Types.ObjectId], default: [], ref: 'Course'},
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
+
+userSchema.plugin(mogoosePaginate);
 
 userSchema.virtual('courses', {
 	ref: 'Course',
