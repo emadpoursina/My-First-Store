@@ -1,3 +1,4 @@
+
 <div class="d-flex justify-content-between align-items-center mb-3 border-bottom-1">
 	<h2>کاربر ها</h2>
 	<div class="btn-group">
@@ -40,3 +41,21 @@
 	</table>
 	<%- include(viewPath('layout/pagination'), { pagination: users }); %> 
 </div>
+<br>
+<% const { word, admin } = req.query; %> 
+<form action="/admin/users" method="GET">
+	<div class="form-group col-md-3">
+		<label for="word" class="font-weight-bold" >عبارت برای جست و جو</label>
+		<input type="text" name="word" id="word" value="<%= word ? word : "" %>">
+	</div>
+
+	<div class="form-group col-md-3">
+		<label for="admin" class="font-weight-bold" >کسانی که ادمین هستند.</label>
+		<input type="checkbox" name="admin" id="admin" value="1" <%= admin ? "checked" : ""; %> >
+	</div>
+
+	<div class="form-group col-md-3">
+			<button class="btn btn-danger" type="submit">فیلتر</button>
+			<a href="/admin/users" class="btn btn-primary">ریست</a>
+	</div>
+</form>
