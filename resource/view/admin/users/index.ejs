@@ -23,8 +23,6 @@
 					<td><%= user.createdAt %> </td>
 					<td>
 						<form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST">
-							<input type="hidden" name="_method" value="delete">
-							<input type="hidden" name="_token" value="Dso45XzqoXsAkRC8BBMQ63ZsOFS0c2tELkxR4i3Y">
 							<div class="btn-group btn-group-sm">
 							<% if(user.admin){ %> 
 								<a href="/admin/users/<%= user._id %>/addrole" class="btn btn-success">اعمال سطح دسترسی</a>
@@ -40,4 +38,5 @@
 			<% }) %> 
 		</tbody>
 	</table>
+	<%- include(viewPath('layout/pagination'), { pagination: users }); %> 
 </div>
