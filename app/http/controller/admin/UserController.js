@@ -28,6 +28,26 @@ class UserController extends Controller {
       next(error);
     }
   }
+
+  async destroy(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const user = await User.findById(req.params.id).populate('courses');
+      if(!user) this.error('چنین کاربری وجود ندارد', 404);
+
+      user.courses.forEach(course => {
+        course.set({ user: 'null' });
+        course.save();
+      });
+      user.remove();
+
+      res.redirect('/admin/users');
+    }catch(error) {
+      next(error);
+    }
+  }
+
 }
 
 module.exports = new UserController();
