@@ -48,6 +48,13 @@ class UserController extends Controller {
     }
   }
 
+  async create(req, res, next) {
+    try {
+      res.render('admin/users/create')      
+    }catch(error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new UserController();

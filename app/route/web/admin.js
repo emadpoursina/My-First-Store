@@ -50,6 +50,7 @@ router.delete("/courses/:id", courseController.destroy);
 router.get('/users', userController.index);
 router.get('/users/:id/toggleadmin', userController.toggleAdmin);
 router.delete('/users/:id/', userController.destroy);
+router.get('/users/create', userController.create);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
