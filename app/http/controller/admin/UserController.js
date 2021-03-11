@@ -12,6 +12,22 @@ class UserController extends Controller {
       next(error);
     }
   }
+
+  async toggleAdmin(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const user = await User.findById(req.params.id);
+      if(!user) this.error('چنین کاربری وجود خارجی ندارد.', 404);
+
+      user.set({ admin: !user.admin});
+      user.save();
+
+      res.redirect('/admin/users');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new UserController();
