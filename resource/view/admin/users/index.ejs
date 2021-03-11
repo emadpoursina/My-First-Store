@@ -2,7 +2,7 @@
 	<h2>کاربر ها</h2>
 	<div class="btn-group">
 		<a href="/admin/users/create" class="btn btn-sm btn-primary">ایجاد کاربر جدید</a>
-		<a href="/admin/episodes" class="btn btn-sm btn-danger">بخش ویدیوها</a>
+		<a href="/admin/users/roles" class="btn btn-sm btn-danger">بخش سطح دسترسی</a>
 	</div>
 </div>
 <div class="table-responsive">
@@ -26,7 +26,12 @@
 							<input type="hidden" name="_method" value="delete">
 							<input type="hidden" name="_token" value="Dso45XzqoXsAkRC8BBMQ63ZsOFS0c2tELkxR4i3Y">
 							<div class="btn-group btn-group-sm">
-								<a href="/admin/users/<%= user._id %>/edit" class="btn btn-primary">ویرایش</a>
+							<% if(user.admin){ %> 
+								<a href="/admin/users/<%= user._id %>/addrole" class="btn btn-success">اعمال سطح دسترسی</a>
+								<a href="/admin/users/<%= user._id %>/toggleadmin" class="btn btn-primary">لغو مدیریت</a>
+							<% }else { %>
+								<a href="/admin/users/<%= user._id %>/toggleadmin" class="btn btn-primary">اعمال مدیریت</a>
+							<% } %> 
 								<button type="submit" class="btn btn-danger">حذف</button>
 							</div>
 						</form>
