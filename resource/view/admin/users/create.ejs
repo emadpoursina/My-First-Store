@@ -6,26 +6,26 @@
 	<div class="form-group row">
 		<div class="col">
 			<label for="name" class="control-label font-weight-bold">نام و نام خانوادگی</label>
-			<input type="text" class="form-control" name="name" id="name" placeholder="نام و نام خانوادگی را وارد کنید" value="<%= old('name') %> ">
+			<input type="text" class="form-control" name="name" id="name" placeholder="نام و نام خانوادگی را وارد کنید" value="<%= old('name') %>" required>
 		</div>
 		<div class="col">
 			<label for="email" class="control-label font-weight-bold">ایمیل</label>
-			<input type="text" class="form-control" name="email" id="email" placeholder="ایمیل کاربر را وارد کنید." value="<%= old('email') %> ">
+			<input type="email" class="form-control" name="email" id="email" placeholder="ایمیل کاربر را وارد کنید." value="<%= old('email') %>" required>
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col">
 			<p>آیا این کاربر ادمین هست یا خیر ؟</p>
 			<label for="yes" class="control-label font-weight-bold">بله</label>
-			<input type="radio" class="form-control" name="admin" id="yes" <%= old('admin') === true ? 'checked' : ''; %> >
-			<label for="no" class="control-label font-weight-bold">رمز عبور</label>
-			<input type="radio" class="form-control" name="admin" id="admin" <%= old('admin') === false ? 'checked' : ''; %> >
+			<input type="radio" class="form-control" name="admin" id="yes" value="yes" <%= old('admin') === 'yes' ? 'checked' : ''; %> >
+			<label for="no" class="control-label font-weight-bold">خیر</label>
+			<input type="radio" class="form-control" name="admin" id="admin" value="no" <%= old('admin') === 'no' || !old('admin') ? 'checked' : ''; %> >
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col">
 			<label for="password" class="control-label font-weight-bold">رمز عبور</label>
-			<input type="text" class="form-control" name="password" id="password" placeholder="رمز عبور را وارد کنید." value="<%= old('password') %> ">
+			<input type="text" class="form-control" name="password" id="password" placeholder="رمز عبور را وارد کنید." value="<%= old('password') %>" required>
 		</div>
 	</div>
 	<div class="form-group row">
