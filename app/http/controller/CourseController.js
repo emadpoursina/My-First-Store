@@ -185,7 +185,16 @@ class CourseController extends Controller {
       }
 
       // Cash course buy process
-      res.end('Thank you page');
+      // Redirect user to payment gate
+      const data = {
+        merchant_id: 'd53a145f-b2c5-4dc5-afc0-cced9493aecf',
+        amount: course.price,
+        callback_url: 'http://localhost:3000/courses/payment/checker',
+        description: `خرید دوره: ${course.title}`,
+        metadata: {
+          email: req.user.email,
+        }
+      };
     } catch (err) {
       next(err);
     }
