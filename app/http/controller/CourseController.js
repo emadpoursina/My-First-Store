@@ -220,7 +220,11 @@ class CourseController extends Controller {
   }
 
   checker(req, res, next) {
-
+    try {
+      
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
