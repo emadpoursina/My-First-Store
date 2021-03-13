@@ -229,10 +229,12 @@ class CourseController extends Controller {
     }
   }
 
-  checker(req, res, next) {
+  async checker(req, res, next) {
     try {
+      const { Authority, Status } = req.query;
+
       // Redirect if thereis error
-      if(req.query.Status && req.query.Status !== 'Ok')
+      if(Status && Status !== 'Ok') {
         this.sweetAlert(req, {
           title: 'وضعیت سفارش شما',
           text: 'پرداخت با موفقیت انجام نشد.',
@@ -240,6 +242,20 @@ class CourseController extends Controller {
           time: 1000,
         });
         return this.back(req, res);
+      }
+
+      // Check if payment is in database and is real or not
+      const payment = await Payment.findOne({ resNumber: Authority }).populate('user');
+      if(!payment) {
+        this.sweetAlert(req, {
+          title: 'وضعیت سفارش شما',
+          text: 'چنین پرداختی در دیتابیس وجود ندارد.',
+          icon: 'error',
+          time: 3000,
+        });
+        return this.back(req, res);
+      }
+
     } catch (error) {
       next(error);
     }
