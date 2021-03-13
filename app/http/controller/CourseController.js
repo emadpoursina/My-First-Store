@@ -274,6 +274,15 @@ class CourseController extends Controller {
       })
       .then(async (response) => {
         const data = response.data.data;
+        if(data.Status === 100) {
+          payment.set({ status: 200 });
+          req.use.learning.push(payment.product._id);
+
+          await payment.save();
+          await req.user.save();
+
+          res.end('thank you page')
+        }
       })
       .catch(error => {
         if (error.response) {
