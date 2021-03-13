@@ -256,6 +256,45 @@ class CourseController extends Controller {
         return this.back(req, res);
       }
 
+      // Authenticate the request
+      const data = {
+        merchant_id: 'd53a145f-b2c5-4dc5-afc0-cced9493aecf',
+        amount: payment.product.price,
+        authority: Authority,
+      };
+      const requestHeader = {
+        'contetn-type': 'application/json',
+        'cache-control' : 'no-cache',
+      };
+      axios({
+        method: 'post',
+        url: 'https://api.zarinpal.com/pg/v4/payment/verify.json',
+        headers: requestHeader,
+        data,
+      })
+      .then(async (response) => {
+        const data = response.data.data;
+      })
+      .catch(error => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          //console.log(error.response.headers);
+          return next(new Error(error.response.data.errors.message + ':' + error.response.status));
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+          return next(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+          return next('Error', error.message);
+        }
+      });
     } catch (error) {
       next(error);
     }
