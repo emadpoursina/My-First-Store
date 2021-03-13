@@ -52,7 +52,7 @@ class UserController extends Controller {
       if(!user) this.error('چنین کاربری وجود ندارد', 404);
 
       user.courses.forEach(course => {
-        course.set({ user: 'null' });
+        course.set({ user: '6039aa0f6b83b6959ed5ab04' });
         course.save();
       });
       user.remove();
