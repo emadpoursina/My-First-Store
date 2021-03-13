@@ -10,11 +10,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>2525 تومان</td>
-				<td>ddlkjfdslkj</td>
-				<td>ldskjflsdj</td>
-			</tr>
+			<% payments.forEach(payment => { %> 
+				<tr>
+					<td><%= payment.product.price %> </td>
+					<td><%= payment.product.title %> </td>
+					<td><%= payment.status %> </td>
+				</tr>
+			<% }) %> 
 		</tbody>
 	</table>
 </div>
