@@ -221,7 +221,15 @@ class CourseController extends Controller {
 
   checker(req, res, next) {
     try {
-      
+      // Redirect if thereis error
+      if(req.query.Status && req.query.Status !== 'Ok')
+        this.sweetAlert(req, {
+          title: 'وضعیت سفارش شما',
+          text: 'پرداخت با موفقیت انجام نشد.',
+          icon: 'error',
+          time: 1000,
+        });
+        return this.back(req, res);
     } catch (error) {
       next(error);
     }
