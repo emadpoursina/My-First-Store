@@ -209,7 +209,7 @@ class CourseController extends Controller {
       .then((response) => {
         const data = response.data.data;
         if(data.code === 100)
-          res.redirect(`https://www.zarinpal.com/pg/StartPay/${data.authority}`);
+          return res.redirect(`https://www.zarinpal.com/pg/StartPay/${data.authority}`);
         
         return this.error(response.data.error);
       })
