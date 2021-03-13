@@ -4,6 +4,7 @@ const Episode = require('app/model/Episode');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const Category = require('app/model/Category');
+const axios = require('axios').default;
 
 class CourseController extends Controller {
   /**
@@ -195,6 +196,26 @@ class CourseController extends Controller {
           email: req.user.email,
         }
       };
+      const requestHeader = {
+        'contetn-type': 'application/json',
+        'cache-control' : 'no-cache',
+      };
+      axios({
+        method: 'post',
+        headers: requestHeader,
+        url: 'https://api.zarinpal.com/pg/v4/payment/request.json',
+        data,
+      })
+      .then((response) => {
+        const data = response.data.data;
+        const authority = data.authority;
+        if(data.code === 100)
+          res.redirect(`https://www.zarinpal.com/pg/StartPay/${authority}`);
+        
+        return this.error(response.data.error);
+      })
+      .catch(error => next(error));
+      
     } catch (err) {
       next(err);
     }
