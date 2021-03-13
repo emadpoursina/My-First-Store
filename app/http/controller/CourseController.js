@@ -215,10 +215,13 @@ class CourseController extends Controller {
         return this.error(response.data.error);
       })
       .catch(error => next(error));
-      
     } catch (err) {
       next(err);
     }
+  }
+
+  checker(req, res, next) {
+
   }
 }
 
