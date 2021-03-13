@@ -1,5 +1,7 @@
 const Controller = require('../controller');
 const User = require('app/model/user');
+const Comment = require('app/model/Comment');
+const Payment = require('app/model/Payment');
 
 class UserController extends Controller {
   async index(req, res, next) {
@@ -51,11 +53,23 @@ class UserController extends Controller {
       const user = await User.findById(req.params.id).populate('courses');
       if(!user) this.error('چنین کاربری وجود ندارد', 404);
 
+      const comments = await Comment.find({ user: user._id })
+      comments.forEach(comment => {
+        comment.set({ user: '6039aa0f6b83b6959ed5ab04' })
+        comment.save();
+      });
+
+      const payments = await Payment.find({ user: user._id })
+      payments.forEach(payment => {
+        payment.set({ user: '6039aa0f6b83b6959ed5ab04' })
+        payment.save();
+      })
+
       user.courses.forEach(course => {
         course.set({ user: '6039aa0f6b83b6959ed5ab04' });
         course.save();
       });
-      user.remove();
+      await user.remove();
 
       res.redirect('/admin/users');
     }catch(error) {
