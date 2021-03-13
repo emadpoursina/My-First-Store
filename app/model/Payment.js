@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const mongoosePagination = require('mongoose-paginate');
+const mongoosePaginate = require('mongoose-paginate');
 
 const paymentSchema = Schema({
   user: { type: Schema.Types.ObjectId, required: true, ref: 'User'},
