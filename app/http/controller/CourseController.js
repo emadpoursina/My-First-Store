@@ -5,6 +5,7 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const Category = require('app/model/Category');
 const axios = require('axios').default;
+const Payment = require('app/model/Payment');
 
 class CourseController extends Controller {
   /**
@@ -208,8 +209,17 @@ class CourseController extends Controller {
       })
       .then((response) => {
         const data = response.data.data;
-        if(data.code === 100)
+        if(data.code === 100) {
+          const payment = new Payment({
+            user: req.user._id,
+            product: course._id,
+            price: course.price,
+            status: 100,
+            resNumber: data.authority,
+          });
+          payment.save();
           return res.redirect(`https://www.zarinpal.com/pg/StartPay/${data.authority}`);
+        }
         
         return this.error(response.data.error);
       })
