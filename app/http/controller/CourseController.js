@@ -245,7 +245,7 @@ class CourseController extends Controller {
       }
 
       // Check if payment is in database and is real or not
-      const payment = await Payment.findOne({ resNumber: Authority }).populate('user');
+      const payment = await Payment.findOne({ resNumber: Authority }).populate('product');
       if(!payment) {
         this.sweetAlert(req, {
           title: 'وضعیت سفارش شما',
