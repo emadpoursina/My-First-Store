@@ -54,21 +54,28 @@ class PermissionController extends Controller {
   }
 
   async update(req, res, next) {
-    this.isMongoId(req.params.id);
+    try {
+      this.isMongoId(req.params.id);
 
-    const result = this.validateData(req);
-    if(!result) return this.back(req, res);
+      const result = this.validateData(req);
+      if(!result) return this.back(req, res);
 
-    let permission = await Permission.findById(req.params.id);
-    if(!permission) return this.error('چنین قابلیتی وجود ندارد');
-    
-    Object.keys(req.body).forEach(key => {
-      permission[key] = req.body[key];
-    });
+      let permission = await Permission.findById(req.params.id);
+      if(!permission) return this.error('چنین قابلیتی وجود ندارد');
+      
+      Object.keys(req.body).forEach(key => {
+        permission[key] = req.body[key];
+      });
 
-    await permission.save();
+      await permission.save();
 
-    res.redirect('/admin/users/permissions/');
+      res.redirect('/admin/users/permissions/');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+
   }
 }
 
