@@ -1,25 +1,20 @@
 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-    <h2>ایجاد دسته جدید</h2>
+    <h2>ایجاد قابلیت جدید</h2>
 </div>
-<form class="form-horizontal" action="/admin/categories/create" method="post" >
+<form class="form-horizontal" action="/admin/users/permissions/create" method="post" >
 
   <%- include(viewPath('layout/error-messages')) %> 
 
   <div class="form-group row">
     <div class="col">
-      <label for="name" class="control-label font-weight-bold">عنوان دسته</label>
+      <label for="name" class="control-label font-weight-bold">عنوان قابلیت</label>
       <input type="text" class="form-control" name="name" id="name" placeholder="عنوان را وارد کنید" value="<%= old('name'); %> ">
     </div>
   </div>
   <div class="form-group row">
     <div class="col">
-      <label for="parent" class="control-label font-weight-bold font-weight-bold">دسته والد</label>
-      <select name="parent" id="parent" class="form-control">
-        <option value="none">هیچکدام</option>
-        <% categories.forEach(category => { %> 
-          <option  value="<%= category._id %>"><%= category.name %></option>
-        <% }); %> 
-      </select>
+      <label for="label" class="control-label font-weight-bold">توضیح قابلیت</label>
+      <input type="text" class="form-control" name="label" id="label" placeholder="عنوان را وارد کنید" value="<%= old('label'); %> ">
     </div>
   </div>
   <div class="form-group row">
