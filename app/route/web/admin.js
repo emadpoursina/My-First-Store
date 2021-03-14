@@ -60,7 +60,7 @@ router.post('/users/create', userValidator.handle(), userController.store);
 router.get('/users/permissions', permissionController.index);
 router.get('/users/permissions/create', permissionController.create);
 router.post('/users/permissions/create', permissionValidator.handle(), permissionController.store);
-//router.get('/user/permissions/:id/edit', permissionController.edit);
+router.get('/users/permissions/:id/edit', permissionController.edit);
 //router.put('/user/permissions/:id/', permissionValidator.handle(), permissionController.update);
 //router.delete('/user/permissions/:id', permissionController.destroy);
 
