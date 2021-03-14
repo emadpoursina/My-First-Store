@@ -15,6 +15,7 @@ const courseValidator = require("app/http/validators/CourseValidator");
 const episodeValidator = require("app/http/validators/EpisodeValidator");
 const categoryValidator = require('app/http/validators/CategoryValidator');
 const userValidator = require('app/http/validators/UserValidator');
+const permissionValidator = require('app/http/validators/PermissionValidator');
 
 //Middlewares
 const uploadImage = require("app/helpers/uploadImage.js") //helpers
@@ -58,6 +59,11 @@ router.post('/users/create', userValidator.handle(), userController.store);
 // Permission
 router.get('/users/permissions', permissionController.index);
 router.get('/users/permissions/create', permissionController.create);
+router.post('/users/permissions/create', permissionValidator.handle(), permissionController.store);
+//router.get('/user/permissions/:id/edit', permissionController.edit);
+//router.put('/user/permissions/:id/', permissionValidator.handle(), permissionController.update);
+//router.delete('/user/permissions/:id', permissionController.destroy);
+
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
