@@ -57,6 +57,7 @@ router.post('/users/create', userValidator.handle(), userController.store);
 
 // Permission
 router.get('/users/permissions', permissionController.index);
+router.get('/users/permissions/create', permissionController.create);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
