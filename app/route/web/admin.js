@@ -8,6 +8,7 @@ const episodeController = require("app/http/controller/admin/EpisodeController")
 const commentController = require('app/http/controller/admin/CommentController')
 const categoryController = require('app/http/controller/admin/CategoryController');
 const userController = require('app/http/controller/admin/UserController');
+const permissionController = require('app/http/controller/admin/PermissionController');
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
@@ -53,6 +54,9 @@ router.get('/users/:id/toggleadmin', userController.toggleAdmin);
 router.delete('/users/:id/', userController.destroy);
 router.get('/users/create', userController.create);
 router.post('/users/create', userValidator.handle(), userController.store);
+
+// Permission
+router.get('/users/permissions', permissionController.index);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
