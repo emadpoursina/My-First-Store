@@ -62,8 +62,7 @@ router.get('/users/permissions/create', permissionController.create);
 router.post('/users/permissions/create', permissionValidator.handle(), permissionController.store);
 router.get('/users/permissions/:id/edit', permissionController.edit);
 router.put('/users/permissions/:id/', permissionValidator.handle(), permissionController.update);
-//router.delete('/user/permissions/:id', permissionController.destroy);
-
+router.delete('/users/permissions/:id', permissionController.destroy);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
