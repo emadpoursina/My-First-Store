@@ -12,6 +12,14 @@ class PermissionController extends Controller {
       next(error);
     }
   }
+
+  create(req, res, next) {
+    try {
+      res.render('admin/permissions/create', { title: 'ایجاد قابلیت جدید' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new PermissionController();
