@@ -10,7 +10,8 @@ class PermissionValidator extends Validator {
         .withMessage('طول نام نمی تواند بیشتر از 50 و کمتر از 3 باشد')
         .custom(async (value, { req }) => {
           if(req.method === 'PUT') {
-            if(await Permission.findById(req.params.id).name === value) return;
+            const oldPermission = await Permission.findById(req.params.id);
+            if(oldPermission.name === value) return;
           }
 
           const permission = await Permission.findOne({ name: value });
