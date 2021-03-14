@@ -10,4 +10,4 @@ const permissionSchema = new Schema({
 
 permissionSchema.plugin(mongoosePaginate);
 
-module.exports = mognoose.model('Permission', permissionSchema);
+module.exports = mongoose.model('Permission', permissionSchema);
