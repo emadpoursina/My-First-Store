@@ -39,6 +39,19 @@ class PermissionController extends Controller {
       next(error);
     }
   }
+
+  async edit(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const permission = await Permission.findById(req.params.id);
+      if(!permission) this.error('چنین دوره ای یافت نشد', 404);
+
+      res.render('admin/permissions/edit', { title: 'ویرایش قابلیت', permission });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new PermissionController();
