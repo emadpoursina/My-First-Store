@@ -96,18 +96,18 @@ module.exports =  class Controller {
 			return String(Math.floor(sec/3600)) + ':' + String(Math.floor((sec%3600)/60)) + ':' + Math.floor((sec%3600)%60);
 	}
 
-	 // Return an option array for multiple select
-	 /**
-		* 
-		* An array of items should go make options from
-		* @param {Array} items
-		* The item attribute that appear on the lable of select
-		* @param {String} labelFieldName 
-		* The item attribute that appear on the value of select
-		* @param {String} valueFieldName 
-		* If true return an string in json format else return an object
-		* @param {boolean} json 
-		*/
+	/**
+	 * 
+	 * @param {Array} items
+	 * An array of object/models for options
+	 * @param {String} labelFieldName 
+	 * The item key that value of that appears for the label of each option
+	 * @param {String} valueFieldName 
+	 * The item key that value of that appears for the value of each option
+	 * @param {boolean} json 
+	 * If true return an string in json format else return an javascript object
+	 * @returns Return an option array for multiple select 
+	 */
 	makeOptions(items, labelFieldName, valueFieldName, json=false) {
     const options = [];
     items.forEach(item => {
