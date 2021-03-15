@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between align-items-center mb-3 border-bottom-1">
+	<h2>نقش ها</h2>
+	<div class="btn-group">
+		<a href="/admin/users/roles/create" class="btn btn-sm btn-primary">ایجاد نقش ها جدید</a>
+	</div>
+</div>
+<div class="table-responsive">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>عنوان نقش ها</th>
+				<th>توضیح</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% roles.docs.forEach(permission => { %>
+				<tr>
+					<td><%= permission.name %></td>
+					<td><%= permission.label %></td>
+					<td>
+						<form action="/admin/users/roles/<%= permission._id %>/?_method=DELETE" method="POST">
+							<div class="btn-group btn-group-sm">
+								<a href="/admin/users/roles/<%= permission._id %>/edit" class="btn btn-primary">ویرایش</a>
+								<button type="submit" class="btn btn-danger">حذف</button>
+							</div>
+						</form>
+					</td>
+				</tr>
+			<% }); %> 
+		</tbody>
+	</table>
+	<%- include(viewPath('layout/pagination'), { pagination: roles }) %> 
+</div>
