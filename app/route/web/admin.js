@@ -9,6 +9,7 @@ const commentController = require('app/http/controller/admin/CommentController')
 const categoryController = require('app/http/controller/admin/CategoryController');
 const userController = require('app/http/controller/admin/UserController');
 const permissionController = require('app/http/controller/admin/PermissionController');
+const roleController = require('app/http/controller/admin/RoleController');
 
 // Validators
 const courseValidator = require("app/http/validators/CourseValidator");
@@ -63,6 +64,9 @@ router.post('/users/permissions/create', permissionValidator.handle(), permissio
 router.get('/users/permissions/:id/edit', permissionController.edit);
 router.put('/users/permissions/:id/', permissionValidator.handle(), permissionController.update);
 router.delete('/users/permissions/:id', permissionController.destroy);
+
+// Roles
+router.get('/users/roles/create', roleController.create);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
