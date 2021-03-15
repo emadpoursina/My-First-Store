@@ -57,6 +57,7 @@ router.get('/users/:id/toggleadmin', userController.toggleAdmin);
 router.delete('/users/:id/', userController.destroy);
 router.get('/users/create', userController.create);
 router.post('/users/create', userValidator.handle(), userController.store);
+router.get('/users/:id/addrole', userController.addrole);
 
 // Permission
 router.get('/users/permissions', permissionController.index);
