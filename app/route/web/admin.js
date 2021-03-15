@@ -67,6 +67,7 @@ router.put('/users/permissions/:id/', permissionValidator.handle(), permissionCo
 router.delete('/users/permissions/:id', permissionController.destroy);
 
 // Roles
+router.get('/users/roles', roleController.index);
 router.get('/users/roles/create', roleController.create);
 router.post('/users/roles/create', roleValidator.handle(), roleController.store);
 
