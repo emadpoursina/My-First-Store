@@ -70,6 +70,7 @@ router.delete('/users/permissions/:id', permissionController.destroy);
 router.get('/users/roles', roleController.index);
 router.get('/users/roles/create', roleController.create);
 router.post('/users/roles/create', roleValidator.handle(), roleController.store);
+router.get('/users/roles/:id/edit', roleController.edit);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
