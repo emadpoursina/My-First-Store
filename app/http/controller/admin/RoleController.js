@@ -29,6 +29,21 @@ class RoleController extends controller {
       next(error);
     }
   }
+
+  async index(req, res, next) {
+    try {
+      const page = req.query.page || 1;
+      const roles = await Role.paginate({}, { page, limit: 20 });
+
+      res.render('admin/roles/index', { title: 'نقش ها', roles });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async edit(req, res, next) {
+
+  }
 }
 
 module.exports = new RoleController();
