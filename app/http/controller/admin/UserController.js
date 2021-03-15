@@ -2,6 +2,7 @@ const Controller = require('../controller');
 const User = require('app/model/user');
 const Comment = require('app/model/Comment');
 const Payment = require('app/model/Payment');
+const Roles = require('app/model/Role');
 
 class UserController extends Controller {
   async index(req, res, next) {
@@ -100,6 +101,21 @@ class UserController extends Controller {
 
       return res.redirect('/admin/users');
     }catch (error) {
+      next(error);
+    }
+  }
+
+  async addrole(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const roles = await Roles.find();
+      const roleOptions = this.makeOptions(roles, 'label', '_id', true);
+      const user = await User.findById(req.params.id);
+      if(!user) return this.error('چنین کاربری وجود ندارد', 404);
+
+      res.render('admin/users/addrole', { title: 'نقش دادن', user, roles: roleOptions });
+    } catch (error) {
       next(error);
     }
   }
