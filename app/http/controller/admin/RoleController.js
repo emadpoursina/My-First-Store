@@ -41,8 +41,21 @@ class RoleController extends controller {
     }
   }
 
+  
   async edit(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
 
+      const permissions = await Permission.find();
+      const permissonOptions = this.makeOptions(permissions, 'label', '_id', true);
+
+      const role = await Role.findById(req.params.id);
+      if(!role) this.error('چنین نقشی وجود ندارد', 404);
+
+      res.render('admin/roles/edit', { title: 'ویرایش نقش', role, permissions: permissonOptions});
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
