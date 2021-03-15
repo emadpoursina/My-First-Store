@@ -11,6 +11,7 @@ const userSchema = Schema({
 	admin: { type: Boolean, default: false },
 	remember_token: {type: String, default: null},
 	learning: { type: [Schema.Types.ObjectId], default: [], ref: 'Course'},
+	roles: { type: [Schema.Types.ObjectId], default: [], ref: 'Role'},
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userSchema.plugin(mogoosePaginate);
