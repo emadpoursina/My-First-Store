@@ -72,6 +72,7 @@ router.get('/users/roles/create', roleController.create);
 router.post('/users/roles/create', roleValidator.handle(), roleController.store);
 router.get('/users/roles/:id/edit', roleController.edit);
 router.put('/users/roles/:id/', roleValidator.handle(), roleController.update);
+router.delete('/users/roles/:id', roleController.destroy);
 
 // Episode Routers
 router.get("/episodes", episodeController.index);
