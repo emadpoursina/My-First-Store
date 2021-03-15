@@ -13,6 +13,22 @@ class RoleController extends controller {
       next(error);
     }
   }
+
+  async store(req, res, next) {
+    try {
+      const result = this.validateData(req);
+      if(!result) return this.back(req, res); 
+
+      req.body.permissions = req.body.permissions.split(',');
+
+      const newRole = new Role(req.body);
+      await newRole.save();
+
+      res.redirect('/admin/users/roles');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new RoleController();
