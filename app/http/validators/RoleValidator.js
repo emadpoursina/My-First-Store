@@ -9,7 +9,7 @@ class RoleValidator extends Validator {
         .isLength({ min: 3, max: 50 })
         .withMessage('طول نام باید بین ۳ تا ۲۰ کاراکتر باشد.')
         .custom(async (value, { req }) => {
-          if(req.method === 'put') {
+          if(req.method === 'PUT') {
             const currentRole = await Role.findById(req.params.id);
             if(currentRole) return;
           }
