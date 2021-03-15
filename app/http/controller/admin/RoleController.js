@@ -81,6 +81,21 @@ class RoleController extends controller {
       next(error);
     }
   }
+
+  async destroy(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const role = await Role.findById(req.params.id);
+      if(!role) return this.error('چنین نقشی وجود ندارد', 404);
+
+      await role.remove();
+
+      res.redirect('/admin/users/roles');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new RoleController();
