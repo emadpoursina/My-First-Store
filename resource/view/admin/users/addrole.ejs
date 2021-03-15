@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+    <h2>دادن نقش به کاربر</h2>
+</div>
+<form class="form-horizontal" action="/admin/users/<%= user._id %>/addrole" method="post" >
+
+  <%- include(viewPath('layout/error-messages')) %> 
+
+  <div class="form-group row">
+    <div class="col">
+      <p>نام و ایمیل کاربر:</p>
+      <p><%= user.name %>:<%= user.email %></p>
+    </div>
+  </div>
+  <div class="form-group row">
+      <div class="col">
+			<%- include(viewPath('layout/multipleSelect'), {
+				containerId: 'role-select',
+				selectOptions: roles,
+        values: JSON.stringify(user.roles),
+				options: {
+					multiple: true,
+					search: false,
+					hiddenInputName: 'roles',
+				}}); %> 
+      </div>
+  </div>
+  <div class="form-group row">
+      <div class="col">
+        <button type="submit" class="btn btn-danger">ایجاد</button>
+      </div>
+  </div>
+</form>
