@@ -57,6 +57,30 @@ class RoleController extends controller {
       next(error);
     }
   }
+
+  async update(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const result = this.validateData(req);
+      if(!result) return this.back(req, res);
+
+      const role = await Role.findById(req.params.id);
+      if(!role) return this.error('چنین نقشی وجود ندارد', 404);
+
+      req.body.permissions = req.body.permissions.split(',');
+
+      Object.keys(req.body).forEach(key => {
+        role[key] = req.body[key];
+      });
+
+      await role.save();
+
+      res.redirect('/admin/users/roles');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new RoleController();
