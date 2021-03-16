@@ -58,6 +58,7 @@ router.delete('/users/:id/', userController.destroy);
 router.get('/users/create', userController.create);
 router.post('/users/create', userValidator.handle(), userController.store);
 router.get('/users/:id/addrole', userController.addrole);
+router.post('/users/:id/addrole', userController.storeRoleForUser);
 
 // Permission
 router.get('/users/permissions', permissionController.index);
