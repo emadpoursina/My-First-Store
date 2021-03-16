@@ -119,6 +119,23 @@ class UserController extends Controller {
       next(error);
     }
   }
+
+  async storeRoleForUser(req, res, next) {
+    try {
+      this.isMongoId(req.params.id);
+
+      const user = await User.findById(req.params.id);
+      if(!user) return this.error('چنین کاربری وجود ندارد', 404);
+      req.body.roles = req.body.roles.split(',');
+
+      user.set({ roles: req.body.roles });
+      await user.save();
+
+      res.redirect('/admin/users/');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new UserController();
