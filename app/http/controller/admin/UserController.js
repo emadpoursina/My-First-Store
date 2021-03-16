@@ -23,7 +23,7 @@ class UserController extends Controller {
         query.admin = true;
 
       const page = req.query.page || 1;
-      users = await User.paginate(query, { page, limit: 20 });
+      users = await User.paginate(query, { page, limit: 20, populate: 'roles' });
 
       res.render('admin/users/index', { title: 'کاربران', users});
     } catch (error) {

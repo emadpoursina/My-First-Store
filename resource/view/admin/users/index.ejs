@@ -12,6 +12,7 @@
 			<tr>
 				<th>نام و نام خانوادگی</th>
 				<th>ایمیل</th>
+				<th>نقش ها</th>
 				<th>تاریخ عضویت</th>
 				<th>تنظیمات</th>
 			</tr>
@@ -21,12 +22,17 @@
 				<tr>
 					<td><a href=""><%= user.name %> </a></td>
 					<td><%= user.email %> </td>
+					<td><% if(user.roles.length > 0) { %>
+						<% user.roles.forEach(role => { %>
+							<%= role.name %><br>
+						<% }) %> 
+					<% } %> </td>
 					<td><%= user.createdAt %> </td>
 					<td>
 						<form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST">
 							<div class="btn-group btn-group-sm">
+							<a href="/admin/users/<%= user._id %>/addrole" class="btn btn-success">اعمال سطح دسترسی</a>
 							<% if(user.admin){ %> 
-								<a href="/admin/users/<%= user._id %>/addrole" class="btn btn-success">اعمال سطح دسترسی</a>
 								<a href="/admin/users/<%= user._id %>/toggleadmin" class="btn btn-primary">لغو مدیریت</a>
 							<% }else { %>
 								<a href="/admin/users/<%= user._id %>/toggleadmin" class="btn btn-primary">اعمال مدیریت</a>
