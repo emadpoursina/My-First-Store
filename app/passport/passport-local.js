@@ -47,7 +47,7 @@ passport.use("local.login", new localStrategy({
         }
 
         if(!user || !user.comparePassword(password)){
-            return done(null, false, req.flash("errors", "The info is not correct"));
+            return done(null, false, req.flash("errors", "هیچ کاربری با این نام کاربری و رمز عبور در سیستم ما وجود ندارد."));
         }
 
         return done(null, user);
