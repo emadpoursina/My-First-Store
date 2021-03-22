@@ -8,6 +8,12 @@ const permissionSchema = new Schema({
   label: { type: String, required: true },
 }, { timestamps: true, toJSON:{ virtuals: true } });
 
+permissionSchema.virtual('roles', {
+  ref: 'Role',
+  localField: '_id',
+  foreignField: 'permissions',
+})
+
 permissionSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Permission', permissionSchema);
