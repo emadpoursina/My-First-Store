@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title><%- defineContent('title') || 'My first Store'  %></title>
+    <title><%= __('title') %> </title>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/bootstrap-rtl.min.css" />    
@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
-        <a class="navbar-brand" href="/">My First Store</a>
+        <a class="navbar-brand" href="/"><%= __('title') %> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,10 +33,10 @@
           <ul class="nav navbar-nav navbar-right ">
             <% if (auth.check) { %> 
               <li><a class="btn btn-danger btn-sm ml-2" href="/logout">Logout</a></li>
-              <li><a class="btn btn-primary btn-sm" href="/my-account">My account</a></li>
+              <li><a class="btn btn-primary btn-sm ml-2" href="/my-account">My account</a></li>
             <% } else { %> 
               <li><a class="btn btn-success btn-sm ml-2" href="/auth/login">Login</a></li>
-              <li><a class="btn btn-primary btn-sm" href="/auth/register">Register</a></li>
+              <li><a class="btn btn-primary btn-sm ml-2" href="/auth/register">Register</a></li>
             <% } %> 
             <% if(getLocale() === 'fa'){ %> 
               <li><a class="btn btn-warning btn-sm" href="lang/en"><%= 'en' %> </a></li>
