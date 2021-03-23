@@ -12,6 +12,7 @@ const passport = require("passport");
 const Helper = require("./Helper");
 const rememberLogin = require("app/http/middleware/rememberLogin");
 const config = require('../config');
+const gate = require('app/helpers/gate');
 
 module.exports = class Application {
 	/**
@@ -65,6 +66,8 @@ module.exports = class Application {
 		app.use(passport.initialize());
 		app.use(passport.session());
 		app.use(rememberLogin.handle);
+
+		app.use(gate.middleware());
 
 		app.use((req, res, next) => {
 			app.locals = new Helper(req, res).getObject();
