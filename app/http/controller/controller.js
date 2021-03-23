@@ -122,6 +122,15 @@ module.exports =  class Controller {
 			return JSON.stringify(options);
 	}
 
+	/**
+	 * This will produce a sweet alert
+	 * @param {Object} req - Request object
+	 * @param {Object} alertInfo - Sweet alert options 
+	 * @param {string} alertInfo.title - Title of the alert
+	 * @param {string} alertInfo.text - A description about the alert
+	 * @param {string} alertInfo.icon - Icon of the alert
+	 * @param {number} alertInfo.time - How much millisecond alert wait before disappear
+	 */
 	sweetAlert(req, alertInfo) {
 		req.flash('sweetAlert', alertInfo);
 	}
