@@ -5,6 +5,20 @@ const router = express.Router();
 const redirectIfAuthenticated = require("app/http/middleware/RedirectIfAuthenticated");
 const redirectIfNotAdmin = require("app/http/middleware/RedirectIfNotAdmin");
 
+// Check for language
+router.use((req, res, next) => {
+  try {
+    const lang = req.signedCookies.lang;
+    if(req.getLocales().includes(lang))
+      req.setLocale(lang)
+    else
+      req.setLocale(req.getLocale());
+    next();
+  } catch (error) {
+    next(error);    
+  }
+})
+
 // Admin Router
 const adminRouter = require("app/route/web/admin");
 router.use("/admin", redirectIfNotAdmin.handle, adminRouter);
