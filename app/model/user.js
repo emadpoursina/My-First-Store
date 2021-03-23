@@ -11,7 +11,6 @@ const userSchema = Schema({
 	admin: { type: Boolean, default: false },
 	remember_token: {type: String, default: null},
 	vipTime: { type: Date, required: true, default: new Date().toISOString() },
-	vipType: { type: String, required: true, default: 'month' },
 	learning: [{ type: Schema.Types.ObjectId, default: [], ref: 'Course'}],
 	roles: [{ type: Schema.Types.ObjectId, default: [], ref: 'Role'}],
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
