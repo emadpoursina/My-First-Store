@@ -14,23 +14,27 @@
 		<div id="content"><%- course.body %></div>
 		<hr>
 		<% if(auth.check){
-			switch (course.type) {
-				case 'vip':
-					if(!canUserUse) %>	
-						<div class="alert alert-danger">برای مشاهده این دوره نیاز است عضویت ویژه را تهیه کنید</div>            
-					<% break;
-				case 'cash':
-					if(!canUserUse) %>	
-						<div class="alert alert-danger">برای مشاهده این دوره نیاز است بصورت نقدی دوره راه تهیه کنید</div>            
-					<% break;
-				case 'free':
-					if(!canUserUse) %>	
-						<div class="alert alert-danger">شما باید در این دوره ثبت نام کنید.</div>            
-					<% break;
-				if (canUserUse) { %>
-					<div class="alert alert-danger">شما در این دوره ثبت نام کرده اید.</div>            
-				<% }
-			}	
+			if(canUserUse){ %>
+				<div class="alert alert-success">شما در این دوره ثبت نام کرده و می توانید از محتوای آن استفاده کنید.</div>            
+			<% }else {
+				switch (course.type) {
+					case 'vip':
+						if(!canUserUse) %>	
+							<div class="alert alert-danger">برای مشاهده این دوره نیاز است عضویت ویژه را تهیه کنید</div>            
+						<% break;
+					case 'cash':
+						if(!canUserUse) %>	
+							<div class="alert alert-danger">برای مشاهده این دوره نیاز است بصورت نقدی دوره راه تهیه کنید</div>            
+						<% break;
+					case 'free':
+						if(!canUserUse) %>	
+							<div class="alert alert-danger">شما باید در این دوره ثبت نام کنید.</div>            
+						<% break;
+					if (canUserUse) { %>
+						<div class="alert alert-danger">شما در این دوره ثبت نام کرده اید.</div>            
+					<% }
+				}	
+			}
 		}else { %>
 			<div class="alert alert-danger">برای مشاهده این دوره نیاز است ابتدا وارد سایت شوید</div>            
 		<% } %> 
