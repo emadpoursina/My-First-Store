@@ -6,6 +6,7 @@ module.exports = {
     public_dir: process.env.PUBLIC_DIR,
     view_engine: "ejs",
     view_dir: path.resolve(process.env.VIEW_DIR),
+    locals_directory: path.resolve('./resource/lang'),
     ejs: {
         expresLayout,
         extractScripts: true,
