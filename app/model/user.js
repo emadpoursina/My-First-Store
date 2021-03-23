@@ -56,7 +56,7 @@ userSchema.methods.setRememberToken = function (res) {
  * Check whether user is vip or not
  */
 userSchema.methods.isVip = function () {
-	return false;
+	return new Date(this.vipTime) > new Date();
 }
 
 /*
