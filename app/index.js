@@ -13,6 +13,7 @@ const Helper = require("./Helper");
 const rememberLogin = require("app/http/middleware/rememberLogin");
 const config = require('../config');
 const gate = require('app/helpers/gate');
+const { I18n } = require('i18n');
 
 module.exports = class Application {
 	/**
@@ -73,6 +74,14 @@ module.exports = class Application {
 			app.locals = new Helper(req, res).getObject();
 			next();
 		})
+
+		const i18n = new I18n({
+			locales: ['en', 'fa'],
+			directory: config.layout.locals_directory,
+			defaultLocals: 'fa',
+			cookie: 'lang',
+		})
+		app.use(i18n.init);
 	}
 
 	setRoutes() {
