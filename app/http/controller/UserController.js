@@ -11,6 +11,14 @@ class UserController extends Controller {
 
     res.render('home/panel/history', { title: 'پنل کاربری', payments})
   }
+
+  async vip(req, res, next) {
+    try {
+      return res.render('home/panel/vip');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new UserController();
