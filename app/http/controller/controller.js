@@ -125,4 +125,20 @@ module.exports =  class Controller {
 	sweetAlert(req, alertInfo) {
 		req.flash('sweetAlert', alertInfo);
 	}
+
+	/**
+	 * Calculate the price for a vip plane
+	 * @param {string} plane - type of the plan
+	 * @returns {number} Vip plan price
+	 */
+	getVipPrice(plane) {
+		switch(plane) {
+			case '3':
+				return 30000;
+			case '12':
+				return 120000;
+			default:
+				return 10000;
+		}
+	}
 }
