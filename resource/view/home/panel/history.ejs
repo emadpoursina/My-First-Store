@@ -12,8 +12,13 @@
 		<tbody>
 			<% payments.forEach(payment => { %> 
 				<tr>
-					<td><%= payment.product.price %> </td>
-					<td><%= payment.product.title %> </td>
+					<% if(!payment.vip) { %> 
+						<td><%= payment.product.price %> </td>
+						<td><%= payment.product.title %> </td>
+					<% }else { %> 
+						<td><%= payment.price %> </td>
+						<td>vip</td>
+					<% } %> 
 					<td><%= payment.status %> </td>
 				</tr>
 			<% }) %> 
