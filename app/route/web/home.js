@@ -32,4 +32,7 @@ router.get("/test", homeController.test);
 router.get("/user/panel", redirectIfNotAuthenticate.handle, userController.index);
 router.get("/user/panel/history", redirectIfNotAuthenticate.handle, userController.history);
 
+// Vip routes
+router.get("/user/panel/vip", userController.vip);
+
 module.exports = router;
