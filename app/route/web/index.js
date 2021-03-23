@@ -19,6 +19,15 @@ router.use((req, res, next) => {
   }
 })
 
+// Change site language
+router.get('/lang/:lang', (req, res, next) => {
+  const lang = req.params.lang;
+  if(req.getLocales().includes(lang))
+    res.cookie('lang', lang, { maxAge: 100 * 60 * 60 * 24 * 90, signed: true });
+
+  res.redirect(req.header('Referer') || '/');
+});
+
 // Admin Router
 const adminRouter = require("app/route/web/admin");
 router.use("/admin", redirectIfNotAdmin.handle, adminRouter);
