@@ -3,5 +3,5 @@
 <ul style="margin: 20px">
 	<li>user: <%= user.name %> </li>
 	<li>email: <%= user.email %> </li>
-	<li><%= user.isVip() ? 'زمان باقی مانده عضویت ویژه شما' : 'شما یک آلفا نیستید.' %> </li>
+	<li><%= user.isVip() ? `زمان باقی مانده شما: ${date(user.vipTime).fromNow()}` : 'شما یک عضو ویژه نیستید.' %> </li>
 </ul>
