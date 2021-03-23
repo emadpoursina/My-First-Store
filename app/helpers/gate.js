@@ -10,4 +10,9 @@ var gate = new ConnectRoles({
   }
 });
 
+gate.use((req, action) => {
+  if(!req.isAuthenticated())
+    return false;
+})
+
 module.exports = gate;
