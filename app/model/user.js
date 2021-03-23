@@ -22,6 +22,14 @@ userSchema.virtual('courses', {
 	foreignField: 'user',
 });
 
+userSchema.methods.hasRole = function(roles) {
+	const a = roles.filter(role => {
+		return this.roles.indexOf(role) > -1;
+	});
+
+	return !! a.length;
+}
+
 userSchema.pre("save", function(next) {
 	const salt = bcrypt.genSaltSync(15);
 	const hash = bcrypt.hashSync(this.password, salt);
