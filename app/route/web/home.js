@@ -35,5 +35,6 @@ router.get("/user/panel/history", redirectIfNotAuthenticate.handle, userControll
 // Vip routes
 router.get("/user/panel/vip", userController.vip);
 router.post("/vip/payment", redirectIfNotAuthenticate.handle, userController.payment);
+router.get("/vip/payment/checker", redirectIfNotAuthenticate.handle, userController.paymentCheck);
 
 module.exports = router;
