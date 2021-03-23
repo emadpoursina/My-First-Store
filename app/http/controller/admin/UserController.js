@@ -110,7 +110,7 @@ class UserController extends Controller {
       this.isMongoId(req.params.id);
 
       const roles = await Roles.find();
-      const roleOptions = this.makeOptions(roles, 'label', '_id', true);
+      const roleOptions = this.makeOptions(roles, 'name', '_id', true);
       const user = await User.findById(req.params.id);
       if(!user) return this.error('چنین کاربری وجود ندارد', 404);
 
