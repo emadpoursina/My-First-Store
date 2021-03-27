@@ -37,4 +37,14 @@ router.get("/user/panel/vip", userController.vip);
 router.post("/vip/payment", redirectIfNotAuthenticate.handle, userController.payment);
 router.get("/vip/payment/checker", redirectIfNotAuthenticate.handle, userController.paymentCheck);
 
+// Ajax routes
+router.get("/ajax", (req, res, next) => {
+    return res.render('home/ajax');
+})
+
+router.post("/ajax", (req, res) => {
+    console.log(req.body);
+    return res.json({ ...req.body });
+})
+
 module.exports = router;
